@@ -42,6 +42,7 @@
   },
   "scripts": {
     "test": "grunt test",
-      "postinstall": "bower install && grunt build"
+      "preinstall": "npm install -g bower && bower install && npm install -g grunt-cli",
+      "postinstall":"grunt build && grunt bowerInstall && grunt ngtemplates"
   }
 }
