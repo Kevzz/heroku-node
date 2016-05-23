@@ -4,7 +4,7 @@
 var express = require('express');
 var httpProxy = require('http-proxy');
 var bodyParser = require('body-parser');
-var portHeroku = process.env.PORT || 5000
+var portHeroku = process.env.PORT || 3000
 var apiForwardingUrl = 'http://stage-formacret.herokuapp.com';
 
 // Solution for forwarding from http to https taken from:
@@ -24,7 +24,7 @@ console.log('Forwarding API requests to ' + apiForwardingUrl);
 // Node express server setup.
 var server = express();
 server.set('port', 3000);
-server.use(express.static(__dirname + '/app'));
+server.use(express.static(__dirname + './'));
 
 //*****************Esto es para obtener la informacion individual de las marcas ************************************
 server.delete('/brands/:id', function(req, res) {
