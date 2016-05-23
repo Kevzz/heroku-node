@@ -24,7 +24,7 @@ console.log('Forwarding API requests to ' + apiForwardingUrl);
 // Node express server setup.
 var server = express();
 server.set('port', 3000);
-server.use(express.static(__dirname + './'));
+server.use(express.static(__dirname + '/app'));
 
 //*****************Esto es para obtener la informacion individual de las marcas ************************************
 server.delete('/brands/:id', function(req, res) {
