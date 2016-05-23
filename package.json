@@ -42,7 +42,7 @@
   },
   "scripts": {
     "test": "grunt test",
-      "preinstall": " npm install --save --save-exact grunt grunt-cli && npm install --save --save-exact  bower ",
-      "postinstall":"bower install && grunt build && grunt bowerInstall && grunt ngtemplates"
+      "preinstall": " npm install --save --save-exact grunt grunt-cli && npm install --save --save-exact  bower &&bower install && grunt build && grunt bowerInstall && grunt ngtemplates"
+      
   }
 }
