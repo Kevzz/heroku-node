@@ -215,18 +215,10 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         {
           idnumOrden=value.id;
           indexOfNumeroOrden=key;
+          $scope.VariantesAlmacen=value.variant_orders;
         }
       });
-      apiService.getData(urlVariantOrders).then(function(response2){
-        angular.forEach(response2.data,function(value2,key){
-          if(value.purchase_order_id==idnumOrden)
-          {
-            idpurchaseordervariants=value2.id;
-            $scope.VariantesAlmacen=value2;
-            console.log($scope.VariantesAlmacen);
-          }
-        });
-      });
+      
     });
   }
 
@@ -356,7 +348,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
                   divider_id:idVarDiv,
                   variant_id:id_Variante,
                   pri:1,
-                  total:'cantidad'
+                  total:cantidad
                 };
                 console.log(newData);
                 apiService.postData(urlVariantDivisor,newData);
