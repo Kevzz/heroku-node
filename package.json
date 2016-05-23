@@ -41,8 +41,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
-      "preinstall": " npm install --save --save-exact grunt grunt-cli && npm install --save --save-exact  bower"
-      
+    "start": "node node_modules/grunt-cli/bin/grunt",
+    "postinstall": " npm install --save --save-exact grunt grunt-cli && npm install --save --save-exact  bower"
+
   }
 }
