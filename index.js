@@ -4,7 +4,7 @@
 var express = require('express');
 var httpProxy = require('http-proxy');
 var bodyParser = require('body-parser');
-
+var portHeroku = process.env.PORT || 5000
 var apiForwardingUrl = 'http://stage-formacret.herokuapp.com';
 
 // Solution for forwarding from http to https taken from:
@@ -426,6 +426,6 @@ server.use(bodyParser.urlencoded({
 }));
 
 // Start Server.
-server.listen(server.get('port'), function() {
-    console.log('Express server listening on port ' + server.get('port'));
+server.listen(portHeroku, function() {
+    console.log('Express server listening on port ' +portHeroku);
 });
