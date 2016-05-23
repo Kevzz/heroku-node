@@ -1,0 +1,123 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+    </style>
+<div ng-controller="CtrlClientes">
+	<ol class="breadcrumb">
+	    <li class=""><a href="#/">Home</a></li>
+	    <li class=""><a href="#/">Dashboard</a></li>
+	    <li class=""><a href="#/app-vistaClientes">Clientes</a></li>
+      <li class=""><a href="#">Cliente {{clientes.name}}</a></li>
+	</ol>
+	<div class="page-heading">
+		<h1>Cliente : {{clientes.name}}</h1>
+		<div class="options">
+	    	<div class="btn-toolbar">
+	        	<a href="#/app-editarCliente/{{clientes.id}}" class="btn btn-default"><i class="fa fa-fw fa-pencil"></i>Editar cliente</a>
+        </div>
+		</div>
+	</div>
+	<div class="tab-content">
+    <div class="container-fluid">    
+      <div class="row borde-input">
+        <div class="col-md-12">
+          <table class="table table-hover">
+            <thead>
+                <tr>
+                  <th>Nombre</th> 
+                  <th>Correo</th> 
+                  <th>P&aacute;gina</th> 
+                  <th>Tel&eacute;fono</th> 
+                  <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td>{{ clientes.name }}</td>
+                  <td>{{ clientes.email }}</td>
+                  <td>{{ clientes.website }}</td>
+                  <td>{{ clientes.phone }}</td>
+                  <td>{{ clientes.price.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-12">
+          <h3>Datos Fiscales</h3>
+          <table class="table table-hover">
+            <thead>
+                <tr>
+                  <th>Razon</th> 
+                  <th>RFC</th> 
+                  <th>Entidad</th> 
+                  <th>Municipio</th> 
+                  <th>Colonia</th>
+                  <th>Calle</th>
+                  <th>Numero</th>
+                  <th>CP</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td>{{ clientes.razonsocial }}</td>
+                  <td>{{ clientes.rfc }}</td>
+                  <td>{{ clientes.entity }}</td>
+                  <td>{{ clientes.city }}</td>
+                  <td>{{ clientes.neighborhood }}</td>
+                  <td>{{ clientes.street }}</td>
+                  <td>{{ clientes.number }}</td>
+                  <td>{{ clientes.zipcode }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row inMargin">
+        <div class="col-md-12">
+            <div class="panel" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Datos de Envio</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                    <div class="options">
+                      <a ng-click="agregarEnvio(clientes.id)" class="btn btn-default"><i class="fa fa-fw fa-pencil"></i>Agregar Direccion de envio</a>
+                    </div>
+                </div>
+                <div class="panel-body no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>Entidad</th> 
+                                <th>Municipio</th> 
+                                <th>Colonia</th> 
+                                <th>Calle</th> 
+                                <th>N&uacute;mero</th> 
+                                <th>CP</th>
+                                <th>Opciones</th> 
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr ng-repeat="(id, name) in clientes.send_orders">
+                              <td>{{ name.entity }}</td>
+                              <td>{{ name.municipalty }}</td>
+                              <td>{{ name.neighborhood }}</td>
+                              <td>{{ name.street }}</td>
+                              <td>{{ name.number }}</td>
+                              <td>{{ name.zipcode }}</td>
+                              <td><a ng-click="editarEnvioCli(name.id)">Editar</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            
+        </div>
+    </div>
+  </div>
+  </div>
+</div>	

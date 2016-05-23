@@ -1,0 +1,28 @@
+<div ng-controller="EditCtrl">
+  <ol class="breadcrumb">
+    <li class=""><a href="#/">Home</a></li>
+    <li class=""><a href="#/">Dashboard</a></li>
+    <li class=""><a href="#/app-vistaMarcas">Marcas</a></li>
+    <li class="active"><a href="#">Edicion</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Marca {{marcaUProxy.name}}</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <h1>Formulario para editar</h1>
+      <form name="personForm2"  ng-submit="editTest(marcaUProxy)">
+         
+        <label for="firstNameEdit3">Nombre:</label>
+        <input id="firstNameEdit3" type="text" name="desc" ng-model="marcaUProxy.name" required /><br />
+        
+        <br />
+        <input type="submit" value="Save" class="btn btn-primary">
+      </form>
+      <br />
+  </div>
+</div>

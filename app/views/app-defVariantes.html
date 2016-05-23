@@ -1,0 +1,83 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+.form-control
+{
+  border: 1px solid #90a4ae;
+  border-top: 1px solid #90a4ae;
+}
+.inMargin
+{
+  margin-top: 2.3rem;
+}
+.border-style
+{
+  border-style: solid;
+}
+    </style>
+<div ng-controller="EditCtrlProductos">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/app-vistaProductos">Productos</a></li>
+      <li class=""><a href="#">{{prodname}}</a></li>
+      <li class="active"><a href="#">Alta de variantes</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Alta de variantes</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form name="productVariantForm" ng-submit="subVariant(variants)">
+      <div class="tab-pane">
+        <div class="row ">
+          <div class="col-md-12">
+            <h3>Crear variantes de productos</h3>
+            <p>Selecciona los criterios para definir las variantes del producto. Por ejemplo color y tamaño te dara todas las combinaciones para tus variantes.</p>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-md-12 border-style">
+            <div data-ng-repeat="variant in variants">
+              <div class="form-group title-field">
+                <div class="row ">
+                  <div class="col-md-3">
+                    <label for="">Variantes</label>
+                    <select class="form-control input-full" data-ng-model="variant.Selection">
+                        <option value="">Seleccionar</option>
+                        <option value="1">Color</option>
+                        <option value="2">Tama&ntilde;o</option>
+                    </select>
+                  </div>
+                  <div class="col-md-7 inMargin">
+                    <textarea class="form-control" ng-list="" data-ng-model="variant.Text"></textarea>
+                  </div>
+                  <div class="col-md-2 inMargin">
+                    <button data-ng-click="removeItem($index)" type="button" class="btn delete-field-{{$index}} ">
+                      Eliminar
+                    </button>
+                  </div>
+                </div>             
+              </div>
+            </div>
+            <button data-ng-click="cloneItem()" type="button" class="btn inline">
+              Agregar criterio
+            </button>
+          </div>
+        </div>
+      </div>
+      <button  type="submit" class="btn inline inMargin">
+        Generar variantes
+      </button>
+    </form>    
+  </div>
+</div>

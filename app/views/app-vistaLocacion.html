@@ -1,0 +1,44 @@
+<div ng-controller="CtrlLocacion">
+    <ol class="breadcrumb">
+        <li class=""><a href="index.html">Home</a></li>
+        <li class=""><a href="#">Dashboard</a></li>
+        <li class="active"><a href="#">Prtoductos Global</a></li>
+    </ol>
+    
+    <div class="page-heading">            
+        <h1>Productos Global</h1>
+        <div class="options">
+            <div class="btn-toolbar">
+                <a ng-click="nuevoAlmacen()" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear Almacen</a>
+                <a ng-click="AddProduct()" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Agregar producto</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" >
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-md-12">   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>Producto</th>
+                                <th>Variante</th> 
+                                <th>Almacen</th> 
+                                <th>Disponible en Locacion</th> 
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr ng-repeat="p in productosInLoc" >
+                                <td><a href="#/app-vistaAlmacen/{{p.warehouse.id}}">{{ p.variant.description }}</a></td>
+                                <td>{{ p.variant.name }}</td>
+                                <td>{{ p.warehouse.name }}</td>
+                                <td><span ng-show="p.status=='N'">No disponible</span><span ng-show="p.status=='D'">Disponible</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

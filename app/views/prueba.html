@@ -1,0 +1,157 @@
+<style>
+    label
+    {
+      display: inline-block;
+      width: 120px;
+      vertical-align: middle;
+    }
+
+    input
+    {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    input.ng-invalid
+    {
+      border: solid red 2px;
+    }
+
+    textarea
+    {
+      width: 300px;
+      height: 80px;
+    }
+  </style>
+    <h1>Formularion para dar de alta un Producto</h1>
+  <form name="personForm1" novalidate>
+        <label for="lastNameEdit3">Marca:</label>
+        <select id="lastNameEdit3" name="marca" ng-model="person.marca" required >
+          <option ng-repeat="option in marcas" value="{{option.id}}">{{option.nombre}}</option>
+        </select>
+        <br />
+        <label for="lastNameEdit3">Proveedor:</label>
+        <select id="lastNameEdit3" type="text" name="prove" ng-model="person.prove" required >
+          <option ng-repeat="option in proveedores" value="{{option.id}}">{{option.nombre}}</option>
+        </select>
+        <br />
+
+        <label for="lastNameEdit3">Nombre:</label>
+        <input id="lastNameEdit3" type="text" name="nombre" ng-model="person.nombre" required /><br />
+        <label for="firstNameEdit3">Descripcion:</label>
+        <input id="firstNameEdit3" type="text" name="desc" ng-model="person.desc" required /><br />
+        
+        <br />
+        <button type="submit"
+                ng-click="submitData(person, 'ajaxSubmitResult2')"
+                ng-disabled="personForm1.$invalid">Submit</button>
+      </form>
+
+    <br />
+    <h1>Productos</h1>
+    <table>
+        <col width="480">
+        <col width="280">
+        <col width="80">
+        <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Marca</th> 
+              <th>Variantes</th> 
+            </tr>
+        </thead>
+        <tr ng-repeat="x in productos">
+            <td>{{ x.nombre }}</td>
+            <td>{{ x.marca }}</td>
+            <td></td>
+        </tr>
+    </table> 
+    <br />
+    <h1>Formulario para Dar de alta una Marca</h1>
+    <form name="personForm2" novalidate>
+      <label for="lastNameEdit3">ID:</label>
+      <input id="lastNameEdit3" type="text" name="nombre" ng-model="marcaForm.ident" required /><br />
+      <label for="firstNameEdit3">Nombre:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="marcaForm.nombre" required /><br />
+      
+      <br />
+      <button type="submit"
+              ng-click="submitDataMarca(marcaForm, 'ajaxSubmitResult2')"
+              ng-disabled="personForm2.$invalid">Submit</button>
+    </form>
+    <br />
+
+    <h1>Marcas</h1>
+    <table>
+        <col width="180">
+        <col width="280"> 
+        <col width="180">
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>Marca</th> 
+            </tr>
+        </thead>
+        <tr ng-repeat="(id, name) in marcas" >
+            <td>{{ name.id }}</td>
+            <td>{{ name.nombre }}</td>
+            <td><a href="#/app-editarMarcas/{{ name.$id }}">Edit</a></td>
+        </tr>
+    </table> 
+    <br />
+    <h1>Formulario para Dar de alta un Proveedor</h1>
+    <form name="personForm3" novalidate>
+      <label for="lastNameEdit3">Nombre:</label>
+      <input id="lastNameEdit3" type="text" name="nombre" ng-model="proveForm.nombre" required /><br />
+      <label for="firstNameEdit3">Correo:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="proveForm.correo" required /><br />
+      <label for="firstNameEdit3">Divisa:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="proveForm.divisa" required /><br />
+      <label for="firstNameEdit3">Pagina:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="proveForm.pagina" required /><br />
+      <label for="firstNameEdit3">Telefono:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="proveForm.telefono" required /><br />
+      
+      <br />
+      <button type="submit"
+              ng-click="submitDataProve(proveForm, 'ajaxSubmitResult2')"
+              ng-disabled="personForm3.$invalid">Submit</button>
+    </form>
+    <br />
+
+    <h1>Proveedores</h1>
+    <table>
+        <col width="180">
+        <col width="280">
+        <col width="280">
+        <col width="280">
+        <col width="280">
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th> 
+              <th>Correo</th> 
+              <th>Divisa</th> 
+              <th>Pagina</th> 
+              <th>Telefono</th> 
+            </tr>
+        </thead>
+        <tr ng-repeat="x in proveedores">
+            <td>{{ x.id }}</td>
+            <td>{{ x.nombre }}</td>
+            <td>{{ x.correo }}</td>
+            <td>{{ x.divisa }}</td>
+            <td>{{ x.pagina }}</td>
+            <td>{{ x.telefono }}</td>            
+        </tr>
+    </table> 
+
+    <form name="personForm6"  >
+        <label for="lastNameEdit6">Divisa:</label>
+        <input id="lastNameEdit6" type="text" name="nombre" ng-model="divisa.divisa" required /><br />
+        <label for="firstNameEdit6">Nombre:</label>
+        <input id="firstNameEdit6" type="text" name="desc" ng-model="divisa.nombre" required /><br />
+        
+        <br />
+        <button type="submit" ng-click="submitDataDivisa(divisa, 'ajaxSubmitResult2')">Submit</button>
+      </form>

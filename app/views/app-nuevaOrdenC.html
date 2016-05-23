@@ -1,0 +1,200 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+.bor-tab{border-style: solid;
+    border-width: 1px;}
+.row-head{text-align: center;
+    background-color: #DDD;
+}
+.row-cont{text-align: center;}
+hr{    border-top-color: #455A64}
+.TotAltura{    line-height: 47px;}
+    </style>
+<div ng-controller="CtrlOrdenesCNueva">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/">Ordenes</a></li>
+      <li class=""><a href="#">Compra</a></li>
+      <li class="active"><a href="#">Crear</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>&Oacute;rdenes de compra</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a ng-click="submitOrdenBorrador(variants,dt,ordenSupplierId,notes,billing)">Guardar como borrador</a><a  ng-disabled="isDisabled" ng-click="submitOrden(variants,dt,ordenSupplierId,notes,billing)" class="btn btn-default"><i class="fa fa-fw fa-send"></i>Enviar Orden</a>
+        </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form name="productForm" ng-submit="submitOrden(variants,dt,ordenSupplierId,notes,billing)">
+      <div class="row borde-input">
+        <div class="col-md-12">
+          <div class="row ">
+            <div class="col-md-4">
+              <div class="form-group">
+                <span>No. de &oacute;rden: <strong>{{infoOrden.number}}</strong></span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="productSupp">Proveedor:</label>
+                  </div>
+                  <div class="col-md-9">
+                    <select id="productSupp" name="productSupp" class="form-control" ng-change="updateInfo()" ng-model="ordenSupplierId">
+                      <option ng-repeat="option in suppliers" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>         
+            </div> 
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="productSupp">Fecha:</label>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2017-12-30'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="ti ti-calendar"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>        
+            </div>          
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="radio-inline">
+                  <input type="checkbox" name="billing" ng-model="billing" ng-value="Y"> Facturación
+                </label>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="row top-buffer">     
+        <div class="col-md-12 borde-input">
+          <div class="title"><h3>Datos del destino</h3></div>
+          <div class="row">
+            <div class="col-sm-4">
+              <select id="productSupp" name="productSupp" class="form-control" ng-change="updateInfoAlmacen()" ng-model="ordenLocationId">
+                <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
+              </select>
+            </div>
+            <div class="col-sm-8">
+              <span>{{Locationstreet}} #{{Locationnumber}} {{Locationneighboorhood}} C.P.{{Locationzipcode}}</span>
+            </div>
+          </div>
+          <div class="row no-gutter row-head top-buffer">
+            <div class="col-sm-6 bor-tab">
+                Productos
+            </div>
+            <div class="col-sm-1 bor-tab">
+                Cantidad
+            </div>
+            <div class="col-sm-2 bor-tab">
+                Costo Unitario
+            </div>
+            <div class="col-sm-1 bor-tab">
+                Importe
+            </div>
+            
+            <div class="col-sm-1 bor-tab">
+                 <a ng-click="cloneVariante()">Agregar<i class="fa fa-fw fa-plus"></i></a>
+            </div>
+          </div>
+          <div  ng-repeat="variant in variants"> <!-- Aqui se repite el divisor que clona la orden de compra-->
+            <div class="row no-gutter row-cont">
+              <div class="col-sm-6">
+                <div class="row no-gutter">
+                  <div class="col-sm-4">
+                    <select id="productSupp" name="productSupp" class="form-control"  ng-model="variant.ordenWarehId">
+                      <option ng-repeat="option in warehouses" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <select id="productSupp" name="productSupp" class="form-control" ng-change="updateInfoProduct($index,variant.prodID)" ng-model="variant.prodID">
+                      <option value="">Seleccione un producto</option>
+                      <option ng-repeat="option in variant.products" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <select id="productSupp" name="productSupp" class="form-control" ng-change="getTax($index,variant.orderVariant_id)" ng-model="variant.orderVariant_id">
+                      <option value="">Seleccione una variante</option>
+                      <option ng-repeat="option in variant.variants | filter:{status:'C'}" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-1">
+                <input type="number" id="variantOrderCan" name="variantOrderCan" class="form-control" ng-model="variant.cantidad" required>
+              </div>
+              <div class="col-sm-2">
+                <input type="number" id="variantOrderCasto" name="variantOrderCosto" class="form-control" ng-model="variant.costo" required>
+              </div>
+              <div class="col-sm-1">
+                ${{variant.cantidad*variant.costo}}
+              </div>
+              
+              </div>
+              <div class="col-sm-1">
+                <button data-ng-click="removeItem($index)" type="button" class="btn delete-field-{{$index}} ">Eliminar</button>
+              </div>
+            </div>
+          </div> <!-- Aqui termina la clonacion de orden-->
+          <HR width="80%"> 
+          <div class="row">
+            <div class="col-sm-8">
+              <label for="ordenCompraNotas">Notas:</label>
+              <textarea class="form-control autosize" id="ordenCompraNotas" ng-model="notes" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 54px;"></textarea>
+            </div>
+            <div class="col-sm-4">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Subtotal:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{getSubtotal()}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Impuestos:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{getImpuestos()}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Total:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{getTotal()}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-offset-5">
+          <a ng-click="submitOrden(variants,dt,ordenSupplierId,notes,billing)" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-send"></i>Enviar Orden</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

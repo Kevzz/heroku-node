@@ -1,0 +1,53 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+    </style>
+<div ng-controller="VistaProveedorInd">
+	<ol class="breadcrumb">
+        <li class=""><a href="index.html">Home</a></li>
+        <li class=""><a href="index.html">Dashboard</a></li>
+        <li class=""><a href="#/app-vistaProveedor">Proveedores</a></li>
+        <li class="active"><a href="#/app-vistaProveedorInd">Proveedor: {{proveedores.nombre}}</a></li>
+	</ol>
+	<div class="page-heading">
+		<h1>Proveedor: {{proveedores.nombre}}</h1>
+		<div class="options">
+	    	<div class="btn-toolbar">
+	        	<a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+	    	</div>
+		</div>
+	</div>
+	<div class="tab-content">
+    <table>
+        <col width="180">
+        <col width="180">
+        <col width="180">
+        <col width="180">
+        <col width="180">
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th> 
+              <th>Correo</th> 
+              <th>Divisa</th> 
+              <th>Pagina</th> 
+              <th>Telefono</th> 
+            </tr>
+        </thead>
+        <tr>
+            <td>{{ proveedores.id }}</td>
+            <td>{{ proveedores.nombre }}</td>
+            <td>{{ proveedores.correo }}</td>
+            <td>{{ proveedores.divisa }}</td>
+            <td>{{ proveedores.pagina }}</td>
+            <td>{{ proveedores.telefono }}</td> 
+            
+        </tr>
+    </table> 
+</div>
+</div>

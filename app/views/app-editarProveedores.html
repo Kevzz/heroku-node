@@ -1,0 +1,38 @@
+<div ng-controller="EditCtrlProveedor">
+  <ol class="breadcrumb">
+    <li class=""><a href="#/">Home</a></li>
+    <li class=""><a href="#/">Dashboard</a></li>
+    <li class=""><a href="#/app-vistaProveedor">Proveedores</a></li>
+    <li class="active"><a href="#">Edicion </a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Proveedor {{suppUProxy.name}}</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <h1>Formulario para editar</h1>
+      <form name="supplierForm" ng-submit="editTest(suppUProxy)">
+      <label for="supplierName">Nombre:</label>
+      <input id="supplierName" type="text" name="name" ng-model="suppUProxy.name" required /><br />
+      <label for="supplierMail">Correo:</label>
+      <input id="supplierMail" type="text" name="mail" ng-model="suppUProxy.email" required /><br />
+      
+      <label for="supplierCurr">Divisa:</label>
+      <select id="supplierCurr" ng-model="suppUProxy.currency_id">
+        
+        <option ng-repeat="option in currProxy" value="{{option.id}}" ng-selected="suppUProxy.currency.id==option.id" >{{option.shortcut}}:{{option.name}}</option>
+      </select></br>
+      <label for="supplierWeb">P&aacute;gina:</label>
+      <input id="supplierWeb" type="text" name="web" ng-model="suppUProxy.website" required /><br />
+      <label for="supplierPhone">Tel&eacute;fono:</label>
+      <input id="supplierPhone" type="text" name="phone" ng-model="suppUProxy.phone" required /><br />
+      
+      <br />
+      <input type="submit" value="Save" class="btn btn-primary">
+    </form> 
+  </div>
+</div>

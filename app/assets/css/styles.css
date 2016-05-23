@@ -1,0 +1,8 @@
+#topnav .navbar-brand {
+  background:none;
+  padding: 10px !important;
+}
+#topnav .navbar-brand > img{
+  width: 100%;
+  max-width: 200px;
+}

@@ -1,0 +1,44 @@
+<div ng-controller="CtrlOrdenesC">
+    <ol class="breadcrumb">
+        <li class=""><a href="index.html">Home</a></li>
+        <li class=""><a href="#">Dashboard</a></li>
+        <li class="active"><a href="#">Ordenes</a></li>
+        <li class="active"><a href="#">Compra</a></li>
+    </ol>
+    <div class="page-heading">            
+        <h1>&Oacute;rdenes de compra</h1>
+        <div class="options">
+            <div class="btn-toolbar">
+                <a ng-click="redNOrdenC()" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear orden de compra</a>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>Orden de compra</th> 
+                                <th>Proveedor</th> 
+                                <th>Estado</th> 
+                                <th>Pago</th> 
+                                <th>Monto</th> 
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr ng-repeat="order in ordenesC">
+                                <td>{{order.number}}</td>
+                                <td>{{order.supplier.name}}</td>
+                                <td>{{order.status}}</td>
+                                <td>{{order.payment}}</td>
+                                <td>${{order.amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

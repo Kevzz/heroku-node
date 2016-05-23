@@ -1,0 +1,135 @@
+<style type="text/css">
+    
+.border-style
+{
+  border-style: solid;
+}
+.inMargin
+{
+  margin-top: 2.3rem;
+}
+    </style>
+
+<div ng-controller="CtrlVarDivisorAl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Transferir producto!</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <label for="divisordestino">Divisor destino:</label>
+                    <select id="divisordestino" name="divisordestino" class="form-control" ng-model="divisorDestinoId">
+                        <option value="">Divisor destino</option>
+                        <option ng-repeat="option in divisoresExtras" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <label for="cantidadTransferir">Indique el n&uacute;mero de unidades a transferir</label>
+                    <input type="number" id="cantidadTransferir" max="{{maxTransferencia}}" name="cantidadTransferir" class="form-control" ng-model="cantidadT" required>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+            <button class="btn btn-primary" ng-click="ok(divisorDestinoId,cantidadT)">Transferir</button>
+        </div>
+    </script>
+	<ol class="breadcrumb">
+        <li class=""><a href="index.html">Home</a></li>
+        <li class=""><a href="index.html">Dashboard</a></li>
+        <li class=""><a href="#/app-vistaProductos">Productos</a></li>
+        <li class=""><a href="#/app-vistaProductoInd/{{variante.product.id}}">Producto: {{variante.product.name}}</a></li>
+        <li class="active"><a href="#">Variante: {{variante.name}}</a></li>
+	</ol>
+	<div class="page-heading">
+		<h1>{{variante.product.name}}: {{variante.name}}</h1> <span><a href="#/app-editarVariante/{{variante.id}}">Editar</a></span>
+		<div class="options">
+	    	<div class="btn-toolbar">
+	        	<a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+	    	</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 border-style">
+                <p><strong>Marca:</strong> {{ variante.product.brand.name }}</p>
+                <p><strong>Proveedor:</strong> {{ variante.product.supplier.name }}</p>
+            </div>
+            <div class="col-md-5 col-md-offset-1 border-style">
+                <p><strong>SKU:</strong> {{variante.sku}}</p>
+                <p><strong>C&oacute;digo de barras:</strong> {{variante.code}}</p>
+                <p><strong>Impuestos:</strong> {{variante.tax.name}}</p>
+                <p><strong>Peso:</strong> {{variante.weight}} Kg.</p>
+            </div>
+            <div class="col-md-5 border-style in-Margin">
+                <p><strong>Descripci&oacute;n:</strong> {{variante.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row inMargin">
+            <div class="col-md-11">
+                <div class="panel" data-widget='{"draggable": "false"}'>
+                    <div class="panel-heading">
+                        <h2>&Aacute;reas de almac&eacute;n</h2>
+                        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                        <div class="options">
+
+                        </div>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <th>Divisor</th> 
+                                    <th>Disponible</th> 
+                                    <th>Apartado</th> 
+                                    <th>Total</th> 
+                                    <th>PRI</th> 
+                                    <th>Transferir</th> 
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="divi in divEnVar">
+                                <tr>
+                                    <td>{{divi.divider.name}}</td>
+                                    <td>{{divi.total}}</td>
+                                    <td>{{divi.total}}</td>
+                                    <td>{{divi.total}}</td>
+                                    <td>{{divi.pri}}</td>
+                                    <td><button class="btn btn-primary" ng-click="open('lg',divi.divider.id)">Open me!</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row inMargin">
+            <div class="col-md-11">
+                <div class="panel" data-widget='{"draggable": "false"}'>
+                    <div class="panel-heading">
+                        <h2>Precio Sugerido</h2>
+                        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                        <div class="options">
+
+                        </div>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <div class="col-md-2" ng-repeat="price in variante.variant_prices">
+                            <label>{{price.label}}</label>
+                            <div class="input-group bootstrap-touchspin">
+                                <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
+                                {{price.cost}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>     
+    </div>
+</div>

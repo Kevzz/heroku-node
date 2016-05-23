@@ -1,0 +1,46 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+    </style>
+<div ng-controller="CtrlLocacionNueva">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class="active"><a href="#">Nueva Locacion</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Nuevo Locacion</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <form name="personForm3" ng-submit="nuevaLoc(clienteN)">
+      <h3> Informaci&oacute;n general</h3>
+      <label for="lastNameEdit3">Nombre:</label>
+      <input id="lastNameEdit3" type="text" name="nombre" ng-model="locacion.name" required /><br />
+      
+      <label for="firstNameEdit3">Colonia:</label>
+      <input id="firstNameEdit3" type="text" name="precio" ng-model="locacion.neighborhood" required /><br />
+      <label for="firstNameEdit3">Calle:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.street" required /><br />
+      <label for="firstNameEdit3">Numero:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.number" required /><br />
+      <label for="firstNameEdit3">Entidad:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.municipality" required /><br />
+      <label for="firstNameEdit3">Municipio:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.state" required /><br />
+      <label for="firstNameEdit3">CP:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.zipcode" required /><br />
+      <input type="submit" value="Save" class="btn btn-primary">
+      <br />
+    </form>    
+  </div>
+  </div>

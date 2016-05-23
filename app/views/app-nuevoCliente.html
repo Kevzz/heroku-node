@@ -1,0 +1,81 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+    </style>
+<div ng-controller="CtrlClientes">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/app-vistaClientes">Clientes</a></li>
+      <li class="active"><a href="#">Nuevo</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Nuevo Cliente</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <form name="personForm3" ng-submit="nuevo(clienteN)">
+      <h3> Informaci&oacute;n general</h3>
+      <label for="lastNameEdit3">Nombre:</label>
+      <input id="lastNameEdit3" type="text" name="nombre" ng-model="clienteN.name" required /><br />
+      <label for="firstNameEdit3">Correo:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.email" required /><br />
+      <select id="productSupp" name="productSupp" class="form-control"  ng-model="clienteN.price_id">
+        <option value="">Seleccione el precio a aplicar</option>
+        <option ng-repeat="option in precios " ng-display="option.name!='Compra'" value="{{option.id}}">{{option.name}}</option>
+      </select>
+      <label for="firstNameEdit3">P&aacute;gina:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.website" required /><br />
+      <label for="firstNameEdit3">Tel&eacute;fono:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.phone" required /><br />
+      <br />
+      <h3> Datos Fiscales</h3>
+      <label for="lastNameEdit3">Raz&oacute;n Social:</label>
+      <input id="lastNameEdit3" type="text" name="nombre" ng-model="clienteN.razonsocial" required /><br />
+      <label for="firstNameEdit3">RFC:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.rfc" required /><br />
+      <label for="firstNameEdit3">Colonia:</label>
+      <input id="firstNameEdit3" type="text" name="precio" ng-model="clienteN.neighborhood" required /><br />
+      <label for="firstNameEdit3">Calle:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.street" required /><br />
+      <label for="firstNameEdit3">Numero:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.number" required /><br />
+      <label for="firstNameEdit3">Entidad:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.entity" required /><br />
+      <label for="firstNameEdit3">Municipio:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.city" required /><br />
+      <label for="firstNameEdit3">CP:</label>
+      <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.zipcode" required /><br />
+      <input type="submit" value="Save" class="btn btn-primary">
+      <br />
+      <h3> Datos de envio</h3>
+      <input type="checkbox" name="vehicle" value="Car" ng-model="clienteN.envio" checked> Utilizar la misma direcci&oacute;n<br>
+      <div class="form-group" ng-hide="clienteN.envio">
+        <label for="firstNameEdit3">Colonia:</label>
+        <input id="firstNameEdit3" type="text" name="precio" ng-model="clienteN.coloniaEnvio"  /><br />
+        <label for="firstNameEdit3">Calle:</label>
+        <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.calleEnvio"  /><br />
+        <label for="firstNameEdit3">Numero:</label>
+        <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.numeroEnvio"  /><br />
+        <label for="firstNameEdit3">Entidad:</label>
+        <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.entidadEnvio"  /><br />
+        <label for="firstNameEdit3">Municipio:</label>
+        <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.municipioEnvio"  /><br />
+        <label for="firstNameEdit3">CP:</label>
+        <input id="firstNameEdit3" type="text" name="desc" ng-model="clienteN.cpEnvio"  /><br />
+        <br />
+      </div>
+    </form>    
+  </div>
+
+
+</div>

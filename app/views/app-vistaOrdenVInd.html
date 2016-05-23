@@ -1,0 +1,169 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+.bor-tab{border-style: solid;
+    border-width: 1px;}
+.row-head{text-align: center;
+    background-color: #DDD;
+}
+.row-cont{text-align: center;}
+hr{    border-top-color: #455A64}
+.TotAltura{    line-height: 47px;}
+    </style>
+<div ng-controller="CtrlOrdenesVentaInd">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/">Ordenes</a></li>
+      <li class=""><a href="#">Venta</a></li>
+      <li class="active"><a href="#">{{ordenVenta.number}}</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>&Oacute;rden de venta (Numero de orden)</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a  class="btn btn-default"><i class="fa fa-fw fa-send"></i>Pagada</a>
+            <a  class="btn btn-default"><i class="fa fa-fw fa-send"></i>Entregada</a>
+        </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form name="productForm" ng-submit="submitOrden(variants,dt,ordenSupplierId,notes,billing)">
+      <div class="row borde-input">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <span>No. de &oacute;rden: <strong>{{ordenVenta.number}}</strong></span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="radio-inline">
+                  <input type="checkbox" ng-checked="ordenVenta.billing=='Y'" name="billing" ng-disabled="true"> Facturación
+                </label>
+              </div>         
+            </div> 
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="productSupp">Fecha:</label>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="ordenVenta.date" is-open="opened" min-date="minDate" max-date="'2017-12-30'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="ti ti-calendar"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>        
+            </div>          
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="clienteOrden">Cliente:</label>
+                  </div>
+                  <div class="col-md-9">
+                    {{ordenVenta.client.name}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="domicilioOrden">Domicilio:</label>
+                  </div>
+                  <div class="col-md-9">
+                    {{ordenVenta.send_order.entity}},{{ordenVenta.send_order.municipalty}},{{ordenVenta.send_order.street}} #{{ordenVenta.send_order.number}} {{ordenVenta.send_order.neighborhood}},{{ordenVenta.send_order.zipcode}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+      <div class="row top-buffer">     
+        <div class="col-md-12 borde-input">
+          <div class="title"><h3>Datos del almacen remitente</h3></div>
+          <div class="row">
+            <div class="col-sm-10">
+              (Aqui incluimos los datos de la locacion y divisor en el que se quitan las cosas)
+            </div>
+          </div>
+          <div class="row no-gutter row-head top-buffer">
+            <div class="col-sm-12 bor-tab">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Almacen</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Costo Unitario</th>
+                    <th>Importe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="variant in ordenVenta.variant_sell_orders">
+                    <td>{{variant.divider.warehouses_name}}</td>
+                    <td> {{variant.variant.product_name}} : {{variant.variant.name}}</td>
+                    <td>{{variant.amount}}</td>
+                    <td>{{variant.price_per_unit}}</td>
+                    <td>{{variant.amount*variant.price_per_unit}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+           <!-- Aqui termina la clonacion de orden-->
+          <HR width="80%"> 
+          <div class="row">
+            <div class="col-sm-8">
+              <label for="ordenCompraNotas">Notas:</label>
+              <p>{{ordenVenta.notes}}</p>
+            </div>
+            <div class="col-sm-4">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Subtotal:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{subTotalInd}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Impuestos:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{ordenVenta.amount-subTotalInd}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Total:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{ordenVenta.amount}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+  </div>
+</div>

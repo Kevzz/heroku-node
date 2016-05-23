@@ -1,0 +1,45 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+    </style>
+<div ng-controller="EditCtrlDivisas">
+	<ol class="breadcrumb">
+	    <li class=""><a href="#/">Home</a></li>
+	    <li class=""><a href="#/">Dashboard</a></li>
+	    <li class="active"><a href="#">Divisas</a></li>
+	</ol>
+	<div class="page-heading">
+		<h1>Divisas</h1>
+		<div class="options">
+	    	<div class="btn-toolbar">
+	        	<a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+	    	</div>
+		</div>
+	</div>
+	<div class="tab-content">
+		<a href="#/app-nuevaDivisa">Agregar Divisa</a>
+	    <table>
+	        <col width="180">
+	        <col width="280"> 
+	        <col width="180">
+	        <thead>
+	            <tr>
+	              	<th>Divisa</th> 
+	              	<th>Nombre</th> 
+	              	<th></th> 
+	            </tr>
+	        </thead>
+	        <tr ng-repeat="divisa in currenciesProxy" >
+	            <td>{{ divisa.shortcut }}</td>
+	            <td>{{ divisa.name }}</td>
+	            <td><a href="#/app-editarDivisa/{{ divisa.id }}">Editar</a></td>
+	            <td><a ng-click="removeTest(divisa.id)" ng-confirm-click="Are you sure?">Eliminar</a></td>
+	        </tr>
+	    </table> 
+	</div>
+</div>	
