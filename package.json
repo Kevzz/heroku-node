@@ -6,8 +6,6 @@
     "bower": "1.7.9",
     "express": "^4.13.4",
     "http-proxy": "^1.13.2"
-  },
-  "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
     "grunt-bower-install": "~1.0.0",
@@ -39,6 +37,9 @@
     "grunt-processhtml": "~0.3.3",
     "grunt-contrib": "*",
     "less": "*"
+  },
+  "devDependencies": {
+
   },
   "engines": {
     "node": ">=0.10.0"
