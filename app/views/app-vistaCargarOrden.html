@@ -1,0 +1,93 @@
+<style type="text/css">
+  .border-style
+{
+  border-style: solid;
+}
+.inMargin
+{
+  margin-top: 2.3rem;
+}  
+</style>
+<div ng-controller="CtrlCargarOrden">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class="active"><a href="#">Cargar Orden</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Cargar Orden</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="tab-content">
+      <h3> Busqueda de numero de Orden</h3>
+      <label for="numeroOrden">Numero de Orden:</label>
+      <input id="numeroOrden" type="text" name="numeroOrden" ng-model="numOrden" required /><br />
+      <input type="button" ng-click="buscarOrden()" value="Buscar" class="btn btn-primary">
+      <br />
+  </div>
+  
+  <div class="container-fluid" ng-show="Orden">
+        <div class="row">
+            <div class="col-md-5 border-style">
+                <p><strong>Numero de Orden:</strong> {{ Orden.number }}</p>
+                <p><strong>Proveedor:</strong> {{ Orden.supplier.name }}</p>
+                <p><strong>Status:</strong> {{ Orden.status }}</p>
+                <p><strong>Pago:</strong> {{ Orden.payment }}</p>
+            </div>
+            <div class="col-md-5 col-md-offset-1 border-style">
+                <p><strong>Facturacion:</strong> {{Orden.billing}}</p>
+                <p><strong>Fecha:</strong> {{Orden.date}}</p>
+                <p><strong>Notas:</strong> {{Orden.notes}}</p>
+            </div>
+        
+        <div class="row">
+            <div class="col-md-12 border-style inMargin">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="info">
+                    <th>Almacen Destino</th>
+                    <th>Variante</th>  
+                    <th>Cantidad</th> 
+                    <th>Costo</th> 
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <td>Impuestos</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>${{Orden.amount-totalOrden | number :2}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>${{Orden.amount | number :2}}</td>
+                  </tr>
+                </tfoot>
+                  <tbody >
+                    <tr ng-repeat=" vari in Orden.variant_orders" >
+                      <td>{{vari.warehouse.name }}</td>
+                      <td>{{vari.variant.name}}</td>
+                      <td>{{vari.amount}}</td>
+                      <td>${{vari.cost_per_unit}}</td>
+                      <td>${{vari.cost_per_unit*vari.amount | number :2}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div class="row">
+          <input type="button" value="Cargar Orden" ng-click="cargarOrden()" class="btn btn-primary">
+        </div>
+    </div>
+  
+</div>
