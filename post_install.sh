@@ -1,3 +1,3 @@
 #!/bin/bash
-./node_modules/bower/bin/bower install
-./node_modules/grunt-cli/bin/grunt
+./app/bower/bin/bower install
+./app/grunt-cli/bin/grunt
