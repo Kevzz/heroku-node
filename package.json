@@ -36,7 +36,9 @@
     "karma-ng-scenario": "~0.1.0",
     "grunt-karma": "~0.12.0",
     "grunt-angular-templates": "~0.5.5",
-    "grunt-processhtml": "~0.3.3"
+    "grunt-processhtml": "~0.3.3",
+    "grunt-contrib": "*",
+    "less": "*"
   },
   "engines": {
     "node": ">=0.10.0"
