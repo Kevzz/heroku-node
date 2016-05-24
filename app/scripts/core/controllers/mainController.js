@@ -202,11 +202,15 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   var urlProducts="/products";
   var urlVariantOrders="/variant_orders"
   var urlPurchaseOrders="/purchase_orders"
+  var urlVarianteDivisor="/variant_divisions";
+  var urlVarianteAlmacen="/variant_warehouses";
 
   $scope.numOrden;
   var idnumOrden;
   var indexOfNumeroOrden;
-  $scope.VariantesAlmacen;
+  $scope.totalOrden=0;
+  $scope.Orden;
+  $scope.statusOrden=false;
   $scope.buscarOrden=function(){
 
     apiService.getData(urlPurchaseOrders).then(function(response){
@@ -215,7 +219,16 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         {
           idnumOrden=value.id;
           indexOfNumeroOrden=key;
-          $scope.VariantesAlmacen=value.variant_orders;
+          $scope.Orden=value;
+          $scope.statusOrden=value.status;
+          angular.forEach($scope.Orden.variant_orders,function(value2,key){
+            //console.log($scope.totalOrden);
+            $scope.totalOrden+=(parseInt(value2.amount)*parseInt(value2.cost_per_unit));
+          });
+        }
+        else
+        {
+          $scope.Orden=false;
         }
       });
       
@@ -223,9 +236,102 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   }
 
   $scope.cargarOrden=function(){
-    angular.forEach(response2.data,function(value2,key){
+    if($scope.statusOrden=='Solicitado')
+    {
+      var dataUPD={
+        status:"En Almacen"
+      };
+      apiService.putData(urlPurchaseOrders,idnumOrden,dataUPD);
+      
+
+      angular.forEach($scope.Orden.variant_orders,function(value3,key){
+        var idvarianteAlmacen=0;
+        var idvarianteDivisor=0;
+        var idDivisorGeneral=0;
+        apiService.getSingleData(urlWarehouses,value3.warehouse.id).then(function(response2){
           
+            angular.forEach(response2.data.variant_warehouses,function(value4,key){
+              //console.log("Almacen");
+              //console.log(value4);
+              if( (value4.warehouse.id==value3.warehouse.id )&& (value4.variant.id==value3.variant.id) )
+              {
+                //console.log("si");
+                idvarianteAlmacen=value4.id;
+                console.log(idvarianteAlmacen);
+              }
+            });  
+            angular.forEach(response2.data.dividers,function(value5,key){
+              
+              if(value5.name=='General')
+              {
+                //console.log("divisores entro");
+                //console.log(value5);
+                idDivisorGeneral=value5.id;
+                angular.forEach( value5.variant_divisions,function(value6,key){
+                  if( (value6.divider_id==idDivisorGeneral )&& (value6.variant_id==value3.variant.id) )
+                    {
+                      idvarianteDivisor=value5.id;
+                    }
+                });  
+              }
+            });
+            if(idvarianteDivisor!=0)
+            {
+              var cantidadVieja=0;
+              apiService.getSingleData(urlVarianteDivisor,idvarianteDivisor).then(function(respuesta){
+                cantidadVieja=respuesta.data.total;
+                var data={
+                  total:cantidadVieja+value3.amount
+                  };
+                  apiService.putData(urlVarianteDivisor,idvarianteDivisor,data);  
+              });
+              
+            }
+            else
+            {
+              var newData={
+                divider_id:idDivisorGeneral,
+                variant_id:value3.variant.id,
+                pri:1,
+                total:value3.amount
+              };
+              //console.log(newData);
+              apiService.postData(urlVarianteDivisor,newData);
+            }
+
+            if(idvarianteAlmacen!=0)
+            {
+              console.log("Aqui se supone que entra si encontro un valor de almacen");
+              var cantidadVieja=0;
+              apiService.getSingleData(urlVarianteAlmacen,idvarianteAlmacen).then(function(respuesta){
+                cantidadVieja=respuesta.data.stock;
+                var data={
+                  stock:cantidadVieja+value3.amount,
+                  status:"D"
+                  };
+                  apiService.putData(urlVarianteAlmacen,idvarianteAlmacen,data);  
+              });
+              
+            }
+            else
+            {
+              var newData={
+                warehouse_id:value3.warehouse.id,
+                variant_id:value3.variant.id,
+                stock:value3.amount,
+                status:"D"
+              };
+              //console.log(newData);
+              apiService.postData(urlVarianteAlmacen,newData);
+            }  
         });
+        
+      });
+
+    
+    }
+
+    
   };
 
 
@@ -249,9 +355,9 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
     $location.path('/app-vistaVarDivisorAl/'+$routeParams.id);
   };
   apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response){
-    angular.forEach(response.data.variant_warehouses, function(value, key) {
+    angular.forEach(response.data.variants, function(value, key) {
 
-      if (value.variant.product_id==id_Prod)
+      if (value.product.id==id_Prod)
       {
         //console.log(value);
         $scope.varProdAlmacen.push(value);
@@ -260,9 +366,38 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       //console.log($scope.variantesFormC);
     });
       var json = JSON.stringify( $scope.varProdAlmacen);
-
-      
       $scope.varProdAlmacen=JSON.parse(json);
+      var cantidadApartada=0;
+      angular.forEach($scope.varProdAlmacen, function(value2, key) {
+        cantidadApartada=0;
+        angular.forEach(value2.variant_warehouses, function(value3, key2) {
+          if(value3.warehouse_id==$routeParams.id)
+          {
+            $scope.varProdAlmacen[key].stock=value3.stock;        
+          }
+        });
+        angular.forEach(value2.sell_orders, function(value4, key4) {
+          //console.log(value4);  
+          if(value4.status=='Solicitado')
+          {
+            angular.forEach(value2.variant_sell_orders, function(value5, key5) {
+            
+              if(value5.sell_order_id==value4.id)
+              {
+                //console.log("Entro");  
+                console.log(value5.amount);  
+                cantidadApartada=cantidadApartada+parseInt(value5.amount);
+                console.log(cantidadApartada);  
+              }
+            }); 
+          }
+        });
+        //console.log(value2);
+      
+      //$scope.Productos=response.data;
+      //console.log($scope.variantesFormC);
+      $scope.varProdAlmacen[key].Ndis=cantidadApartada;
+    });
       //console.log($scope.varProdAlmacen);
   });
   
@@ -345,7 +480,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
               else
               {
                 var newData={
-                  divider_id:idVarDiv,
+                  divider_id:divId,
                   variant_id:id_Variante,
                   pri:1,
                   total:cantidad

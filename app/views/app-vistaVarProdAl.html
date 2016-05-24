@@ -57,17 +57,17 @@
                             </thead>
                             <tbody >
                                 <tr ng-repeat=" vari in varProdAlmacen" >
-                                    <td>{{ vari.variant.sku }}</td>
-                                    <td><a ng-click="infoVariante(vari.variant.id)">{{ vari.variant.name }}</a></td>
-                                    <td>0</td>
+                                    <td>{{ vari.sku }}</td>
+                                    <td><a ng-click="infoVariante(vari.id)">{{ vari.name }}</a></td>
+                                    <td> {{vari.stock-vari.Ndis}} </td>
                                     <td>{{vari.stock}}</td>
                                 </tr>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
-            
         </div>     
     </div>
 </div>
