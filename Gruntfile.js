@@ -469,7 +469,21 @@ module.exports = function (grunt) {
   });
 
   // grunt.registerTask('heroku:development', 'clean less mincss');
-  grunt.registerTask('heroku:production', 'clean less mincss uglify');
+  //grunt.registerTask('heroku:production', 'clean less mincss uglify');
+  grunt.registerTask('heroku:production',[
+        'clean:dist',
+        'useminPrepare',
+        'concurrent:dist',
+        'compass:dist',
+        'autoprefixer',
+        'concat',
+        'imagemin',
+        'cssmin',
+        'uglify',
+        'modernizr',
+        'usemin',
+        'htmlmin'
+    ]);
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
