@@ -1,10 +1,14 @@
 node_modules
+!/node_modules
+/node_modules/*
+!/node_modules/load-grunt-tasks/
+
 dist
 .tmp
 .sass-cache
 app/bower_components
 docs/site
-/node_modules
+
 npm-debug.log
 .DS_Store
 /*.env
