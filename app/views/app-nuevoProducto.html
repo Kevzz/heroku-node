@@ -1,0 +1,75 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
+<div ng-controller="EditCtrlProductos">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/app-vistaProductos">Productos</a></li>
+      <li class="active"><a href="#">Nuevo</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Nuevo Producto</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form name="productForm" ng-submit="sub(productN)">
+      <div class="tab-pane">
+        <div class="row ">
+          <div class="col-md-6 borde-input">
+            <div class="title"><h3>Datos Iniciales</h3></div>
+            
+              <div class="form-group">
+                <label for="productBrand" class="control-label">Marca:</label>
+                <select name="productBrand" id="productBrand" class="form-control" ng-model="productN.brand_id">
+
+                  <option ng-repeat="option in brands" value="{{option.id}}">{{option.name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="productSupp">Proveedor:</label>
+                <select id="productSupp" name="productSupp" class="form-control" ng-model="productN.supplier_id">
+                  <option ng-repeat="option in suppliers" value="{{option.id}}">{{option.name}}</option>
+                </select>
+              </div>
+            
+          </div>
+        </div>
+        <div class="row top-buffer ">
+          
+          <div class="col-md-6 borde-input">
+            <div class="title"><h3>Datos de producto</h3></div>
+            <div class="form-group">
+              <label for="productName">Nombre:</label>
+              <input type="text" id="productName" name="productName" class="form-control" ng-model="productN.name"  required>
+            </div>
+            <div class="form-group">
+              <label for="productDesc">Descripci&oacute;n:</label>
+              <input id="productDesc" type="text" name="description" class="form-control" ng-model="productN.description" required />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn-primary btn">Crear producto</button>
+          </div>
+        </div>
+      </div>
+  </form>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+div.table 
+{
+    display:table;
+}
+form.tr, div.tr
+{
+    display:table-row;
+}
+span.td
+{
+    display:table-cell;
+}
+.inMargin
+{
+  margin-top: 2.3rem;
+}
+.bottomMargin
+{
+  margin-bottom: 2.3rem;
+}
+.border-style
+{
+  border-style: solid;
+}
+    </style>
+<div ng-controller="EditCtrlVariantes">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/app-vistaProductos">Productos</a></li>
+      <li class=""><a href="#">{{variantesFormC[0].product.name}}</a></li>
+      <li class="active"><a href="#">Alta de variantes</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Alta de variantes</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <form name="productVariantForm" ng-submit="subVariantC(variantesFormC,price)">
+      <div class="row">
+        <div class="col-md-12 ">
+          
+          <div ng-repeat="variant in variantesFormC" class="border-style inMargin">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
+                <h1>{{$index + 1}}. {{variant.name}}</h1>
+              </div>
+              <div class="col-md-2">
+                <label class="radio-inline">
+                  <input type="checkbox" name="status" ng-model="variant.status" ng-value="U" ng-checked="variant.status=='U'" > No Disponible
+                </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
+                <label for="variantSKU">SKU:</label>
+                <input ng-disabled="variant.status=='U'||variant.status==true=='U'||variant.status==true" id="variantSKU" class="form-control" type="text" name="sku" ng-model="variant.sku" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
+                <label for="variantCodB">Cod. barras:</label>
+                <input ng-disabled="variant.status=='U'||variant.status==true" id="variantCodB" class="form-control" type="text" ng-model="variant.code" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
+                <label for="variantCurr">Impuesto:</label>
+                <select ng-disabled="variant.status=='U'||variant.status==true" id="variantCurr" class="form-control" ng-model="variant.tax_id">
+                  <option value="" selected>No obligatorio</option>
+                  <option ng-repeat="option in taxProxy" value="{{option.id}}" ng-selected="variant.tax.id==option.id" >{{option.name}} : {{option.percentage}}%</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
+                <label for="variantPeso">Peso:</label>
+                <input ng-disabled="variant.status=='U'||variant.status==true" id="variantPeso" class="form-control" type="text" ng-model="variant.weight" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
+                <label for="variantDescrip">Descripci&oacute;n:</label>
+                <textarea ng-disabled="variant.status=='U'||variant.status==true" class="form-control"  data-ng-model="variant.description"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
+                <label for="variantCurr">Divisa:</label>
+                <select ng-disabled="variant.status=='U'||variant.status==true" id="variantCurr" class="form-control" ng-model="variant.currency_id">
+                  <option ng-repeat="option in currProxy" value="{{option.id}}" ng-selected="variant.currency.id==option.id">{{option.shortcut}}:{{option.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row bottomMargin">
+              <div class="col-md-11 col-md-offset-1">
+                <label for="variantP">Precios base:</label>
+                <div class="row">
+                  <div class="col-md-2" ng-repeat="price in variant.variant_prices">
+                    <label>{{price.label}}</label>
+                    <div class="input-group bootstrap-touchspin">
+                      <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
+                      <input ng-disabled="variant.status=='U'||variant.status==true" type="text" ng-model="price.cost" class="form-control"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <button  type="submit" class="btn inline">
+        submit
+      </button>
+    </form> 
+    <hr>   
+  </div>
+
+</div>

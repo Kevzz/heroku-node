@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "proxy prueba",
+  "main": "index.js",
+  "scripts": {
+    "test": "ls"
+  },
+  "keywords": [
+    "prueba",
+    "proxy"
+  ],
+  "author": "kevin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "http-proxy": "^1.13.2"
+  }
+}

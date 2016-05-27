@@ -1,0 +1,74 @@
+<style type="text/css">
+    
+.border-style
+{
+  border-style: solid;
+}
+.inMargin
+{
+  margin-top: 2.3rem;
+}
+    </style>
+<div ng-controller="CtrlVarProdAl">
+    <ol class="breadcrumb">
+        <li class=""><a href="index.html">Home</a></li>
+        <li class=""><a href="index.html">Dashboard</a></li>
+        <li class=""><a href="#/app-vistaProductos">Productos</a></li>
+        <li class="active"><a href="#">Producto: {{ prod.name }}</a></li>
+	</ol>
+	<div class="page-heading">
+		<h1>Producto: {{ prod.name }}</h1><span>
+		<div class="options">
+	    	<div class="btn-toolbar">
+	        	<a ng-click="abrirVistaOrden()" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Cargar &oacute;rden</a>
+	    	</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 border-style">
+                <p><strong>Marca:</strong> {{ prod.brand.name }}</p>
+                <p><strong>Proveedor:</strong> {{ prod.supplier.name }}</p>
+            </div>
+            <div class="col-md-5 col-md-offset-1 border-style">
+                <p><strong>Descripci&oacute;n:</strong> {{prod.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row inMargin">
+            <div class="col-md-11">
+                <div class="panel panel-info" data-widget='{"draggable": "false"}'>
+                    <div class="panel-heading">
+                        <h2>Variantes</h2>
+                        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                        <div class="options">
+                        </div>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <th>SKU</th>
+                                    <th>Variantes</th>  
+                                    <th>Disponible</th> 
+                                    <th>En almacen</th> 
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr ng-repeat=" vari in varProdAlmacen" >
+                                    <td>{{ vari.sku }}</td>
+                                    <td><a ng-click="infoVariante(vari.id)">{{ vari.name }}</a></td>
+                                    <td> {{vari.stock-vari.Ndis}} </td>
+                                    <td>{{vari.stock}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>     
+    </div>
+</div>

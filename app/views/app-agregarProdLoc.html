@@ -1,0 +1,71 @@
+<div ng-controller="CtrlAddProdLoc">
+    <ol class="breadcrumb">
+        <li class=""><a href="index.html">Home</a></li>
+        <li class=""><a href="#">Dashboard</a></li>
+        <li class=""><a href="#">Productos Global</a></li>
+        <li class="active"><a href="#">Agregar</a></li>
+    </ol>
+    <div class="page-heading">            
+        <h1>Agregar variante a locacion</h1>
+    </div>
+    <div class="tab-content" >
+        <div class="container-fluid">
+            <div class="row" ng-show="SelectProd">
+                <div class="col-md-4">
+                    <label for="AlmacenVar">Almacen destino</label>
+                    <select id="AlmacenVar" name="AlmacenVar" class="form-control"  ng-model="almacenPG">
+                      <option value="">Seleccione una almacen</option>
+                      <option ng-repeat="option in almacenes" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" ng-show="SelectProd">
+                <div class="col-md-12">
+                    <label>Search: <input ng-model="searchText"></label>   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>Producto</th> 
+                                <th>Marca</th>
+                                <th>Variables</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr ng-repeat=" prod in products | filter:searchText">
+                                <td><a ng-click="showVar($index)">{{ prod.name }}</a></td>
+                                <td>{{ prod.brand.name }}</td>
+                                <td>{{prod.variants.length}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" ng-show="SelectVar">
+                <div class="col-md-12">
+                    <form ng-submit="submitVariables(variablesProd.variants)">
+                        <label>Search: <input ng-model="searchTextVar"></label>   
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <th>Seleccionar</th> 
+                                    <th>Variante</th>
+                                    <th>SKU</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr ng-repeat=" var in variablesProd.variants | filter:searchTextVar | filter:{status:'C'}">
+                                    <td>
+                                        <input type="checkbox" name="awesome" ng-model="selected[var.id]" >
+                                    </td>
+                                    <td>{{ var.name }}</td>
+                                    <td>{{var.sku}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="submit" value="Agregar variantes">
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

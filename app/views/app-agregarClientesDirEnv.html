@@ -1,0 +1,99 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+.bor-tab{border-style: solid;
+    border-width: 1px;}
+.row-head{text-align: center;
+    background-color: #DDD;
+}
+.row-cont{text-align: center;}
+hr{    border-top-color: #455A64}
+.TotAltura{    line-height: 47px;}
+    </style>
+<div ng-controller="CtrlClientesDirEnv">
+    <ol class="breadcrumb">
+        <li class=""><a href="#/">Home</a></li>
+        <li class=""><a href="#/">Dashboard</a></li>
+        <li class="active"><a href="#">Clientes</a></li>
+    </ol>
+    <div class="page-heading">
+        <h1>Agregar Direcciones de envio</h1>
+        <div class="options">
+            <div class="btn-toolbar">
+                <a  ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-send"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input type="button" value="Agregar" ng-click="cloneItem()">
+                </div>
+            </div>
+        </div>
+        <form ng-submit="agregarEnvios()">
+            <div ng-repeat="dire in direcciones" class="row borde-input top-buffer">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="radio-inline" for="colonia">Colonia</label>
+                                <input type="text" name="colonia" id="colonia" ng-model="dire.neighborhood"> 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="radio-inline" for="calle">Calle</label>
+                                <input type="text" name="calle" id="calle" ng-model="dire.street"> 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="radio-inline" for="numero">N&uacute;mero</label>
+                                <input type="number" name="numero" id="numero" ng-model="dire.number"> 
+                            </div>
+                        </div>           
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="radio-inline" for="cp">Codigo Postal</label>
+                                <input type="number" name="cp" id="cp" ng-model="dire.zipcode"> 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="radio-inline" for="entidad">Entidad</label>
+                                <input type="text" name="entidad" id="entidad" ng-model="dire.entity"> 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="radio-inline" for="municipio">Municipio</label>
+                                <input type="text" name="municipio" id="municipio" ng-model="dire.municipalty"> 
+                            </div>
+                        </div>           
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="button" value="Eliminar" ng-click="removeItem($index)">
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input type="submit" value="Guardar">
+                    </div>
+                </div>    
+            </div>
+        </form>
+    </div>
+</div>

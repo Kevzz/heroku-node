@@ -1,0 +1,41 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+    </style>
+<div ng-controller="EditCtrlProductos">
+    <ol class="breadcrumb">
+        <li class=""><a href="index.html">Home</a></li>
+        <li class="active"><a href="index.html">Dashboard</a></li>
+    </ol>
+    <div class="page-heading">            
+        <h1>Productos</h1>
+        <div class="options">
+            <div class="btn-toolbar">
+                <a href="#/app-nuevoProducto" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Agregar Producto</a>
+            </div>
+        </div>
+    </div>
+    <div class="row inMargin">
+        <div class="col-md-11">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Marca</th> 
+                      <th>Variantes</th> 
+                    </tr>
+                </thead>
+                <tr ng-repeat=" prod in productos">
+                    <td><a href="#/app-vistaProductoInd/{{prod.id}}">{{ prod.name }}</a></td>
+                    <td>{{ prod.brand.name }}</td>
+                    <td>{{prod.variants.length}}</td>
+                </tr>
+            </table>    
+        </div>
+    </div>
+</div>
