@@ -25,15 +25,12 @@ node_modules
 !/node_modules/grunt-angular-templates/
 !/node_modules/grunt-processhtml/
 !/node_modules/time-grunt/
+!/node_modules/grunt-autoprefixer/
 !/node_modules/grunt-ngmin/
 !/node_modules/grunt-karma/
 !/node_modules/time-grunt/
 !/node_modules/karma/
 !/node_modules/jshint-stylish/
-
-
-
-
 
 
 
