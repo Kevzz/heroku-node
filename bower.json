@@ -52,7 +52,7 @@
     "nvd3": "~1.1.15-beta",
     "oclazyload": "~0.5.2",
     "pnotify": "sciactive/pnotify#~2.0.1",
-    "seiyria-bootstrap-slider": "~1.9.0",
+    "seiyria-bootstrap-slider": "~1.9.5",
     "shufflejs": "2.1.1",
     "skylo": "*",
     "stepy": "*",
