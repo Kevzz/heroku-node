@@ -36,7 +36,7 @@
     "load-grunt-tasks": "latest",
     "time-grunt": "latest",
     "karma-ng-html2js-preprocessor": "latest",
-    "karma-ng-scenario": "latest"
+    "karma-ng-scenario": "latest",
     "grunt-karma": "latest",
     "grunt-angular-templates": "latest",
     "grunt-processhtml": "latest"
