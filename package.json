@@ -12,7 +12,6 @@
     "jsonwebtoken": "~0.4.0",
     "nodemailer": "latest",
     "grunt": "latest",
-    "grunt-autoprefixer": "latest",
     "grunt-bower-install": "latest",
     "grunt-concurrent": "latest",
     "grunt-contrib-clean": "latest",
@@ -45,7 +44,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "preinstall": " npm install --save --save-exact grunt grunt-cli && npm install --save --save-exact  bower"
+    "test": "grunt test"
   }
 }
