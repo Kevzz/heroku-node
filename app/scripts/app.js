@@ -135,9 +135,7 @@ angular
     }
   };
 })
-.config( function myAppConfig ( ) {
 
-})
   .config(['$provide', '$routeProvider','$httpProvider','$routeProvider', 'authProvider', '$httpProvider', '$locationProvider',
   'jwtInterceptorProvider', function($provide, $routeProvider, authProvider, $httpProvider, $locationProvider,
   jwtInterceptorProvider) {
@@ -359,11 +357,7 @@ angular
         redirectTo: 'views/login.html'
       });
   }])
-.authProvider.init({
-    domain: 'formacret-test.auth0.com',
-    clientID: '0sezpj3ctmisaJzLa5P5AiCDSgVzKtuC',
-    loginUrl: '/login'
-})
+
   .directive('demoOptions', function () {
     return {
       restrict: 'C',
