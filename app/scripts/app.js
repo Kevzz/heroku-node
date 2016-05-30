@@ -140,7 +140,7 @@ angular
   'jwtInterceptorProvider', function($provide, $routeProvider, authProvider, $httpProvider, $locationProvider,
   jwtInterceptorProvider) {
     'use strict';
-    $httpProvider.interceptors.push('authInterceptor');
+    
     $routeProvider
       .when('/', {
         templateUrl: function(param) {
