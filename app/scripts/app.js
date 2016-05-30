@@ -145,16 +145,11 @@ angular
     $httpProvider.interceptors.push('authInterceptor');
     $routeProvider
       .when('/', {
-        templateUrl: 'views/app-vistaProductos.html',
-        requiresLogin: true
-      })
-      .when( '/login', {
         templateUrl: function(param) {
-          return 'views/login.html';
+          return 'views/app-vistaProductos.html';
         }
-        pageTitle: 'Login'
       })
-
+      
       .when('/app-agregarClientesDirEnv', {
         templateUrl: function(param) {
           return 'views/app-agregarClientesDirEnv.html';
