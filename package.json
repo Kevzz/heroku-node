@@ -47,6 +47,6 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "grunt install && grunt build && grunt bowerInstall"
+    "postinstall": "bower install && grunt build && grunt bowerInstall"
   }
 }
