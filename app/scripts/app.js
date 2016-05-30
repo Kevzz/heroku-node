@@ -332,10 +332,10 @@ angular
         }
       })
       .when('#', {
-        templateUrl: 'views/login.html',
+        templateUrl: 'views/app-vistaProductos.html',
       })
       .otherwise({
-        redirectTo: 'views/login.html'
+        redirectTo: 'views/app-vistaProductos.html'
       });
   }])
 
