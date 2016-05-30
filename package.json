@@ -10,10 +10,8 @@
     "http-proxy": "^1.13.2",
     "nodemailer": "latest",
       "express-jwt": "~0.2.1",
-    "jsonwebtoken": "~0.4.0"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.1",
+    "jsonwebtoken": "~0.4.0",
+    "grunt": "~0.4.5",
     "grunt-autoprefixer": "~0.4.0",
     "grunt-bower-install": "~1.0.0",
     "grunt-concurrent": "~0.5.0",
@@ -47,7 +45,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "preinstall": " npm install --save --save-exact grunt grunt-cli && npm install --save --save-exact  bower"
+    "test": "grunt test"
   }
 }
