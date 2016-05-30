@@ -2,7 +2,6 @@ angular
   .module('themesApp', [
     'theme',
     'theme.demos',
-    'auth0',
     'angular-storage',
     'angular-jwt',
     'ngRoute'
@@ -120,7 +119,7 @@ angular
 })
 
 
-  .config(['$provide', '$routeProvider','$httpProvider','$routeProvider',  '$locationProvider', function($provide, $routeProvider, $httpProvider, $locationProvider) {
+  .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
     
     $routeProvider
