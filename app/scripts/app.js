@@ -1,10 +1,7 @@
 angular
   .module('themesApp', [
     'theme',
-    'theme.demos',
-    'angular-storage',
-    'angular-jwt',
-    'ngRoute'
+    'theme.demos'
   ])
   .value('fbURL', 'https://formacret.firebaseio.com/')
   .directive('ngConfirmClick', [
