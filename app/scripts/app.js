@@ -125,7 +125,12 @@ angular
           return 'views/app-vistaProductos.html';
         }
       })
-      
+      .when('/app-vistaTransferencias', {
+        templateUrl: function(param) {
+          return 'views/app-vistaTransferencias.html';
+        }
+      })
+
       .when('/app-agregarClientesDirEnv', {
         templateUrl: function(param) {
           return 'views/app-agregarClientesDirEnv.html';
