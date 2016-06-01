@@ -1,6 +1,6 @@
 {
-  "name": "themes",
-  "version": "0.0.0",
+  "name": "formacret",
+  "version": "1.0.0",
   "dependencies": {
     "body-parser": "^1.15.0",
     "bower": "1.7.9",
@@ -43,7 +43,8 @@
     "grunt-processhtml": "~0.3.3"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=5.11.1"
+    ,"npm": ">=3.8.6"
   },
   "scripts": {
     "test": "grunt test",
