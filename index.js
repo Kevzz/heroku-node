@@ -28,54 +28,17 @@ console.log('Forwarding API requests to ' + apiForwardingUrl);
 
 // Node express server setup.
 var server = express();
-server.set('port', 3000);
 
 server.use(express.static(__dirname + '/app'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({
     extended: true
 }));
-//*********************ES PARA LA AUTENTIFICACION DEL LADO DEL SERVIDOR**************************************************
-server.use(function(err, req, res, next){
-  if (err.constructor.name === 'UnauthorizedError') {
-    res.status(401).send('Unauthorized');
-  }
+
+// Start Server.
+server.listen(portHeroku, function() {
+    console.log('Express server listening on port ' +portHeroku);
 });
-
-server.all('/authenticate', function (req, res) {
-  //TODO validate req.body.username and req.body.password
-  //if is invalid, return 401
-  //console.log("contenido de req");
-  //console.log(req);
-  if (!(req.body.username === 'john.doe' && req.body.password === 'foobar')) {
-    res.status(401).send('Wrong user or password');
-    return;
-  }
-
-  var profile = {
-    first_name: 'John',
-    last_name: 'Doe',
-    email: 'john@doe.com',
-    id: 123
-  };
-
-  // We are sending the profile inside the token
-  var token = jwt.sign(profile, secret);
-
-  res.json({ token: token });
-});
-
-server.get('/api/restricted', function (req, res) {
-    //console.log(req);
-    //console.log("*********************************************************************************************++");
-    //console.log(res);
-  console.log('user ' + res.user.email + ' is calling /api/restricted');
-  res.json({
-    name: 'foo'
-  });
-});
-//*************************AQUI TERMINA LA AUTENTIFICACION DEL LADO DEL SERVIDOR*****************************************
-
 
 //*****************Esto es para obtener la informacion individual de las marcas ************************************
 server.delete('/brands/:id', function(req, res) {
@@ -478,7 +441,3 @@ server.all("/variant_divisions", function(req, res) {
 
 
 
-// Start Server.
-server.listen(portHeroku, function() {
-    console.log('Express server listening on port ' +portHeroku);
-});
