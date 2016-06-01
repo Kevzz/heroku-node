@@ -99,6 +99,13 @@ server.get('/brands', function(req, res) {
 server.post('/brands', function(req, res) {
     apiProxy.web(req, res, {target: "https://stage-formacret.herokuapp.com"});
 });
+server.route('/brands')
+  .get(function(req, res) {
+    apiProxy.web(req, res, {target: "https://stage-formacret.herokuapp.com"});
+  })
+  .post(function(req, res) {
+    apiProxy.web(req, res, {target: "https://stage-formacret.herokuapp.com"});
+  });
 //******************************************************************+
 
 //*****************Esto es para obtener la informacion individual de los clientes*******************************
