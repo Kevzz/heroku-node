@@ -150,27 +150,6 @@ angular
           return 'views/app-nuevaTransferencia.html';
         }
       })
-
-=======
-  .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
-    'use strict';
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/index.html',
-        resolve: {
-          loadChartsJs: ['$ocLazyLoad', function($ocLazyLoad) {
-            return $ocLazyLoad.load([
-              'bower_components/Chart.js/Chart.min.js'
-            ]);
-          }],
-          loadCalendar: ['$ocLazyLoad', function($ocLazyLoad) {
-            return $ocLazyLoad.load([
-              'bower_components/fullcalendar/dist/fullcalendar.js'
-            ]);
-          }]
-        }
-      })
->>>>>>> f9e9986fe00410524c363b83f2a90dbabba94f41
       .when('/app-agregarClientesDirEnv', {
         templateUrl: function(param) {
           return 'views/app-agregarClientesDirEnv.html';
