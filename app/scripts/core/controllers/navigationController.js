@@ -77,6 +77,7 @@ angular
     }, {
       label: 'Transferencias',
       iconClasses: '',
+
       url: '#/app-vistaTransferencias',
     }, {
       label: 'Ajuste',

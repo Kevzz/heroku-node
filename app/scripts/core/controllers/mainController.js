@@ -505,17 +505,20 @@ function getRecent(prod)
         $location.path('/app-vistaMarcas');
       }
     };
+
     $theme.set('fullscreen', true);
 
     $scope.$on('$destroy', function() {
       $theme.set('fullscreen', false);
     });
   }])
+
 .controller('CtrlLocacionNueva',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   $scope.locacion={};
   var reciente=0;
+
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
@@ -569,13 +572,16 @@ function getRecent(prod)
         location_id:reciente
         };
       apiService.postData(urlWarehouses,data);
+
       $location.path('/');
+
     });
     
     //$route.reload();
   };
 
   }])
+
 
 .controller('CtrlAlmacenNuevo',['SimLog','apiService',"$scope","$location","$routeParams","dataShareLocacion","dataShareAlmacen",function (SimLog,apiService,$scope, $location, $routeParams,dataShareLocacion,dataShareAlmacen) {
   var urlLocation="/locations";
@@ -584,6 +590,7 @@ function getRecent(prod)
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
+
 
   var idLocacion=dataShareLocacion.getData();
   //var idAlmacen=dataShareAlmacen.getData();
@@ -646,6 +653,7 @@ function getRecent(prod)
 
   }])
 .controller('CtrlDivisorNuevo',['SimLog','apiService',"$scope","$location","$routeParams","dataShareLocacion","dataShareAlmacen",function (SimLog,apiService,$scope, $location, $routeParams,dataShareLocacion,dataShareAlmacen) {
+
   var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urldivisor="/dividers";
@@ -674,6 +682,7 @@ function getRecent(prod)
   var idLocacion=0;
   var urlProducts="/products";
 
+
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
@@ -700,6 +709,7 @@ function getRecent(prod)
   
 }])
 .controller('CtrlCargarOrden',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareVariante",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareVariante) {
+
   var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
@@ -707,6 +717,7 @@ function getRecent(prod)
   var urlPurchaseOrders="/purchase_orders"
   var urlVarianteDivisor="/variant_divisions";
   var urlVarianteAlmacen="/variant_warehouses";
+
 
   var isLog=SimLog.getData();
   if(!isLog)
@@ -852,6 +863,7 @@ function getRecent(prod)
   if(!isLog)
     $location.path('/');
 
+
   var id_Prod=dataShareAlmacen.getData();
   $scope.varProdAlmacen=new Array();
   apiService.getSingleData(urlProducts,id_Prod).then(function(response){
@@ -915,10 +927,12 @@ function getRecent(prod)
   
 }])
 .controller('CtrlVarDivisorAl',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVariante","$modal","dataShareTransDivxDiv",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVariante,$modal,dataShareTransDivxDiv) {
+
   var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
   var urlVariants="/variants";
+
 
   var isLog=SimLog.getData();
   if(!isLog)
@@ -1031,6 +1045,7 @@ function getRecent(prod)
   };
   //***********************************************************
   $scope.divEnVar=new Array();
+
   var tempCantidad=0;
   apiService.getSingleData(urlVariants,id_Variante).then(function(response){
     $scope.variante=response.data;
@@ -1046,6 +1061,7 @@ function getRecent(prod)
       {
         //console.log(value);
         value.ApartadoNot=tempCantidad;
+
         $scope.divEnVar.push(value);
       };
       //$scope.Productos=response.data;
@@ -1058,16 +1074,19 @@ function getRecent(prod)
 
       $scope.divEnVar=JSON.parse(json);
 
+
       //********************************************************************
 
       //*******************************************************************************
       //console.log($scope.divEnVar);  
 }])
 .controller('CtrlOrdenesVentaInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout){
+
   var urlOrdenesV="/sell_orders";
   var urlVariantOV="/variant_sell_orders";
   var urlProducts="/products";
   var urlWarehouses="/warehouses";
+
   var urlVariantDivisor="/variant_divisions";
 
   var isLog=SimLog.getData();
@@ -1110,22 +1129,25 @@ function getRecent(prod)
    var ID_divisor;
    var ID_almacen;
    
-
   apiService.getSingleData(urlOrdenesV,$routeParams.id).then(function(response) {
     //console.log(response.data);
     $scope.ordenVenta=response.data;
     //pasamos por cada variante que tiene la orden de compra
     angular.forEach(response.data.variant_sell_orders,function(value,key){
       //para obtener el nombre del producto
+
       $scope.divisorName=value.divider.name;
+
       $scope.subTotalInd=$scope.subTotalInd+(value.amount*value.price_per_unit);
       apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response2) {
         value.variant.product_name=response2.data.name;
       });
       //para obtener la informacion del almacen
       apiService.getSingleData(urlWarehouses,value.divider.warehouse_id).then(function(response3) {
+
         $scope.AlmacenName=response3.data.name;
         $scope.LocacionName=response3.data.location.name;
+
         value.divider.warehouses_name=response3.data.name;
       });
 
@@ -1135,6 +1157,7 @@ function getRecent(prod)
   
 
 }])
+
 .controller('CtrlOrdenesVenta',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout){
   var urlOrdenesV="/sell_orders";  
   $scope.isDisabled = false;
@@ -1195,6 +1218,7 @@ function getRecent(prod)
       amount:0
     };
     
+
     apiService.postData(urlOrdenesV,data).then(function(response){
       apiService.getData(urlOrdenesV).then(function(response) {
         idRec=getRecent(response.data);
@@ -1211,6 +1235,7 @@ function getRecent(prod)
     
     $timeout(function(){
       
+
       $location.path('/app-nuevaOrdenV');
     }, 7000); 
     
@@ -1227,11 +1252,13 @@ function getRecent(prod)
   var urlOrdenesV="/sell_orders";
   var urlPrices="/prices";
   var urlClientes="/clients";
+
   var urlVariantOV="/variant_sell_orders";
 
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
+
 
   $scope.isDisabled = false;
   var idOrdenVentaBorrador=dataShareVenta.getData();
@@ -1586,6 +1613,7 @@ function getRecent(prod)
     $location.path('/app-nuevaOrdenC');
   };
 }])
+
 .controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout){
   var urlOrdenesC="/purchase_orders";  
   $scope.isDisabled = false;
@@ -1664,7 +1692,9 @@ function getRecent(prod)
 
   };
 }])
+
 .controller('CtrlOrdenesCNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra){
+
   var urlSuppliers="/suppliers"; 
   var urlLocation="/locations";  
   var urlWarehouses="/warehouses";
@@ -1673,9 +1703,11 @@ function getRecent(prod)
   var urlOrdenesC="/purchase_orders";
   var urlVariantO="/variant_orders";  
 
+
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
+
 
   $scope.isDisabled = false;
   var idOrdenBorrador=dataShareCompra.getData();
@@ -1933,12 +1965,14 @@ apiService.getData(urlLocation).then(function(response) {
     $location.path('/app-nuevaOrdenC');
   };
 }])
+
 .controller('EditCtrl',['SimLog','apiService',"$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
     /*var marcasURL = new Firebase("https://formacret.firebaseio.com/marcas/" + $routeParams.id);
     $scope.marcas = $firebaseObject(marcasURL);
     var marcasURLT = new Firebase("https://formacret.firebaseio.com/marcas/");
     $scope.marcasT = $firebaseArray(marcasURLT);
     $scope.marcaN={};*/
+
     var isLog=SimLog.getData();
     if(!isLog)
       $location.path('/');   
@@ -2054,6 +2088,7 @@ apiService.getData(urlLocation).then(function(response) {
     }
 
 }])
+
 .controller('CtrlEditarDirEnvio',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
 var urlClientes="/clients";
     var  urlDirEnvios="/send_orders";
@@ -2082,6 +2117,7 @@ var urlClientes="/clients";
       $location.path('/app-vistaClienteInd/'+$routeParams.id);
     }
   }])
+
 .controller('CtrlClientes',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
     var urlClientes="/clients";
     var  urlDirEnvios="/send_orders";
@@ -2242,6 +2278,7 @@ var IDsendCliente="";
     };
   }])
 
+
 .controller('EditCtrlDivisas',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
     var urlCurrency="/currencies";
 
@@ -2328,12 +2365,14 @@ var IDsendCliente="";
           $location.path('/app-vistaDivisa');
     };*/
   }])
+
 .controller('EditCtrlProveedor',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
     var urlSuppliers="/suppliers"
     var urlCurrency="/currencies"
     var isLog=SimLog.getData();
     if(!isLog)
       $location.path('/');   
+
 
     $scope.initFirst=function()
     {
@@ -2625,6 +2664,7 @@ var IDsendCliente="";
     //console.log(cartesian(["rojo","verde","azul"], ["chico","grande"],["feo","bonito"]));
 
   }])
+
 .controller('EditCtrlProductoInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
   var urlProducts="/products";
   var urlSuppliers="/suppliers";
@@ -2661,9 +2701,11 @@ var IDsendCliente="";
   var urlVariantPrices="/variant_prices";
   var urlVariant="/variants";
   var urlTaxes= "/taxes";
+
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
+
 
   var idP =  dataShare.getData();  
 
@@ -2738,6 +2780,7 @@ var IDsendCliente="";
   if(!isLog)
     $location.path('/');
 
+
   $scope.guardarCambiosV=function(data){
     apiService.putData(urlVariant,$routeParams.id,data);
     angular.forEach(data.variant_prices, function(value1, key) {
@@ -2764,6 +2807,7 @@ var IDsendCliente="";
     });
       
 }])
+
 .controller('EditCtrlVariantInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
   var urlVariant="/variants";
   apiService.getSingleData(urlVariant,$routeParams.id).then(function(response){
@@ -2775,6 +2819,7 @@ var IDsendCliente="";
       });
 }])
 .controller('EditCtrlProdInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
+
   var urlProducts="/products";
   var urlSuppliers="/suppliers";
   var urlBrands="/brands";
@@ -2786,18 +2831,20 @@ var IDsendCliente="";
       });
 
 }])
-
 .controller('CtrlLocacion',['SimLog',"apiService","$scope","$location","$routeParams","dataShareLocacion",function(SimLog,apiService,$scope, $location, $routeParams,dataShareLocacion) {
+
   var urlLocations="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
   var contador=0;
+
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
 
   $scope.productosIn
   Loc=new Array();
+
   dataShareLocacion.sendData($routeParams.id);
   $scope.nuevoAlmacen=function(){
     dataShareLocacion.sendData($routeParams.id);
@@ -2846,16 +2893,17 @@ var IDsendCliente="";
   });
 }])
 .controller('CtrlAddProdLoc',['SimLog',"apiService","$scope","$location","$routeParams",'$filter',"dataShareLocacion","$timeout",function(SimLog,apiService,$scope, $location, $routeParams,$filter,dataShareLocacion,$timeout) {
+
   var variantWare="/variant_warehouses";
   var variantDiv="/variant_divisions";
   var urlProducts="/products";
   var urlLocations="/locations";
   var urlWarehouses="/warehouses";
 
+
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
-
 
   var locacionId=dataShareLocacion.getData();
   $scope.SelectProd=true;
@@ -2919,6 +2967,7 @@ var IDsendCliente="";
   }
    /**/
 }])
+
 .controller('MainController', ['SimLog','apiService','$resource','$http','$scope', '$theme', '$timeout', 'progressLoader', 'wijetsService', '$location',
     function(SimLog,apiService,$resource,$http,$scope, $theme, $timeout, progressLoader, wijetsService, $location) {
     'use strict';

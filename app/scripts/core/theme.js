@@ -17,7 +17,6 @@ angular
     'theme.core.messages_controller',
     'theme.core.notifications_controller',
   ])
- 
   .run(['$window', function ($window) {
     $window.ngGrid.config = {
         footerRowHeight: 40,

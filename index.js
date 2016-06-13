@@ -4,11 +4,13 @@
 var express = require('express');
 var httpProxy = require('http-proxy');
 var bodyParser = require('body-parser');
+
 var jwt = require('jwt-simple');
 
 
 var apiForwardingUrl = 'http://stage-formacret.herokuapp.com';
 var portHeroku = process.env.PORT || 3000;
+
 // Solution for forwarding from http to https taken from:
 // http://stackoverflow.com/questions/15801014/how-to-use-node-http-proxy-for-http-to-https-routing
 var proxyOptions = {
@@ -26,12 +28,15 @@ console.log('Forwarding API requests to ' + apiForwardingUrl);
 // Node express server setup.
 var server = express();
 
+
 server.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
+
 server.set('port', 3000);
 server.use(express.static(__dirname + '/app'));
 
 //*****************Esto es para obtener la informacion individual de las marcas ************************************
 server.delete('/brands/:id', function(req, res) {
+
     var id= req.params.id;
     
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
@@ -39,9 +44,11 @@ server.delete('/brands/:id', function(req, res) {
 server.put('/brands/:id', function(req, res) {
     var id= req.params.id;
 
+
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/brands/:id', function(req, res) {
+
     var id= req.params.id;
 
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
@@ -114,12 +121,14 @@ server.all("/products", function(req, res) {
 
 //*****************Esto es para obtener la informacion individual de las proveedores*******************************
 server.delete('/suppliers/:id', function(req, res) {
+
     var id= req.params.id;
     
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/suppliers/:id', function(req, res) {
     var id= req.params.id;
+
 
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
@@ -136,17 +145,15 @@ server.all("/suppliers", function(req, res) {
 //*****************Esto es para obtener la informacion individual de las proveedores*******************************
 server.delete('/locations/:id', function(req, res) {
     var id= req.params.id;
-    
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/locations/:id', function(req, res) {
     var id= req.params.id;
-
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/locations/:id', function(req, res) {
-    var id= req.params.id;
 
+    var id= req.params.id;
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/locations", function(req, res) {
@@ -199,17 +206,14 @@ server.all("/dividers", function(req, res) {
 //*****************Esto es para obtener la informacion individual de las divisas*******************************
 server.delete('/currencies/:id', function(req, res) {
     var id= req.params.id;
-    
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/currencies/:id', function(req, res) {
     var id= req.params.id;
-
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/currencies/:id', function(req, res) {
     var id= req.params.id;
-
     apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/currencies", function(req, res) {
@@ -422,6 +426,7 @@ server.get('/variant_divisions/:id', function(req, res) {
 server.all("/variant_divisions", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
+
 //************transfer_variants******************************************************
 
 //*****************Esto es para obtener la informacion de la tabla de transfer_variants*******************************
@@ -475,5 +480,6 @@ server.use(bodyParser.urlencoded({
 
 // Start Server.
 server.listen(portHeroku, function() {
+
     console.log('Express server listening on port ' + portHeroku);
 });

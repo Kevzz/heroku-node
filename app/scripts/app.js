@@ -126,8 +126,6 @@ angular
   };
   return service;
 })
-
-
   .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
     
@@ -153,6 +151,26 @@ angular
         }
       })
 
+=======
+  .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
+    'use strict';
+    $routeProvider
+      .when('/', {
+        templateUrl: 'views/index.html',
+        resolve: {
+          loadChartsJs: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'bower_components/Chart.js/Chart.min.js'
+            ]);
+          }],
+          loadCalendar: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              'bower_components/fullcalendar/dist/fullcalendar.js'
+            ]);
+          }]
+        }
+      })
+>>>>>>> f9e9986fe00410524c363b83f2a90dbabba94f41
       .when('/app-agregarClientesDirEnv', {
         templateUrl: function(param) {
           return 'views/app-agregarClientesDirEnv.html';
@@ -340,7 +358,6 @@ angular
           return 'views/app-editarvariante.html';
         }
       })
-      
       .when('/prueba', {
         templateUrl: function(param) {
           return 'views/prueba.html';
@@ -348,6 +365,7 @@ angular
       })
       .when('/:templateFile', {
         templateUrl: function(param) {
+
           return 'views/' + param.templateFile ;
         }
       })
@@ -358,7 +376,6 @@ angular
         redirectTo: '/'
       });
   }])
-
   .directive('demoOptions', function () {
     return {
       restrict: 'C',

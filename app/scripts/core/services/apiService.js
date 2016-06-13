@@ -11,6 +11,7 @@ angular
 	};
 	ApiService.prototype.getSingleData=function(url,id)
 	{
+
 		//console.log(url+"/"+id);
 		return this.$http.get(url+"/"+id);
 	}
