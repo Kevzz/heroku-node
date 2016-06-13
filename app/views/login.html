@@ -1,15 +1,44 @@
-<div ng-controller="UserCtrl">
-  <span ng-show="isAuthenticated">{{welcome}}</span>
-  <form ng-show="!isAuthenticated" ng-submit="submit()">
-    <input ng-model="user.username" type="text" name="user" placeholder="Username" />
-    <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
-    <input type="submit" value="Login" />
-  </form>
-  <div>{{error}}</div>
-  <div ng-show="isAuthenticated">
-    <a ng-click="callRestricted()" href="">Shh, this is private!</a>
-    <br>
-    <div>{{message}}</div>
-    <a ng-click="logout()" href="">Logout</a>
-  </div>
+<div class="container" id="login-form" ng-controller="CtrlSigUp">
+  <a href="index.html" class="login-logo"><img masked-image src="assets/img/formacret-logo-prov.png"></a>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2>Iniciar sesion</h2>
+          </div>
+          <div class="panel-body">
+            
+            <form ng-submit="createLog()" class="form-horizontal" id="validate-form">
+              <div class="form-group">
+                            <div class="col-xs-12">
+                              <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-user"></i>
+                    </span>
+                    <input type="text" ng-model="us" class="form-control" placeholder="Username" data-parsley-minlength="6" placeholder="At least 6 characters" required>
+                  </div>
+                            </div>
+              </div>
+
+              <div class="form-group">
+                            <div class="col-xs-12">
+                              <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-key"></i>
+                    </span>
+                    <input ng-model="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+                            </div>
+              </div>
+            
+            <div class="panel-footer">
+              <div class="clearfix">
+                <input type="submit" class="btn btn-primary pull-right">
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

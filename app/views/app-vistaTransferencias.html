@@ -1,4 +1,4 @@
-<div ng-controller="CtrlOrdenesC">
+<div ng-controller="CtrlTransferencias">
     <ol class="breadcrumb">
         <li class=""><a href="index.html">Home</a></li>
         <li class=""><a href="#">Dashboard</a></li>
@@ -9,7 +9,7 @@
         <h1>&Oacute;rdenes de transferencia</h1>
         <div class="options">
             <div class="btn-toolbar">
-                <a ng-click="redNOrdenC()" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear &oacute;rden</a>
+                <a href="#/app-nuevaTransferencia"  class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear &oacute;rden</a>
             </div>
         </div>
     </div>
@@ -21,19 +21,17 @@
                         <thead>
                             <tr class="info">
                                 <th>Folio</th> 
-                                <th>Producto </th> 
                                 <th>Origen</th> 
                                 <th>Destino</th> 
                                 <th>Estado</th> 
                             </tr>
                         </thead>
                         <tbody >
-                            <tr ng-repeat="order in ordenesC">
-                                <td>{{order.number}}</td>
-                                <td>{{order.supplier.name}}</td>
-                                <td>{{order.status}}</td>
-                                <td>{{order.payment}}</td>
-                                <td>${{order.amount}}</td>
+                            <tr ng-repeat="transf in transferencias">
+                                <td><a href="#/app-vistaTransInd/{{transf.id}}">{{transf.number}}</a></td>
+                                <td>{{transf.origin.warehouse.location_name}} - {{transf.origin.warehouse.name}} - {{transf.origin.name}}</td>
+                                <td>{{transf.destination.warehouse.location_name}} - {{transf.destination.warehouse.name}} - {{transf.destination.name}}</td>
+                                <td>{{transf.status}}</td>
                             </tr>
                         </tbody>
                     </table>

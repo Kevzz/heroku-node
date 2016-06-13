@@ -4,6 +4,8 @@
 var express = require('express');
 var httpProxy = require('http-proxy');
 var bodyParser = require('body-parser');
+var jwt = require('jwt-simple');
+
 
 var apiForwardingUrl = 'http://stage-formacret.herokuapp.com';
 var portHeroku = process.env.PORT || 3000;
@@ -23,6 +25,8 @@ console.log('Forwarding API requests to ' + apiForwardingUrl);
 
 // Node express server setup.
 var server = express();
+
+server.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 server.set('port', 3000);
 server.use(express.static(__dirname + '/app'));
 
@@ -418,7 +422,51 @@ server.get('/variant_divisions/:id', function(req, res) {
 server.all("/variant_divisions", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
-//************variant_orders******************************************************
+//************transfer_variants******************************************************
+
+//*****************Esto es para obtener la informacion de la tabla de transfer_variants*******************************
+server.delete('/transfer_variants/:id', function(req, res) {
+    var id= req.params.id;
+    
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.put('/transfer_variants/:id', function(req, res) {
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.get('/transfer_variants/:id', function(req, res) {
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.all("/transfer_variants", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+
+//************variants******************************************************
+
+//*****************Esto es para obtener la informacion de la tabla de transferss*******************************
+server.delete('/transfers/:id', function(req, res) {
+    var id= req.params.id;
+    
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.put('/transfers/:id', function(req, res) {
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.get('/transfers/:id', function(req, res) {
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.all("/transfers", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+
+//************variants******************************************************
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({

@@ -18,6 +18,18 @@ angular
                 }
             }; 
     }])
+  .factory('SimLog',function($rootScope){
+  var service = {};
+  service.data = false;
+  service.sendData = function(data){
+      this.data = data;
+      $rootScope.$broadcast('data_shared');
+  };
+  service.getData = function(){
+    return this.data;
+  };
+  return service;
+})
   .factory('dataShare',function($rootScope){
   var service = {};
   service.data = false;
@@ -122,12 +134,22 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: function(param) {
-          return 'views/app-vistaProductos.html';
+          return 'views/login.html';
         }
       })
       .when('/app-vistaTransferencias', {
         templateUrl: function(param) {
           return 'views/app-vistaTransferencias.html';
+        }
+      })
+      .when('/app-vistaTransInd/:id', {
+        templateUrl: function(param) {
+          return 'views/app-vistaTransInd.html';
+        }
+      })
+      .when('/app-nuevaTransferencia', {
+        templateUrl: function(param) {
+          return 'views/app-nuevaTransferencia.html';
         }
       })
 
@@ -318,11 +340,7 @@ angular
           return 'views/app-editarvariante.html';
         }
       })
-      .when('/app-:templateFile', {
-        templateUrl: function(param) {
-          return 'views/app-' + param.templateFile + '.html';
-        }
-      })
+      
       .when('/prueba', {
         templateUrl: function(param) {
           return 'views/prueba.html';
@@ -330,14 +348,14 @@ angular
       })
       .when('/:templateFile', {
         templateUrl: function(param) {
-          return 'views/' + param.templateFile + '.html';
+          return 'views/' + param.templateFile ;
         }
       })
       .when('#', {
-        templateUrl: 'views/app-vistaProductos.html',
+        templateUrl: 'views/login.html',
       })
       .otherwise({
-        redirectTo: 'views/app-vistaProductos.html'
+        redirectTo: '/'
       });
   }])
 

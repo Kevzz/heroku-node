@@ -77,15 +77,7 @@ angular
     }, {
       label: 'Transferencias',
       iconClasses: '',
-      url: '#/',
-    }, {
-      label: 'Devolución',
-      iconClasses: '',
-      url: '#/',
-    }, {
-      label: 'Transferencias',
-      iconClasses: '',
-      url: '#/',
+      url: '#/app-vistaTransferencias',
     }, {
       label: 'Ajuste',
       iconClasses: '',
