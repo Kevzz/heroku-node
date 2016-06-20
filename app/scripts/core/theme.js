@@ -1,5 +1,4 @@
-angular
-  .module('theme', [
+angular.module('theme', [
     'ngCookies',
     'ngResource',
     'ngSanitize',

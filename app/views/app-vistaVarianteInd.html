@@ -9,7 +9,7 @@
   margin-top: 2.3rem;
 }
     </style>
-<div ng-controller="EditCtrlVariantInd">
+<div ng-controller="CtrlVariantInd">
 	<ol class="breadcrumb">
         <li class=""><a href="index.html">Home</a></li>
         <li class=""><a href="index.html">Dashboard</a></li>
@@ -64,11 +64,11 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr>
-                                    <td>SLP</td>
-                                    <td>Lomas</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                <tr ng-repeat="alm in variante.variant_warehouses">
+                                    <td>{{alm.warehouse.location_name}}</td>
+                                    <td>{{alm.warehouse.name}}</td>
+                                    <td>{{alm.stock}}</td>
+                                    <td>{{alm.stock}}</td>
                                 </tr>
                             </tbody>
                         </table>

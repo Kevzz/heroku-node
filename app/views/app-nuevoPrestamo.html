@@ -1,0 +1,118 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+</style>
+<div ng-controller="CtrlPrestamos">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/app-vistaProductos">Ordenes</a></li>
+      <li class=""><a href="#/app-vistaProductos">Prestamo</a></li>
+      <li class="active"><a href="#">Nuevo</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Nuevo prestamo</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+        </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form name="productForm" ng-submit="submitOrd()">
+        <div class="row ">
+          <div class="col-md-8 col-md-offset-2 borde-input">
+            <div class="title"><h3>&Oacute;rden de prestamo</h3></div>
+              <div class="form-group">
+                <label for="transfType" class="control-label">Seleccione el tipo de prestamo</label>
+                <select name="transfType" id="transfType" class="form-control" ng-model="transfType">
+                  <option value="">Selecciona el tipo de prestamo</option>
+                  <option value="1">Almac&eacute;n a almac&eacute;n</option>
+                  <option value="2">Locaci&oacute;n a Locaci&oacute;n</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="productSupp">Seleccione la Locaci&oacute;n:</label>
+                <select id="productSupp" name="productSupp" class="form-control" ng-change="almacenesOrigen()" ng-model="LocOrigen">
+                  <option value="">Locaci&oacute;n Origen</option>
+                  <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="productSupp">Seleccione el origen:</label>
+                <select id="productSupp" name="productSupp" class="form-control" ng-model="divOrigen" ng-change="prodDiv()">
+                  <option value="">Almacen / Divisor</option>
+                  <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
+                </select>
+              </div>
+            
+          </div>
+        </div>
+        <div class="row top-buffer" ng-show="transfType==2">
+          <div class="col-md-8 col-md-offset-2 borde-input">
+            <div class="form-group">
+              <label for="LocDestino">Seleccione la Locaci&oacute;n:</label>
+              <select id="LocDestino" name="LocDestino" class="form-control" ng-change="almacenesDestino()" ng-model="LocDestino">
+                <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="productSupp">Seleccione el destino:</label>
+                <select id="productSupp" name="productSupp" class="form-control" ng-model="divDestinoOp2">
+                  <option ng-repeat="option in opciones_destino" value="{{option.id_div}}">{{option.name}}</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="row top-buffer" ng-show="transfType==1">
+          <div class="col-md-8 col-md-offset-2 borde-input">
+            <div class="form-group">
+                <label for="productSupp">Seleccione el destino:</label>
+                <select id="productSupp" name="productSupp" class="form-control" ng-model="divDestinoOp1">
+                  <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="row top-buffer">
+
+          <div class="col-md-offset-2 col-md-8 borde-input">
+            
+            <button data-ng-click="cloneItem()" type="button" class="btn inline">
+              Agregar producto
+            </button>
+              <div class="row" ng-repeat="variant in variants">
+                <div class="col-md-5">
+                  <label for="productSupp">Productos:</label>
+                  <select id="productSupp" name="productSupp" class="form-control" ng-model="variant.id_var" ng-change="checkAb($index,variant.id_var)">
+                    <option ng-repeat="optionPT in ProdVarDiv.variant_divisions" value="{{optionPT.variant.id}}">{{optionPT.variant.prodName}} / {{optionPT.variant.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <label for="productSupp">Disponibles:</label>
+                  <span>{{variant.max}}</span>
+                </div>
+                <div class="col-md-2">
+                  <label for="productSupp">Cantidad:</label>
+                  <input type="number" max="{{variant.max}}" class="form-control" ng-model="variant.amount" placeholder="cantidad">
+                </div>
+                <div class="col-md-2">
+                  <button data-ng-click="removeItem($index)" type="button" class="btn delete-field-{{$index}} ">
+                      Eliminar
+                  </button>
+                </div>
+              </div>
+                
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 col-md-offset-5">
+            <button class="btn-primary btn" ng-disabled="SubmitOnce">Crear orden</button>
+          </div>
+        </div>
+    </form>
+    </div>
+</div>

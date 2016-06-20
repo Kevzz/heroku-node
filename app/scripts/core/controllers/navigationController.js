@@ -73,16 +73,12 @@ angular
     }, {
       label: 'Prestamos',
       iconClasses: '',
-      url: '#/',
+      url: '#/app-vistaPrestamos',
     }, {
       label: 'Transferencias',
       iconClasses: '',
 
       url: '#/app-vistaTransferencias',
-    }, {
-      label: 'Ajuste',
-      iconClasses: '',
-      url: '#/',
     }];
     angular.forEach(menuFaltante,function(value3,key){
       menuPs.push(value3);

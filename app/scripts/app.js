@@ -150,6 +150,21 @@ angular
           return 'views/app-nuevaTransferencia.html';
         }
       })
+      .when('/app-vistaPrestamos', {
+        templateUrl: function(param) {
+          return 'views/app-vistaPrestamos.html';
+        }
+      })
+      .when('/app-vistaLoanInd/:id', {
+        templateUrl: function(param) {
+          return 'views/app-vistaLoanInd.html';
+        }
+      })
+      .when('/app-nuevoPrestamo', {
+        templateUrl: function(param) {
+          return 'views/app-nuevoPrestamo.html';
+        }
+      })
       .when('/app-agregarClientesDirEnv', {
         templateUrl: function(param) {
           return 'views/app-agregarClientesDirEnv.html';

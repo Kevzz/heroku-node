@@ -14,6 +14,300 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       return output;
    };
 })
+.controller('CtrlPrestamos',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
+  var urlLocations="/locations";
+  var urlTransfers="/transfers";
+  var urlDividers="/dividers";
+  var urlProducts="/products";
+  var urlTransfersVar="/transfer_variants";
+  var urlVariantDivisor="/variant_divisions";
+  var urlPrestamo="/loans"
+  $scope.SubmitOnce=false;
+  $scope.exiteDIvVar=false;
+
+  $scope.opciones_origen=[];
+  $scope.opciones_destino=[];
+  $scope.LocOrigen;
+
+  $scope.variants=[{
+    id_var:"",
+    amount:""
+  }];
+  $scope.cloneItem = function () {
+    var itemToClone = { "id_var": 0, "amount": 0 };
+    $scope.variants.push(itemToClone);
+  }
+
+  $scope.removeItem = function (itemIndex) {
+    $scope.variants.splice(itemIndex, 1);
+  }
+
+  var isLog=SimLog.getData();
+  if(!isLog)
+    $location.path('/');
+
+  apiService.getData(urlPrestamo).then(function(response){
+    $scope.prestamos=response.data;
+    angular.forEach($scope.prestamos,function(value,key){
+      apiService.getSingleData(urlLocations,value.origin.warehouse.location_id).then(function(response){
+        value.origin.warehouse.location_name=response.data.name;
+      });
+      apiService.getSingleData(urlLocations,value.destination.warehouse.location_id).then(function(response){
+        value.destination.warehouse.location_name=response.data.name;
+      });
+    });
+    //console.log($scope.locations);
+  });
+
+
+  apiService.getData(urlLocations).then(function(response){
+    $scope.locations=response.data;
+    //console.log($scope.locations);
+  });
+  $scope.almacenesOrigen=function(){
+    $scope.opciones_origen=[];
+    apiService.getSingleData(urlLocations,$scope.LocOrigen).then(function(response){
+      angular.forEach(response.data.warehouses,function(data,key){
+        if(data.name!='Global')
+        {
+          angular.forEach(data.dividers,function(data2,key){
+            var datToPush={
+              name:data.name+"/"+data2.name,
+              id_div:data2.id,
+              id_alm:data.id
+              };
+
+            $scope.opciones_origen.push(datToPush);
+            //console.log($scope.opciones_origen);
+          });  
+        }
+      });
+    });
+  };
+  $scope.almacenesDestino=function(){
+    $scope.opciones_destino=[];
+    console.log($scope.LocDestino);
+    apiService.getSingleData(urlLocations,$scope.LocDestino).then(function(response){
+      angular.forEach(response.data.warehouses,function(data,key){
+        if(data.name!='Global')
+        {
+          angular.forEach(data.dividers,function(data2,key){
+            var datToPushD={
+              name:data.name+"/"+data2.name,
+              id_div:data2.id,
+              id_alm:data.id
+              };
+
+            $scope.opciones_destino.push(datToPushD);
+            console.log($scope.opciones_origen);
+          });  
+        }
+      });
+    });
+  };
+  $scope.prodDiv=function(){
+    //console.log("entro");
+    apiService.getSingleData(urlDividers,$scope.divOrigen).then(function(response){
+      $scope.ProdVarDiv=response.data;
+      //console.log(response.data);
+      angular.forEach($scope.ProdVarDiv.variant_divisions, function(value, key) {
+        //console.log(value);
+        apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response2) {
+        value.variant.prodName=response2.data.name;
+        });
+      });
+      //console.log($scope.ProdVarDiv);
+    });
+  };
+  $scope.checkAb=function(index,id){
+    angular.forEach($scope.ProdVarDiv.variant_divisions,function(value,key){
+
+      if(value.variant.id==id)
+      {
+        maxVarDiv=value.total;
+        $scope.variants[index].max=maxVarDiv;
+        //console.log(maxVarDiv);
+      }
+    });
+
+  };
+  $scope.submitOrd=function(){
+    $scope.SubmitOnce=true;
+    var banderaMax=false;
+    var banderaRep=false;
+    var banderadesTS=false;
+    var  destino=0;
+
+    if(!$scope.divDestinoOp2)
+      destino=$scope.divDestinoOp1;
+    else if(!$scope.divDestinoOp1)
+      destino=$scope.divDestinoOp2;
+    else
+      banderadesTS=true;
+
+    var idVarSel=[];
+    if(($scope.divDestinoOp1==$scope.divOrigen)||($scope.divDestinoOp2==$scope.divOrigen))
+    {
+      alert("el destino y origen no pueden ser los mismos");
+      $scope.SubmitOnce=false;
+      return false;
+    }
+    angular.forEach($scope.variants,function(value,key){
+      if(value.amount==value.max)
+      {
+        banderaMax=true;
+      }
+      idVarSel.push(value.id_var);
+    });
+    var sorted_arr = idVarSel.slice().sort();
+    var results = [];
+    for (var i = 0; i < idVarSel.length - 1; i++) {
+        if (sorted_arr[i + 1] == sorted_arr[i]) {
+            results.push(sorted_arr[i]);
+        }
+    }
+    if(results.length>0){
+      banderaRep=true;
+    }
+    if(banderaRep==true)
+    {
+      alert("No se puede Repetir variantes");
+      $scope.SubmitOnce=false;
+      return false;
+    }
+    else if(banderaMax==true)
+    {
+      alert("No se puede Repetir variantes");
+      $scope.SubmitOnce=false;
+      return false; 
+    }
+    else if(banderadesTS==true)
+    {
+      alert("No se selecciono destino");
+      $scope.SubmitOnce=false;
+      return false; 
+    }
+    else
+    {
+      var data={
+        status:"Pendiente",
+        origin_id:$scope.divOrigen,
+        destination_id:destino,
+        loan:true
+      };
+      apiService.postData(urlTransfers,data).then(function(response){
+        apiService.getData(urlTransfers).then(function(responseNew){
+          reciente=getRecent(responseNew.data);
+          console.log(reciente);
+          var newData={
+            number:"OP_"+reciente
+          };
+          apiService.putData(urlTransfers,reciente,newData);
+          angular.forEach($scope.variants,function(valor,llave){
+            var dataTr={
+              transfer_id:reciente,
+              variant_id:valor.id_var,
+              amount:valor.amount,
+            };
+            apiService.postData(urlTransfersVar,dataTr);
+            
+          });
+          $location.path("/app-vistaPrestamos");
+        })
+        
+      });
+    }
+
+  };
+function getRecent(prod)
+    {
+      var tmp;
+      var tmp1;
+      var id=prod[prod.length-1].id;
+      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+      //console.log(mayor);
+      if(prod.length==1)
+      {
+        id=prod.id;
+      }
+      else
+      {
+        
+        for (var i=prod.length-1; i>=0; i--) {
+          
+          tmp = new Date(prod[i].updated_at).getTime();
+          
+          if( tmp > mayor)
+          {
+            //console.log("tmp>mayor");
+            mayor=tmp;
+            //console.log(mayor);
+            id=prod[i].id;
+
+          }
+          else if(tmp<mayor)
+          {
+            //id=prod[i].id;
+            continue;
+          }
+          else if(tmp=mayor)
+          {
+            //id=prod[i].id;
+            continue;
+          }
+        }
+      }
+      return id;
+    }
+}])
+.controller('CtrlLoansInd',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
+ var urlLocations="/locations";
+  var urlTransfers="/transfers";
+  var urlDividers="/dividers";
+  var urlProducts="/products";
+  var urlWarehouses="/warehouses";
+  var urlVariantDivisor="/variant_divisions";
+  var urlVariantWarehouse="/variant_warehouses";
+  var isLog=SimLog.getData();
+  if(!isLog)
+    $location.path('/');
+
+  apiService.getSingleData(urlTransfers,$routeParams.id).then(function(response){
+    $scope.LoanInd=response.data;
+    angular.forEach($scope.LoanInd.transfer_variants,function(value,key){
+      angular.forEach($scope.LoanInd.variants,function(value2,key){
+        if(value2.id==value.variant.id)
+        {
+          value.product_name=value2.product.name;
+        }
+      });
+    });
+    apiService.getSingleData(urlLocations,$scope.LoanInd.origin.warehouse.location_id).then(function(response){
+        $scope.LoanInd.origin.warehouse.location_name=response.data.name;
+    });
+      apiService.getSingleData(urlLocations,$scope.LoanInd.destination.warehouse.location_id).then(function(response){
+        $scope.LoanInd.destination.warehouse.location_name=response.data.name;
+    });
+  });
+
+  $scope.changeStatus=function(){
+    var dataUPD={
+      status:"Prestado"
+    }
+    apiService.putData(urlTransfers,$routeParams.id,dataUPD).then(function(resp){
+      $location.path('/app-vistaPrestamos');  
+    });
+    
+  }
+  $scope.changeStatusDevuelto=function(){
+    var dataUPD={
+      status:"Devuelto"
+    }
+    apiService.putData(urlTransfers,$routeParams.id,dataUPD).then(function(resp){
+      $location.path('/app-vistaPrestamos');  
+    });
+  } 
+}])
 .controller('CtrlTransfInd',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlLocations="/locations";
   var urlTransfers="/transfers";
@@ -78,39 +372,6 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
               apiService.putData(urlVariantDivisor,valDiv.id,datDiv_Var);
             }  
           }
-
-          if(valDiv.divider.id==$scope.TransInd.destination_id)
-          {
-
-            if(valDiv.variant.id==valTra.variant.id)
-            {
-              var datDiv_Var_des={
-                total:(valDiv.total)+(valTra.amount)
-              };
-              console.log("si realizo la actualizcion del registro del div X var destino")
-              console.log(valDiv.id);
-              apiService.putData(urlVariantDivisor,valDiv.id,datDiv_Var_des);  
-            } 
-            /*else
-            {
-              var darDivVarDesNew={
-                divider_id:$scope.TransInd.destination_id,
-                variant_id:valTra.variant.id,
-                pri:1,
-                total:valTra.amount
-              }
-              var varWarDesnew={
-                warehouse_id:$scope.TransInd.destination.warehouse.id,
-                variant_id:valTra.variant.id,
-                stock:valTra.amount,
-                status:"D"
-              };
-              apiService.postData(urlVariantWarehouse,varWarDesnew);
-              apiService.postData(urlVariantDivisor,darDivVarDesNew);
-
-            } */
-          }
-          
         });
        
         
@@ -125,7 +386,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
             if((valWar.variant.id==valTra.variant.id)&&($scope.TransInd.origin.warehouse.id==valWar.warehouse.id))
             {
               var datWar_Var={
-                stock:(valWar.stock)-(valTra.amount)
+                stock:parseInt(valWar.stock)-parseInt(valTra.amount)
               };
               apiService.putData(urlVariantWarehouse,valWar.id,datWar_Var);
             }
@@ -142,7 +403,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
             {
               flagUpd=true;
               var datWar_Var={
-                stock:(valWarRes.stock)+(valTra.amount)
+                stock:parseInt(valWarRes.stock)+parseInt(valTra.amount)
               };
               apiService.putData(urlVariantWarehouse,valWarRes.id,datWar_Var);
             }
@@ -153,40 +414,45 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         
 
       });
+        /* *************** Lo que se hizo aqui fue para el destino sumar el valor pero del divisor , ya sirve el almacen*/
+      apiService.getSingleData(urlDividers,$scope.TransInd.destination_id).then(function(response){
+        $scope.diviOrigen=response.data;
+        //****************   Destino ****************************************++
+
+          angular.forEach($scope.diviOrigen.variant_divisions,function(valDivO,keyDiv){
+            
+            angular.forEach($scope.TransInd.transfer_variants,function(valTra,keyTra){
+              //console.log(valDivO.divider.id);
+              //console.log($scope.TransInd.destination_id);
+              if(valDivO.divider.id==$scope.TransInd.destination_id)
+              {
+                if(valDivO.variant.id==valTra.variant.id)
+                {
+                  var datDiv_Var_des={
+                    total:parseInt(valDivO.total)+parseInt(valTra.amount)
+                  };
+                  //console.log("si realizo la actualizcion del registro del div X var destino")
+                  //console.log(valDivO.id);
+                  apiService.putData(urlVariantDivisor,valDivO.id,datDiv_Var_des);  
+                } 
+              }
+              
+            });
+           
+            
+          });
+          $location.path('#/app-vistaTransferencias');
+      });
     });
 
-/* *************** Lo que se hizo aqui fue para el destino sumar el valor pero del divisor , ya sirve el almacen*/
-  apiService.getSingleData(urlDividers,$scope.TransInd.destination_id).then(function(response){
-    $scope.diviOrigen=response.data;
-    //****************   Destino ****************************************++
-      angular.forEach($scope.diviOrigen.variant_divisions,function(valDivO,keyDiv){
-        
-        angular.forEach($scope.TransInd.transfer_variants,function(valTra,keyTra){
-          if(valDivO.divider.id==$scope.TransInd.destination_id)
-          {
-            if(valDivO.variant.id==valTra.variant.id)
-            {
-              var datDiv_Var_des={
-                total:(valDivO.total)+(valTra.amount)
-              };
-              console.log("si realizo la actualizcion del registro del div X var destino")
-              console.log(valDivO.id);
-              apiService.putData(urlVariantDivisor,valDivO.id,datDiv_Var_des);  
-            } 
-          }
-          
-        });
-       
-        
-      });
-      $location.path('#/app-vistaTransferencias');
-  });
+
 }
 
 }])
 .controller('CtrlTransferencias',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlLocations="/locations";
   var urlTransfers="/transfers";
+  var urlTransferences="/transferences";
   var urlDividers="/dividers";
   var urlProducts="/products";
   var urlTransfersVar="/transfer_variants";
@@ -215,7 +481,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   if(!isLog)
     $location.path('/');
 
-  apiService.getData(urlTransfers).then(function(response){
+  apiService.getData(urlTransferences).then(function(response){
     $scope.transferencias=response.data;
     angular.forEach($scope.transferencias,function(value,key){
       apiService.getSingleData(urlLocations,value.origin.warehouse.location_id).then(function(response){
@@ -326,7 +592,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   };
   $scope.checkAbAll=function(variantes,destino){
     var banderaExiste=false;
-    apiService.getSingleData(urlDividers,divCheck).then(function(respDivCheck){
+    apiService.getSingleData(urlDividers,destino).then(function(respDivCheck){
       angular.forEach(respDivCheck.data.variant_divisions,function(valCh,keyCh){
         angular.forEach(variantes,function(valVar,keyVar){
           if((valCh.variant.id==valVar.id_var)&&(valCh.divider.id==destino))
@@ -421,7 +687,8 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       var data={
         status:"Pendiente",
         origin_id:$scope.divOrigen,
-        destination_id:destino
+        destination_id:destino,
+        loan:false
       };
       apiService.postData(urlTransfers,data).then(function(response){
         apiService.getData(urlTransfers).then(function(responseNew){
@@ -441,7 +708,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
             
           });
         })
-        
+        $location.path('#/app-vistaTransferencias');
       });
     }
 
@@ -824,7 +1091,7 @@ function getRecent(prod)
               apiService.getSingleData(urlVarianteAlmacen,idvarianteAlmacen).then(function(respuesta){
                 cantidadVieja=respuesta.data.stock;
                 var data={
-                  stock:cantidadVieja+value3.amount,
+                  stock:parseInt(cantidadVieja)+parseInt(value3.amount),
                   status:"D"
                   };
                   apiService.putData(urlVarianteAlmacen,idvarianteAlmacen,data);  
@@ -2808,10 +3075,16 @@ var IDsendCliente="";
       
 }])
 
-.controller('EditCtrlVariantInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
+.controller('CtrlVariantInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
   var urlVariant="/variants";
+  var urlLocations="/locations";
   apiService.getSingleData(urlVariant,$routeParams.id).then(function(response){
         $scope.variante=response.data;
+        angular.forEach($scope.variante.variant_warehouses, function(value, key) {
+          apiService.getSingleData(urlLocations,value.warehouse.location_id).then(function(response) {
+            value.warehouse.location_name=response.data.name;
+          });
+        });
         $scope.variante.variant_prices.sort(function(a, b) {
             return a.id - b.id;
         });

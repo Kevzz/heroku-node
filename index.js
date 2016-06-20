@@ -471,6 +471,20 @@ server.all("/transfers", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 
+//******************************************************************
+
+//*****************Esto es para obtener solo la informacionde cuales son transferencias *******************************
+server.all("/transferences", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+
+//************variants******************************************************
+
+//*****************Esto es para obtener solo la informacionde cuales son transferencias *******************************
+server.all("/loans", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+
 //************variants******************************************************
 
 server.use(bodyParser.json());
