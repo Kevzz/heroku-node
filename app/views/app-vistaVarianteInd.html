@@ -18,10 +18,10 @@
         <li class="active"><a href="#">Variante: {{variante.name}}</a></li>
 	</ol>
 	<div class="page-heading">
-		<h1>{{variante.product.name}}: {{variante.name}}</h1> <span><a href="#/app-editarVariante/{{variante.id}}">Editar</a></span>
+		<h1>{{variante.product.name}}: {{variante.name}}</h1>
 		<div class="options">
 	    	<div class="btn-toolbar">
-	        	<a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+	        	<a href="#/app-editarVariante/{{variante.id}}" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i>Editar</a>
 	    	</div>
 		</div>
 	</div>
@@ -59,7 +59,6 @@
                                 <tr class="info">
                                     <th>Locaci&oacute;n</th> 
                                     <th>Almac&eacute;n</th> 
-                                    <th>Disponible</th> 
                                     <th>En almacen</th> 
                                 </tr>
                             </thead>
@@ -67,7 +66,6 @@
                                 <tr ng-repeat="alm in variante.variant_warehouses">
                                     <td>{{alm.warehouse.location_name}}</td>
                                     <td>{{alm.warehouse.name}}</td>
-                                    <td>{{alm.stock}}</td>
                                     <td>{{alm.stock}}</td>
                                 </tr>
                             </tbody>

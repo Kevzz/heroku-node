@@ -32,20 +32,15 @@ span.td
 }
     </style>
 <div ng-controller="EditCtrlVariantesInd">
-  <ol class="breadcrumb">
+  <ol class="breadcrumb"> 
       <li class=""><a href="#/">Home</a></li>
       <li class=""><a href="#/">Dashboard</a></li>
       <li class=""><a href="#/app-vistaProductos">Productos</a></li>
-      <li class=""><a href="#">{{variantesFormC[0].product.name}}</a></li>
+      <li class=""><a href="#/app-vistaProductoInd/{{variant.product.id}}">Producto: {{variant.product.name}}</a></li>
       <li class="active"><a href="#">Alta de variantes</a></li>
   </ol>
   <div class="page-heading">
     <h1>Alta de variantes</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
   </div>
 
   <div class="container-fluid">

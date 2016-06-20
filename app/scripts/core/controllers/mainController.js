@@ -3049,6 +3049,12 @@ var IDsendCliente="";
 
 
   $scope.guardarCambiosV=function(data){
+    //console.log(data.status);
+    if(data.status==false)
+      data.status="C";
+    if(data.status==true)
+      data.status="U";
+
     apiService.putData(urlVariant,$routeParams.id,data);
     angular.forEach(data.variant_prices, function(value1, key) {
           var dataP={

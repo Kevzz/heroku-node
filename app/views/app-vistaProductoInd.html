@@ -58,7 +58,7 @@
                             </thead>
                             <tbody >
                                 <tr ng-repeat=" vari in prod.variants" >
-                                    <td><a href="#/app-vistaVarianteInd/{{vari.id}}">{{ vari.name }}</a>   <span ng-show="vari.status=='U'">No disponible</span><span ng-show="vari.status=='I'">Incompleto</span><span ng-show="vari.status=='C'">Completo</span></td>
+                                    <td><a href="#/app-vistaVarianteInd/{{vari.id}}">{{ vari.name }}</a>   <span ng-show="vari.status=='U'||vari.status=='t'">No disponible</span><span ng-show="vari.status=='I'">Incompleto</span><span ng-show="vari.status=='C'||vari.status=='f'">Completo</span></td>
                                     <td>{{ vari.sku }}</td>
                                     <td>0</td>
                                     <td>0</td>
