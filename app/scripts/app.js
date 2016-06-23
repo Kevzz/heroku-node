@@ -349,7 +349,7 @@ angular
       })
       .when('/app-editarVariante/:id', {
         templateUrl: function(param) {
-          return 'views/app-editarvariante.html';
+          return 'views/app-editarVariante.html';
         }
       })
       .when('/prueba', {

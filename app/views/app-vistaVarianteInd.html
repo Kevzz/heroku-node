@@ -11,8 +11,7 @@
     </style>
 <div ng-controller="CtrlVariantInd">
 	<ol class="breadcrumb">
-        <li class=""><a href="index.html">Home</a></li>
-        <li class=""><a href="index.html">Dashboard</a></li>
+        <li class=""><a href="#/">Home</a></li>
         <li class=""><a href="#/app-vistaProductos">Productos</a></li>
         <li class=""><a href="#/app-vistaProductoInd/{{variante.product.id}}">Producto: {{variante.product.name}}</a></li>
         <li class="active"><a href="#">Variante: {{variante.name}}</a></li>
@@ -21,7 +20,8 @@
 		<h1>{{variante.product.name}}: {{variante.name}}</h1>
 		<div class="options">
 	    	<div class="btn-toolbar">
-	        	<a href="#/app-editarVariante/{{variante.id}}" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i>Editar</a>
+	        	<a href="#/app-editarVariante/{{variante.id}}" class="btn btn-default"><i class="fa fa-fw fa-pencil"></i>Editar</a>
+                <a ng-click="elimVar()" class="btn btn-default"><i class="fa fa-fw fa-trash"></i>Eliminar</a>
 	    	</div>
 		</div>
 	</div>

@@ -1,16 +1,6 @@
-<style type="text/css">
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 15px;
-}
-    </style>
 <div ng-controller="CtrlAlmacenNuevo">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
-      <li class=""><a href="#/">Dashboard</a></li>
       <li class="active"><a href="#">Nueva Locacion</a></li>
   </ol>
   <div class="page-heading">
@@ -26,7 +16,6 @@ th, td {
       <h3> Informaci&oacute;n general</h3>
       <label for="nombreAlmacen">Nombre:</label>
       <input id="nombreAlmacen" type="text" name="nombreAlmacen" ng-model="almacenN.name" required /><br />
-   
       <input type="submit" value="Save" class="btn btn-primary">
       <br />
     </form>    

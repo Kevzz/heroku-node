@@ -1,7 +1,6 @@
 <div ng-controller="EditCtrl">
   <ol class="breadcrumb">
     <li class=""><a href="#/">Home</a></li>
-    <li class=""><a href="#/">Dashboard</a></li>
     <li class=""><a href="#/app-vistaMarcas">Marcas</a></li>
     <li class="active"><a href="#">Nueva</a></li>
   </ol>
@@ -17,7 +16,6 @@
     <h1>Formulario para crear marca</h1>
       <form>
             <input type="text" ng-model="formData.name" placeholder="Nombre" />
-            
             <button type="submit" class="btn btn-primary" ng-click="sub(formData)">Submit</button>
       </form>
       <br />

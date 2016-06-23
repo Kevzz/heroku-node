@@ -11,16 +11,16 @@
     </style>
 <div ng-controller="EditCtrlProdInd">
 	<ol class="breadcrumb">
-        <li class=""><a href="index.html">Home</a></li>
-        <li class=""><a href="index.html">Dashboard</a></li>
+        <li class=""><a href="#/">Home</a></li>
         <li class=""><a href="#/app-vistaProductos">Productos</a></li>
         <li class="active"><a href="#">Producto: {{ prod.name }}</a></li>
 	</ol>
 	<div class="page-heading">
-		<h1>Producto: {{ prod.name }}</h1><span><a href="#/app-editarProducto/{{prod.id}}">Editar</a></span>
-		<div class="options">
+		<h1>Producto: {{ prod.name }}</h1>
+        <div class="options">
 	    	<div class="btn-toolbar">
-	        	<a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+	        	<a href="#/app-editarProducto/{{prod.id}}" class="btn btn-default"><i class="fa fa-fw fa-pencil"></i>Editar</a>
+                <a ng-click="elimProd()" class="btn btn-default"><i class="fa fa-fw fa-trash"></i>Eliminar</a>
 	    	</div>
 		</div>
 	</div>
@@ -58,10 +58,10 @@
                             </thead>
                             <tbody >
                                 <tr ng-repeat=" vari in prod.variants" >
-                                    <td><a href="#/app-vistaVarianteInd/{{vari.id}}">{{ vari.name }}</a>   <span ng-show="vari.status=='U'||vari.status=='t'">No disponible</span><span ng-show="vari.status=='I'">Incompleto</span><span ng-show="vari.status=='C'||vari.status=='f'">Completo</span></td>
+                                    <td><a href="#/app-vistaVarianteInd/{{vari.id}}">{{ vari.name }}</a>   <span ng-show="vari.status=='U'||vari.status=='t'">No disponible</span><span ng-show="vari.status=='I'">Incompleto</span><span ng-show="vari.status=='A'">Archivado</span><span ng-show="vari.status=='C'||vari.status=='f'">Completo</span></td>
                                     <td>{{ vari.sku }}</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td><span ng-show="vari.disponible<0">{{vari.disponible+vari.almac}}</span><span  ng-show="vari.disponible==0">{{vari.disponible}}</span></td>
+                                    <td>{{vari.almac}}</td>
                                 </tr>
                             </tbody>
                         </table>

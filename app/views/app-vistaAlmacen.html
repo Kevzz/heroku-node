@@ -1,15 +1,16 @@
 <div ng-controller="CtrlAlmacen">
     <ol class="breadcrumb">
-        <li class=""><a href="index.html">Home</a></li>
-        <li class=""><a href="#">Dashboard</a></li>
-        <li class="active"><a href="#">Nommbre de almacen</a></li>
-        <li class="active"><a href="#">Almacen (Nombre de almacen)</a></li>
+        <li class=""><a href="#/">Home</a></li>
+        <li class=""><a href="#">{{almacenes.location.name}}</a></li>
+        <li class="active"><a href="#">Almacen {{almacenes.name}}</a></li>
     </ol>
+
     <div class="page-heading">            
         <h1>Productos en {{almacenes.name}}</h1>
         <div class="options">
             <div class="btn-toolbar">
                 <a ng-click="nuevoDivisor()" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear Divisor</a>
+                <a ng-click="cargarOrden()" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>CargarOrden</a>
             </div>
         </div>
     </div>

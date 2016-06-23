@@ -1,17 +1,9 @@
-<style type="text/css">
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 15px;
-}
-    </style>
 <div ng-controller="CtrlDivisorNuevo">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
-      <li class=""><a href="#/">Dashboard</a></li>
-      <li class="active"><a href="#">Nueva DIvisor</a></li>
+      <li class=""><a href="#/app-vistaLocacion/{{almacenOr.location.id}}"> {{almacenOr.location.name}} </a></li>
+      <li class=""><a href="#/app-vistaAlmacen/{{almacenOr.id}}">Almacen {{almacenOr.name}}</a></li>
+      <li class="active"><a href="#">Nuevo DIvisor</a></li>
   </ol>
   <div class="page-heading">
     <h1>Nuevo Divisor</h1>

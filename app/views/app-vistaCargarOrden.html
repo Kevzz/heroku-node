@@ -8,10 +8,11 @@
   margin-top: 2.3rem;
 }  
 </style>
-<div ng-controller="CtrlCargarOrden">
   <ol class="breadcrumb">
+<div ng-controller="CtrlCargarOrden">
       <li class=""><a href="#/">Home</a></li>
-      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/app-vistaLocacion/{{almacenOrigen.location.id}}"> {{almacenOrigen.location.name}} </a></li>
+      <li class=""><a href="#/app-vistaAlmacen/{{almacenOrigen.id}}">Almacen {{almacenOrigen.name}}</a></li>
       <li class="active"><a href="#">Cargar Orden</a></li>
   </ol>
   <div class="page-heading">
