@@ -1,0 +1,40 @@
+<div ng-controller="CtrlListas">
+    <ol class="breadcrumb">
+        <li class=""><a href="#">Home</a></li>
+    </ol>
+    <div class="page-heading">            
+        <h1>Listas</h1>
+    </div>
+    <div class="row inMargin">
+        <div class="row">
+            <div class="col-md-10">
+                <h1>Criterios de variable</h1>
+                <div class="options">
+                    <div class="btn-toolbar">
+                        <a href="#/app-nuevoCriterio" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Agregar criterio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">    
+            <div class="col-md-11">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Status</th>
+                          <th></th> 
+                        </tr>
+                    </thead>
+                    <tr ng-repeat=" crit in criterios">
+                        <td>{{ crit.name }}</td>
+                        <td><span ng-show="crit.status=='A'">Archivado</span><span ng-show="crit.status=='D'">Disponible</span> </td>
+                        <td><a href="#/app-editarCriterio/{{crit.id}}">Editar</a>     <a ng-click="archivarCrit(crit.id)">Archivar</a></td>
+                    </tr>
+                </table>    
+            </div>
+        
+        </div>
+        
+    </div>
+</div>

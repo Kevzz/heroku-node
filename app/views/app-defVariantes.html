@@ -1,11 +1,5 @@
 <style type="text/css">
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 15px;
-}
+    
 .form-control
 {
   border: 1px solid #90a4ae;
@@ -53,9 +47,8 @@ th, td {
                   <div class="col-md-3">
                     <label for="">Variantes</label>
                     <select class="form-control input-full" data-ng-model="variant.Selection">
-                        <option value="">Seleccionar</option>
-                        <option value="1">Color</option>
-                        <option value="2">Tama&ntilde;o</option>
+                      <option  value="">Selecciona un criterio</option>
+                      <option ng-repeat="option in rules" value="{{option.id}}">{{option.name}}</option>  
                     </select>
                   </div>
                   <div class="col-md-7 inMargin">

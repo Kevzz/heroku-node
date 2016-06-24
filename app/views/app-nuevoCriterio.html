@@ -1,0 +1,16 @@
+<div ng-controller="CtrlListas">
+  <ol class="breadcrumb">
+    <li class=""><a href="#/">Home</a></li>
+    <li class=""><a href="#/app-vistaListas">Listas</a></li>
+    <li class="active"><a href="#">Nuevo Criterio</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Nueva Critero</h1>
+  </div>
+  <div class="tab-content">
+    <form>
+      <input type="text" ng-model="nombreNCrit" placeholder="Nombre" />
+      <button type="submit" class="btn btn-primary" ng-click="nuevoCrit()">Submit</button>
+    </form>
+  </div>
+</div>

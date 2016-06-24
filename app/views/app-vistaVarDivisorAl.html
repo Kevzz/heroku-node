@@ -9,7 +9,7 @@
   margin-top: 2.3rem;
 }
     </style>
-
+ 
 <div ng-controller="CtrlVarDivisorAl">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
@@ -38,19 +38,14 @@
         </div>
     </script>
 	<ol class="breadcrumb">
-        <li class=""><a href="index.html">Home</a></li>
-        <li class=""><a href="index.html">Dashboard</a></li>
-        <li class=""><a href="#/app-vistaProductos">Productos</a></li>
-        <li class=""><a href="#/app-vistaProductoInd/{{variante.product.id}}">Producto: {{variante.product.name}}</a></li>
-        <li class="active"><a href="#">Variante: {{variante.name}}</a></li>
+        <li class=""><a href="#/">Home</a></li>
+        <li class=""><a href="#/app-vistaLocacion/{{almacenOrigen.location.id}}">{{almacenOrigen.location.name}}</a></li>
+        <li class=""><a href="#/app-vistaAlmacen/{{almacenOrigen.id}}">Almacen {{almacenOrigen.name}}</a></li>
+        <li class=""><a ng-click="regresarVarProd()"> Producto: {{variante.product.name}}</a></li>
+        <li class="active"><a>Variante: {{variante.name}}</a></li>
 	</ol>
 	<div class="page-heading">
-		<h1>{{variante.product.name}}: {{variante.name}}</h1> <span><a href="#/app-editarVariante/{{variante.id}}">Editar</a></span>
-		<div class="options">
-	    	<div class="btn-toolbar">
-	        	<a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-	    	</div>
-		</div>
+		<h1>{{variante.product.name}}: {{variante.name}}</h1>
 	</div>
 	<div class="container-fluid">
         <div class="row">

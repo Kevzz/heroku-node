@@ -473,6 +473,28 @@ server.all("/transfers", function(req, res) {
 
 //******************************************************************
 
+//*****************Esto es para obtener la informacion de la tabla de rules*******************************
+server.delete('/rules/:id', function(req, res) {
+    var id= req.params.id;
+    
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.put('/rules/:id', function(req, res) {
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.get('/rules/:id', function(req, res) {
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.all("/rules", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+
+//******************************************************************
+
 //*****************Esto es para obtener solo la informacionde cuales son transferencias *******************************
 server.all("/transferences", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});

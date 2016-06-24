@@ -11,18 +11,13 @@
     </style>
 <div ng-controller="CtrlVarProdAl">
     <ol class="breadcrumb">
-        <li class=""><a href="index.html">Home</a></li>
-        <li class=""><a href="index.html">Dashboard</a></li>
-        <li class=""><a href="#/app-vistaProductos">Productos</a></li>
+        <li class=""><a href="#/">Home</a></li>
+        <li class=""><a href="#/app-vistaLocacion/{{wareOr.location.id}}">{{wareOr.location.name}}</a></li>
+        <li class=""><a href="#/app-vistaAlmacen/{{wareOr.id}}">Almacen {{wareOr.name}}</a></li>
         <li class="active"><a href="#">Producto: {{ prod.name }}</a></li>
 	</ol>
 	<div class="page-heading">
-		<h1>Producto: {{ prod.name }}</h1><span>
-		<div class="options">
-	    	<div class="btn-toolbar">
-	        	<a ng-click="abrirVistaOrden()" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Cargar &oacute;rden</a>
-	    	</div>
-		</div>
+		<h1>Producto: {{ prod.name }}</h1>
 	</div>
 	<div class="container-fluid">
         <div class="row">

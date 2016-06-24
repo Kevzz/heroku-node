@@ -14,6 +14,56 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       return output;
    };
 })
+.controller('CtrlListas',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
+  var urlCriterios="/rules";
+  apiService.getData(urlCriterios).then(function(response){
+    $scope.criterios=response.data;
+  });
+
+  if($routeParams.id)
+  {
+    apiService.getSingleData(urlCriterios,$routeParams.id).then(function(response2){
+      $scope.criterioEdit=response2.data;
+    });
+
+  }
+
+  $scope.editCrit=function(){
+    var edCrit={name:$scope.criterioEdit.name};
+    apiService.putData(urlCriterios,$routeParams.id,edCrit).then(function(response5){
+      $location.path("/app-vistaListas");
+      $scope.initFirst();
+    });
+  }
+
+  $scope.nuevoCrit=function(){
+    var newDta={
+      status:"D",
+      name:$scope.nombreNCrit
+    }
+    apiService.postData(urlCriterios,newDta).then(function(response4){
+      $location.path("/app-vistaListas");
+      $scope.initFirst();
+    });
+  };
+
+  $scope.initFirst=function()
+  {
+    apiService.getData(urlCriterios).then(function(response){
+      $scope.criterios=response.data;
+    });    
+  };
+
+
+  $scope.archivarCrit=function(idC)
+  {
+    var data={status:"A"};
+    apiService.putData(urlCriterios,idC,data).then(function(response3){
+      $scope.initFirst();
+    });
+  }
+
+  }])
 .controller('CtrlPrestamos',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlLocations="/locations";
   var urlTransfers="/transfers";
@@ -1153,6 +1203,7 @@ function getRecent(prod)
     $location.path('/app-vistaVarDivisorAl/'+$routeParams.id);
   };
   apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response){
+    $scope.wareOr=response.data;
     angular.forEach(response.data.variants, function(value, key) {
 
       if (value.product.id==id_Prod)
@@ -1200,13 +1251,17 @@ function getRecent(prod)
   });
   
 }])
-.controller('CtrlVarDivisorAl',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVariante","$modal","dataShareTransDivxDiv",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVariante,$modal,dataShareTransDivxDiv) {
+.controller('CtrlVarDivisorAl',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVariante","$modal","dataShareTransDivxDiv","dataShareAlmacen",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVariante,$modal,dataShareTransDivxDiv,dataShareAlmacen) {
 
   var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
   var urlVariants="/variants";
 
+  apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response){
+    $scope.almacenOrigen=response.data;
+    
+  });
 
   var isLog=SimLog.getData();
   if(!isLog)
@@ -1348,7 +1403,10 @@ function getRecent(prod)
 
       $scope.divEnVar=JSON.parse(json);
 
-
+    $scope.regresarVarProd=function(){
+    dataShareAlmacen.sendData($scope.variante.product.id);
+    $location.path("/app-vistaVarProdAl/"+$routeParams.id);
+   };  
       //********************************************************************
 
       //*******************************************************************************
@@ -2647,6 +2705,12 @@ var IDsendCliente="";
     if(!isLog)
       $location.path('/');   
 
+    $scope.archivarProveedor=function(){
+      var data={status:"A"};
+      apiService.putData(urlSuppliers,$routeParams.id,data).then(function(response){
+        $location.path("#/app-vistaProveedor");
+      });
+    };
 
     $scope.initFirst=function()
     {
@@ -2680,13 +2744,6 @@ var IDsendCliente="";
       $scope.suppProxy=response.data;
 
       });
-      $scope.initFirst();
-      $location.path('/app-vistaProveedor');
-    }
-    $scope.removeTest=function(id)
-    {
-      //console.log(id);
-      apiService.deleteData(urlSuppliers,id);
       $scope.initFirst();
       $location.path('/app-vistaProveedor');
     }
@@ -2741,6 +2798,11 @@ var IDsendCliente="";
     var urlProducts="/products";
     var urlSuppliers="/suppliers";
     var urlBrands="/brands";
+    var urlCriterios="/rules";
+
+    apiService.getData(urlCriterios).then(function(response3){
+      $scope.rules=response3.data;
+    });
     $scope.prodname;
     var idRec;
 

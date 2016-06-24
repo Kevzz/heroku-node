@@ -1,34 +1,20 @@
-<style type="text/css">
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 15px;
-}
-    </style>
-<div ng-controller="VistaProveedorInd">
+<div ng-controller="EditCtrlProveedor">
 	<ol class="breadcrumb">
-        <li class=""><a href="index.html">Home</a></li>
-        <li class=""><a href="index.html">Dashboard</a></li>
+        <li class=""><a href="#/">Home</a></li>
         <li class=""><a href="#/app-vistaProveedor">Proveedores</a></li>
-        <li class="active"><a href="#/app-vistaProveedorInd">Proveedor: {{proveedores.nombre}}</a></li>
+        <li class="active"><a href="#">Proveedor: {{suppUProxy.name}}</a></li>
 	</ol>
 	<div class="page-heading">
-		<h1>Proveedor: {{proveedores.nombre}}</h1>
+		<h1>Proveedor: {{suppUProxy.name}}</h1>
 		<div class="options">
 	    	<div class="btn-toolbar">
-	        	<a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+	        	<a href="#/app-editarProveedor/{{ suppUProxy.id }}" class="btn btn-default"><i class="fa fa-fw fa-pencil"></i>Editar</a>
+                <a ng-click="archivarProveedor()" class="btn btn-default"><i class="fa fa-fw fa-trash"></i>Archivar</a>
 	    	</div>
 		</div>
 	</div>
 	<div class="tab-content">
     <table>
-        <col width="180">
-        <col width="180">
-        <col width="180">
-        <col width="180">
-        <col width="180">
         <thead>
             <tr>
               <th>ID</th>

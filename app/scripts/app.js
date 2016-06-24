@@ -135,6 +135,21 @@ angular
           return 'views/login.html';
         }
       })
+      .when('/app-vistaListas', {
+        templateUrl: function(param) {
+          return 'views/app-vistaListas.html';
+        }
+      })
+      .when('/app-nuevoCriterio', {
+        templateUrl: function(param) {
+          return 'views/app-nuevoCriterio.html';
+        }
+      })
+      .when('/app-editarCriterio/:id', {
+        templateUrl: function(param) {
+          return 'views/app-editarCriterio.html';
+        }
+      })
       .when('/app-vistaTransferencias', {
         templateUrl: function(param) {
           return 'views/app-vistaTransferencias.html';

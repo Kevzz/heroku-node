@@ -1,12 +1,3 @@
-<style type="text/css">
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 15px;
-}
-    </style>
 <div ng-controller="EditCtrlProveedor">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
@@ -23,12 +14,7 @@ th, td {
   </div>
   <div class="tab-content">
     <a href="#/app-nuevoProveedor">Agregar Proveedor</a>
-      <table>
-          <col width="180">
-          <col width="280">
-          <col width="280">
-          <col width="280">
-          <col width="280">
+      <table class="table table-hover">
           <thead>
               <tr>
                 <th>Nombre</th> 
@@ -36,8 +22,6 @@ th, td {
                 <th>Divisa</th> 
                 <th>Pagina</th> 
                 <th>Telefono</th> 
-                <th>Editar</th> 
-                <th>Eliminar</th> 
               </tr>
           </thead>
           <tr ng-repeat="supp in suppProxy">
@@ -46,8 +30,6 @@ th, td {
               <td>{{supp.currency.shortcut}}</td>
               <td>{{ supp.website }}</td>
               <td>{{ supp.phone }}</td>
-              <td><a href="#/app-editarProveedor/{{ supp.id }}">Editar</a></td>
-              <td><a ng-click="removeTest(supp.id)">Eliminar</a></td>            
           </tr>
       </table>
   </div>
