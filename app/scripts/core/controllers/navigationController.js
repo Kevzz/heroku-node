@@ -16,6 +16,13 @@ angular
       label: 'Productos',
       iconClasses: 'fa fa-check-circle',
       url: '#/app-vistaProductos',
+      children: [{
+        label: 'Marcas',
+        url: '#/app-vistaMarcas',
+      }, {
+        label: 'Proveedores',
+        url: '#/app-vistaProveedor'
+      }]
     }, {
       label: 'Clientes',
       iconClasses: 'fa fa-users',
