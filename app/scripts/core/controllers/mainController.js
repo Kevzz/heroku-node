@@ -14,6 +14,157 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       return output;
    };
 })
+.controller('CtrlFacturacion',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
+  var isLog=SimLog.getData();
+    if(!isLog)
+      $location.path('/');   
+  //aqui en la facturacion ponemos primero la parte de las divisas 
+  var urlCurrency="/currencies";
+    $scope.initFirst=function()
+    {
+       apiService.getData(urlCurrency).then(function(response) {
+          //console.log(response);
+        $scope.currencies=response.data;
+        });
+     };
+    if($routeParams.id)
+    {
+      apiService.getSingleData(urlCurrency,$routeParams.id).then(function(response) {
+      $scope.currenciesEd=response.data;
+      });
+    }
+    /* **********************Manejar info desde Heroku y el proxy ********************************* */
+    apiService.getData(urlCurrency).then(function(response) {
+      $scope.currencies=response.data;
+    });
+    $scope.subDivisa = function(formData) {
+      apiService.postData(urlCurrency,formData).then(function(response) {
+        $scope.currencies=response.data;
+        $scope.initFirst();
+        $location.path('/app-vistaFacturacion');
+      });
+      
+    }
+    $scope.removeDivisa=function(id)
+    {
+      var datUpdDiv={
+        status:"D"
+      }
+      apiService.putData(urlCurrency,id,datUpdDiv).then(function(response){
+        $scope.initFirst();
+      });
+    }
+    $scope.editDivisa=function()
+    {
+      var data = {
+        name: $scope.currenciesEd.name,
+        shortcut: $scope.currenciesEd.shortcut,
+        unit:$scope.currenciesEd.unit
+      };
+      apiService.putData(urlCurrency,$scope.currenciesEd.id,data).then(function(response){
+        $scope.initFirst();
+        $location.path('/app-vistaFacturacion');
+      });
+    }
+  //aqui se termina la parte de las divisas
+
+  //aqui en la facturacion ponemos primero la parte de los impuestos 
+  var urlTaxes="/taxes";
+    $scope.initFirstT=function()
+    {
+       apiService.getData(urlTaxes).then(function(response) {
+          //console.log(response);
+        $scope.taxes=response.data;
+        });
+     };
+    if($routeParams.id)
+    {
+      apiService.getSingleData(urlTaxes,$routeParams.id).then(function(response) {
+      $scope.taxesEd=response.data;
+      });
+    }
+    /* **********************Manejar info desde Heroku y el proxy ********************************* */
+    apiService.getData(urlTaxes).then(function(response) {
+      $scope.taxes=response.data;
+    });
+    $scope.subTax = function(formData) {
+      apiService.postData(urlTaxes,formData).then(function(response) {
+        $scope.taxes=response.data;
+        $scope.initFirstT();
+        $location.path('/app-vistaFacturacion');
+      });
+      
+    }
+    $scope.removeTax=function(id)
+    {
+      var datUpdTax={
+        status:"D"
+      }
+      apiService.putData(urlTaxes,id,datUpdTax).then(function(response){
+        $scope.initFirstT();
+      });
+    }
+    $scope.editTax=function()
+    {
+      var data = {
+        name: $scope.taxesEd.name,
+        percentage: $scope.taxesEd.percentage
+      };
+      apiService.putData(urlTaxes,$scope.taxesEd.id,data).then(function(response){
+        $scope.initFirstT();
+        $location.path('/app-vistaFacturacion');
+      });
+    }
+  //aqui se termina la parte de las impuestos
+
+  //aqui en la facturacion ponemos primero la parte de las divisas 
+  var urlPrices="/prices";
+    $scope.initFirstP=function()
+    {
+       apiService.getData(urlPrices).then(function(response) {
+          //console.log(response);
+        $scope.prices=response.data;
+        });
+     };
+    if($routeParams.id)
+    {
+      apiService.getSingleData(urlPrices,$routeParams.id).then(function(response) {
+      $scope.pricesEd=response.data;
+      });
+    }
+    /* **********************Manejar info desde Heroku y el proxy ********************************* */
+    apiService.getData(urlPrices).then(function(response) {
+      $scope.prices=response.data;
+    });
+    $scope.subPrecio = function(formData) {
+      apiService.postData(urlPrices,formData).then(function(response) {
+        $scope.prices=response.data;
+        $scope.initFirstP();
+        $location.path('/app-vistaFacturacion');
+      });
+    }
+    $scope.removePrecio=function(id)
+    {
+      var datUpdPre={
+        status:"D"
+      }
+      apiService.putData(urlPrices,id,datUpdPre).then(function(response){
+        $scope.initFirstP();
+      });
+    }
+    $scope.editPrices=function()
+    {
+      var data = {
+        name: $scope.pricesEd.name,
+        description: $scope.pricesEd.description
+      };
+      apiService.putData(urlPrices,$scope.pricesEd.id,data).then(function(response){
+        $scope.initFirstP();
+        $location.path('/app-vistaFacturacion');
+      });
+    }
+  //aqui se termina la parte de las divisas
+  }])
 .controller('CtrlListas',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlCriterios="/rules";
   apiService.getData(urlCriterios).then(function(response){
@@ -2670,32 +2821,6 @@ var IDsendCliente="";
       $location.path('/app-vistaDivisa');
       
     }
-    //***********************************************************************************************+
-
-    /*var divisasURL = new Firebase("https://formacret.firebaseio.com/divisas/" + $routeParams.id);
-    $scope.divisas = $firebaseObject(divisasURL);
-
-    var divisasURLT = new Firebase("https://formacret.firebaseio.com/divisas/");
-    $scope.divisasT = $firebaseArray(divisasURLT);
-
-    //console.log($scope.marcasTitulos);
-    $scope.edit = function() {
-      $scope.divisas.$save();
-      $location.path('/app-divisasMarcas');
-    };
-    $scope.remove = function(id) {
-      var elim= new Firebase("https://formacret.firebaseio.com/divisas/" + id);
-      elim.remove();
-    };
-    $scope.nueva = function (divisaN)
-    {
-      //console.log($scope.person);
-          divisasURLT.push({
-            nombre: $scope.divisaN.nombre,
-            divisa: $scope.divisaN.divisa,
-          });
-          $location.path('/app-vistaDivisa');
-    };*/
   }])
 
 .controller('EditCtrlProveedor',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {

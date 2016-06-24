@@ -140,6 +140,31 @@ angular
           return 'views/app-vistaListas.html';
         }
       })
+      .when('/app-editarPrecio/:id', {
+        templateUrl: function(param) {
+          return 'views/app-editarPrecio.html';
+        }
+      })
+      .when('/app-nuevoPrecio', {
+        templateUrl: function(param) {
+          return 'views/app-nuevoPrecio.html';
+        }
+      })
+      .when('/app-editarImpuesto/:id', {
+        templateUrl: function(param) {
+          return 'views/app-editarImpuesto.html';
+        }
+      })
+      .when('/app-nuevoImpuesto', {
+        templateUrl: function(param) {
+          return 'views/app-nuevoImpuesto.html';
+        }
+      })
+      .when('/app-vistaFacturacion', {
+        templateUrl: function(param) {
+          return 'views/app-vistaFacturacion.html';
+        }
+      })
       .when('/app-nuevoCriterio', {
         templateUrl: function(param) {
           return 'views/app-nuevoCriterio.html';

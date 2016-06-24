@@ -1,25 +1,20 @@
-<div ng-controller="EditCtrlDivisas">
+<div ng-controller="CtrlFacturacion">
   <ol class="breadcrumb">
     <li class=""><a href="#/">Home</a></li>
-    <li class=""><a href="#/app-vistaListas">Listas</a></li>
-    <li class=""><a href="#/app-vistaDivisas">Divisas</a></li>
-    <li class="active"><a href="#">Nueva</a></li>
+    <li class=""><a href="#/app-vistaFacturacion">Facturación</a></li>
+    <li class="active"><a href="#">Nueva Divisa</a></li>
   </ol>
   <div class="page-heading">
     <h1>Nueva Divisa</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
   </div>
   <div class="tab-content">
-    <h1>Formulario para crear divisa</h1>
-      <form name="personForm2"  ng-submit="sub(divisaN)">
-        <label for="lastNameEdit3">Divisa:</label>
-        <input id="lastNameEdit3" type="text" name="nombre" ng-model="divisaN.shortcut" required /><br />
-        <label for="firstNameEdit3">Nombre:</label>
-        <input id="firstNameEdit3" type="text" name="desc" ng-model="divisaN.name" required /><br />
+      <form name="personForm2"  ng-submit="subDivisa(divisaN)">
+        <label for="Divisa">Divisa:</label>
+        <input id="Divisa" type="text" name="nombre" ng-model="divisaN.shortcut" required /><br />
+        <label for="Nombre">Nombre:</label>
+        <input id="Nombre" type="text" name="desc" ng-model="divisaN.name" required /><br />
+        <label for="Cambio">Cambio:</label>
+        <input id="Canbio" type="number" name="unit" ng-model="divisaN.unit" required /><br />
         
         <br />
         <input type="submit" value="Save" class="btn btn-primary">

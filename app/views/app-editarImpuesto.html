@@ -1,0 +1,22 @@
+<div ng-controller="CtrlFacturacion">
+  <ol class="breadcrumb">
+    <li class=""><a href="#/">Home</a></li>
+    <li class=""><a href="#/app-vistaFacturacion">Facturación</a></li>
+    <li class="active"><a href="#">Editar Impuesto</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Impuesto {{taxesEd.name}}</h1>
+  </div>
+  <div class="tab-content">
+      <form name="personForm2"  ng-submit="editTax()">
+        <label for="Nombre">Nombre:</label>
+        <input id="Nombre" type="text" name="nombre" ng-model="taxesEd.name" required /><br />
+        <label for="porc">Porcentage:</label>
+        <input id="porc" type="text" name="desc" ng-model="taxesEd.percentage" required /><br />
+        
+        <br />
+        <input type="submit" value="Save" class="btn btn-primary">
+      </form>
+      <br />
+  </div>
+</div>

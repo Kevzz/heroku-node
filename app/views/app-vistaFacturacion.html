@@ -1,0 +1,114 @@
+<div ng-controller="CtrlFacturacion">
+	<ol class="breadcrumb">
+	    <li class=""><a href="#/">Home</a></li>
+	    <li class="active"><a href="#">Divisas</a></li>
+	</ol>
+	<div class="page-heading">
+		<h1>Facturacion</h1>
+	</div>
+	<div class="row inMargin">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Variantes de precios</h4>
+            </div>
+            <div class="col-md-4" style="margin-top: 15px;">
+                <div class="options">
+                    <div class="btn-toolbar">
+                        <a href="#/app-nuevoPrecio" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Agregar precio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">    
+            <div class="col-md-11">
+                <table class="table table-hover">
+			        <thead>
+			            <tr>
+			              	<th>Nombre</th> 
+			              	<th>Descripci&oacute;n</th> 
+			              	<th>Status</th>
+			              	<th></th> 
+			            </tr>
+			        </thead>
+			        <tr ng-repeat="precio in prices" >
+			            <td>{{ precio.name }}</td>
+			            <td>{{ precio.description }}</td>
+			            <td>{{ precio.status }}</td>
+			            <td><a href="#/app-editarPrecio/{{ precio.id }}">Editar</a></td>
+			            <td><a ng-click="removePrecio(precio.id)" ng-confirm-click="Are you sure?">Archivar</a></td>
+			        </tr>
+			    </table>    
+            </div>
+        </div>
+    </div>
+    <div class="row inMargin">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Divisas</h4>
+            </div>
+            <div class="col-md-4" style="margin-top: 15px;">
+                <div class="options">
+                    <div class="btn-toolbar">
+                        <a href="#/app-nuevaDivisa" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Agregar divisa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">    
+            <div class="col-md-11">
+                <table class="table table-hover">
+			        <thead>
+			            <tr>
+			              	<th>Divisa</th> 
+			              	<th>Nombre</th> 
+			              	<th>Cambio</th>
+			              	<th></th> 
+			            </tr>
+			        </thead>
+			        <tr ng-repeat="divisa in currencies" >
+			            <td>{{ divisa.shortcut }}</td>
+			            <td>{{ divisa.name }}</td>
+			            <td>{{ divisa.unit }}</td>
+			            <td><a href="#/app-editarDivisa/{{ divisa.id }}">Editar</a></td>
+			            <td><a ng-click="removeDivisa(divisa.id)" ng-confirm-click="Are you sure?">Archivar</a></td>
+			        </tr>
+			    </table>    
+            </div>
+        </div>
+    </div>
+    <div class="row inMargin">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Impuestos</h4>
+            </div>
+            <div class="col-md-4" style="margin-top: 15px;">
+                <div class="options">
+                    <div class="btn-toolbar">
+                        <a href="#/app-nuevoImpuesto" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Agregar impuesto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">    
+            <div class="col-md-11">
+                <table class="table table-hover">
+			        <thead>
+			            <tr>
+			              	<th>Nombre</th> 
+			              	<th>Porcentage</th> 
+			              	<th>Status</th>
+			              	<th></th> 
+			            </tr>
+			        </thead>
+			        <tr ng-repeat="tax in taxes" >
+			            <td>{{ tax.name }}</td>
+			            <td>{{ tax.percentage }}</td>
+			            <td>{{ tax.status }}</td>
+			            <td><a href="#/app-editarImpuesto/{{ tax.id }}">Editar</a></td>
+			            <td><a ng-click="removeTax(tax.id)" ng-confirm-click="Are you sure?">Archivar</a></td>
+			        </tr>
+			    </table>    
+            </div>
+        </div>
+    </div>
+</div>	

@@ -1,0 +1,22 @@
+<div ng-controller="CtrlFacturacion">
+  <ol class="breadcrumb">
+    <li class=""><a href="#/">Home</a></li>
+    <li class=""><a href="#/app-vistaFacturacion">Facturación</a></li>
+    <li class="active"><a href="#">Nuevo Precio</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>Nuevo Precio</h1>
+  </div>
+  <div class="tab-content">
+      <form name="personForm2"  ng-submit="subPrecio(precioN)">
+        <label for="Divisa">Nombre:</label>
+        <input id="Divisa" type="text" name="nombre" ng-model="precioN.name" required /><br />
+        <label for="Nombre">Descrpci&oacute;n:</label>
+        <input id="Nombre" type="text" name="desc" ng-model="precioN.description" required /><br />
+        
+        <br />
+        <input type="submit" value="Save" class="btn btn-primary">
+      </form>
+      <br />
+  </div>
+</div>
