@@ -1,19 +1,19 @@
 <div ng-controller="EditCtrlProveedor">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
-      <li class=""><a href="#/">Dashboard</a></li>
+      <li class=""><a href="#/app-vistaProductos">Productos</a></li>
       <li class="active"><a href="#">Proveedores</a></li>
   </ol>
   <div class="page-heading">
     <h1>Proveedores</h1>
     <div class="options">
         <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+            <a href="#/app-nuevoProveedor" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Agregar Proveedor</a>
         </div>
     </div>
   </div>
   <div class="tab-content">
-    <a href="#/app-nuevoProveedor">Agregar Proveedor</a>
+    
       <table class="table table-hover">
           <thead>
               <tr>
@@ -25,7 +25,7 @@
               </tr>
           </thead>
           <tr ng-repeat="supp in suppProxy">
-              <td>{{ supp.name }}</td>
+              <td><a href="#/app-vistaProveedorInd/{{supp.id}}">{{ supp.name }}</a></td>
               <td>{{ supp.email }}</td>
               <td>{{supp.currency.shortcut}}</td>
               <td>{{ supp.website }}</td>

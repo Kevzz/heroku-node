@@ -1,6 +1,7 @@
 <div ng-controller="EditCtrlProveedor">
 	<ol class="breadcrumb">
         <li class=""><a href="#/">Home</a></li>
+        <li class=""><a href="#/app-vistaProductos">Productos</a></li>
         <li class=""><a href="#/app-vistaProveedor">Proveedores</a></li>
         <li class="active"><a href="#">Proveedor: {{suppUProxy.name}}</a></li>
 	</ol>
@@ -14,10 +15,9 @@
 		</div>
 	</div>
 	<div class="tab-content">
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
-              <th>ID</th>
               <th>Nombre</th> 
               <th>Correo</th> 
               <th>Divisa</th> 
@@ -26,13 +26,11 @@
             </tr>
         </thead>
         <tr>
-            <td>{{ proveedores.id }}</td>
             <td>{{ proveedores.nombre }}</td>
             <td>{{ proveedores.correo }}</td>
             <td>{{ proveedores.divisa }}</td>
             <td>{{ proveedores.pagina }}</td>
             <td>{{ proveedores.telefono }}</td> 
-            
         </tr>
     </table> 
 </div>

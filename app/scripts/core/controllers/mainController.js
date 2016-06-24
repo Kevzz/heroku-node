@@ -2513,23 +2513,6 @@ apiService.getData(urlLocation).then(function(response) {
       $location.path('/app-vistaMarcas');
       
     }
-    //***********************************************************************************************+
-    /*console.log($scope.marcasTitulos);
-    $scope.edit = function() {
-      $scope.marcas.$save();
-      $location.path('/app-vistaMarcas');
-    };
-    $scope.remove = function(id) {
-      var elim= new Firebase("https://formacret.firebaseio.com/marcas/" + id);
-      elim.remove();
-    };
-    $scope.nueva=function(marcaN)
-    {
-        marcasURLT.push({
-          nombre:$scope.marcaN.nombre
-        });
-        $location.path('/app-vistaMarcas');
-    };*/
   }])
 .controller('CtrlClientesDirEnv',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
   var urlClientes="/clients";
