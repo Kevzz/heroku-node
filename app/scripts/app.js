@@ -315,6 +315,11 @@ angular
           return 'views/app-editarProveedores.html';
         }
       })
+      .when('/app-app-vistaProveedorInd/:id', {
+        templateUrl: function(param) {
+          return 'views/app-vistaProveedorInd.html';
+        }
+      })
       .when('/app-nuevoProveedor/', {
         templateUrl: function(param) {
           return 'views/app-nuevoProveedor.html';
