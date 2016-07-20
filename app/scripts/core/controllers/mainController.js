@@ -2935,6 +2935,7 @@ var IDsendCliente="";
     }
     function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
       var id=prod[prod.length-1].id;
@@ -3015,14 +3016,13 @@ var IDsendCliente="";
       apiService.postData(urlProducts,formData).then(function(response) {
       //console.log(response);
       $scope.productos=response.data;
-
-      });
-      apiService.getData(urlProducts).then(function(response) {
-        idRec=getRecent(response.data);
+      idRec=getRecent(response.data);
         //console.log("se supone que obteve el mas reciente");
         //console.log(idRec);
-        dataShare.sendData(idRec);
+      dataShare.sendData(idRec);
+      
       });
+      
       $scope.initFirst();
       $location.path('/app-defVariantes');
     }
@@ -3175,21 +3175,33 @@ var IDsendCliente="";
     //console.log(response);
     $scope.taxProxy=response.data;
     });
+$scope.makeid=function()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var number=Math.floor(100000 + Math.random() * 900000);
+    for( var i=0; i < 3; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    
+    return text+number;
+}
+//console.log($scope.makeid());
   $scope.subVariantC=function(data)
   {
     angular.forEach(data, function(value, key) {
         //console.log("aqui se imprime cada valor de cada data que se envia"+key);
         //console.log(value.status);
+        var skuGen=$scope.makeid();
         
         if(value.status==true||value.status=='U')
           value.status="U";
-        else if((value.sku==''||value.code==''||value.weight==''||value.description==''||value.status==''||value.currency_id==''||value.tax_id=='')&&value.status!=true)
+        else if((value.code==''||value.weight==''||value.description==''||value.status==''||value.currency_id==''||value.tax_id=='')&&value.status!=true)
           value.status="I";
         else
           value.status="C";
 
         var data={
-          sku:value.sku,
+          sku:skuGen,
           code:value.code,
           weight:value.weight,
           description:value.description,
