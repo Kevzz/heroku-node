@@ -7,21 +7,16 @@
   </ol>
   <div class="page-heading">
     <h1>Marca {{marcaUProxy.name}}</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
   </div>
   <div class="tab-content">
     
       <form name="personForm2"  ng-submit="editTest(marcaUProxy)">
          
-        <label for="firstNameEdit3">Nombre:</label>
-        <input id="firstNameEdit3" type="text" name="desc" ng-model="marcaUProxy.name" required /><br />
+        <label for="NomEdMar">Nombre:</label>
+        <input id="NomEdMar" type="text" name="name" ng-model="marcaUProxy.name" required /><br />
         
         <br />
-        <input type="submit" value="Save" class="btn btn-primary">
+        <input type="submit" value="Guardar" class="btn btn-primary">
       </form>
       <br />
   </div>

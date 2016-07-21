@@ -6,31 +6,25 @@
   </ol>
   <div class="page-heading">
     <h1>Nuevo Locacion</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
   </div>
   <div class="tab-content">
-    <form name="personForm3" ng-submit="nuevaLoc(clienteN)">
+    <form name="locacionForm" ng-submit="nuevaLoc(clienteN)">
       <h3> Informaci&oacute;n general</h3>
-      <label for="lastNameEdit3">Nombre:</label>
-      <input id="lastNameEdit3" type="text" name="nombre" ng-model="locacion.name" required /><br />
-      
-      <label for="firstNameEdit3">Colonia:</label>
-      <input id="firstNameEdit3" type="text" name="precio" ng-model="locacion.neighborhood" required /><br />
-      <label for="firstNameEdit3">Calle:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.street" required /><br />
-      <label for="firstNameEdit3">Numero:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.number" required /><br />
-      <label for="firstNameEdit3">Entidad:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.municipality" required /><br />
-      <label for="firstNameEdit3">Municipio:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.state" required /><br />
-      <label for="firstNameEdit3">CP:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="locacion.zipcode" required /><br />
-      <input type="submit" value="Save" class="btn btn-primary">
+      <label for="NombreLoc">Nombre:</label>
+      <input id="NombreLoc" type="text" name="NombreLoc" ng-model="locacion.name" required /><br />
+      <label for="ColoniaLoc">Colonia:</label>
+      <input id="ColoniaLoc" type="text" name="ColoniaLoc" ng-model="locacion.neighborhood" required /><br />
+      <label for="CalleLoc">Calle:</label>
+      <input id="CalleLoc" type="text" name="CalleLoc" ng-model="locacion.street" required /><br />
+      <label for="NumeroLoc">Numero:</label>
+      <input id="NumeroLoc" type="number" name="NumeroLoc" ng-model="locacion.number" required /><br />
+      <label for="EntidadLoc">Entidad:</label>
+      <input id="EntidadLoc" type="text" name="EntidadLoc" ng-model="locacion.municipality" required /><br />
+      <label for="MunicipioLoc">Municipio:</label>
+      <input id="MunicipioLoc" type="text" name="MunicipioLoc" ng-model="locacion.state" required /><br />
+      <label for="CpLoc">CP:</label>
+      <input id="CpLoc" type="number" name="CpLo" ng-model="locacion.zipcode" required /><br />
+      <input type="submit" value="Guardar" class="btn btn-primary">
       <br />
     </form>    
   </div>

@@ -8,16 +8,15 @@
     <h1>Nueva Divisa</h1>
   </div>
   <div class="tab-content">
-      <form name="personForm2"  ng-submit="subDivisa(divisaN)">
+      <form name="divisaForm"  ng-submit="subDivisa(divisaN)">
         <label for="Divisa">Divisa:</label>
         <input id="Divisa" type="text" name="nombre" ng-model="divisaN.shortcut" required /><br />
         <label for="Nombre">Nombre:</label>
         <input id="Nombre" type="text" name="desc" ng-model="divisaN.name" required /><br />
         <label for="Cambio">Cambio:</label>
-        <input id="Canbio" type="number" name="unit" ng-model="divisaN.unit" required /><br />
-        
+        <input id="Cambio" type="number" name="unit" ng-model="divisaN.unit" required /><br />
         <br />
-        <input type="submit" value="Save" class="btn btn-primary">
+        <input type="submit" value="Guardar" class="btn btn-primary">
       </form>
       <br />
   </div>

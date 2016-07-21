@@ -13,19 +13,14 @@
       <li class=""><a href="#/">Home</a></li>
       <li class=""><a href="#/app-vistaLocacion/{{almacenOrigen.location.id}}"> {{almacenOrigen.location.name}} </a></li>
       <li class=""><a href="#/app-vistaAlmacen/{{almacenOrigen.id}}">Almacen {{almacenOrigen.name}}</a></li>
-      <li class="active"><a href="#">Cargar Orden</a></li>
+      <li class="active"><a href="#">Cargar &Oacute;rden</a></li>
   </ol>
   <div class="page-heading">
-    <h1>Cargar Orden</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
+    <h1>Cargar &Oacute;rden</h1>
   </div>
   <div class="tab-content">
-      <h3> Busqueda de numero de Orden</h3>
-      <label for="numeroOrden">Numero de Orden:</label>
+      <h3> B&uacute;squeda de n&uacute;mero de &Oacute;rden</h3>
+      <label for="numeroOrden">N&uacute;mero de &Oacute;rden:</label>
       <input id="numeroOrden" type="text" name="numeroOrden" ng-model="numOrden" required /><br />
       <input type="button" ng-click="buscarOrden()" value="Buscar" class="btn btn-primary">
       <br />
@@ -34,13 +29,13 @@
   <div class="container-fluid" ng-show="Orden">
         <div class="row">
             <div class="col-md-5 border-style">
-                <p><strong>Numero de Orden:</strong> {{ Orden.number }}</p>
+                <p><strong>N&uacute;mero de &Oacute;rden:</strong> {{ Orden.number }}</p>
                 <p><strong>Proveedor:</strong> {{ Orden.supplier.name }}</p>
                 <p><strong>Status:</strong> {{ Orden.status }}</p>
                 <p><strong>Pago:</strong> {{ Orden.payment }}</p>
             </div>
             <div class="col-md-5 col-md-offset-1 border-style">
-                <p><strong>Facturacion:</strong> {{Orden.billing}}</p>
+                <p><strong>Facturaci&oacute;n:</strong> {{Orden.billing}}</p>
                 <p><strong>Fecha:</strong> {{Orden.date}}</p>
                 <p><strong>Notas:</strong> {{Orden.notes}}</p>
             </div>

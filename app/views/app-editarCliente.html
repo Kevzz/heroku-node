@@ -7,47 +7,43 @@
   </ol>
   <div class="page-heading">
     <h1>Editar informacion cliente</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
+    
   </div>
   <div class="tab-content">
     <form name="personForm3" ng-submit="edit()">
       <h3> Informaci&oacute;n general</h3>
-      <label for="lastNameEdit3">Nombre:</label>
-      <input id="lastNameEdit3" type="text" name="nombre" ng-model="clientes.name" required /><br />
-      <label for="firstNameEdit3">Correo:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.email" required /><br />
-      <label for="firstNameEdit3">Precio:</label>
-      <select id="productSupp" name="productSupp" class="form-control"  ng-model="clientes.price_id">
+      <label for="nomCliEd">Nombre:</label>
+      <input id="nomCliEd" type="text" name="nombre" ng-model="clientes.name" required /><br />
+      <label for="corrCliEd">Correo:</label>
+      <input id="corrCliEd" type="text" name="desc" ng-model="clientes.email" required /><br />
+      <label for="preCLiEd">Precio:</label>
+      <select id="preCLiEd" name="productSupp" class="form-control"  ng-model="clientes.price_id">
         <option value="">Seleccione el precio a aplicar</option>
         <option ng-repeat="option in precios " ng-selected="option.id==clientes.price.id" value="{{option.id}}">{{option.name}}</option>
       </select>
-      <label for="firstNameEdit3">P&aacute;gina:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.website" required /><br />
-      <label for="firstNameEdit3">Tel&eacute;fono:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.phone" required /><br />
+      <label for="pagCliEd">P&aacute;gina:</label>
+      <input id="pagCliEd" type="text" name="page" ng-model="clientes.website" required /><br />
+      <label for="telCliEd">Tel&eacute;fono:</label>
+      <input id="telCliEd" type="text" name="telefono" ng-model="clientes.phone" required /><br />
       <br />
       <h3> Datos Fiscales</h3>
-      <label for="lastNameEdit3">Raz&oacute;n Social:</label>
-      <input id="lastNameEdit3" type="text" name="nombre" ng-model="clientes.razonsocial" required /><br />
-      <label for="firstNameEdit3">RFC:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.rfc" required /><br />
-      <label for="firstNameEdit3">Colonia:</label>
-      <input id="firstNameEdit3" type="text" name="precio" ng-model="clientes.neighborhood" required /><br />
-      <label for="firstNameEdit3">Calle:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.street" required /><br />
-      <label for="firstNameEdit3">Numero:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.number" required /><br />
-      <label for="firstNameEdit3">Entidad:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.entity" required /><br />
-      <label for="firstNameEdit3">Municipio:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.city" required /><br />
-      <label for="firstNameEdit3">CP:</label>
-      <input id="firstNameEdit3" type="text" name="desc" ng-model="clientes.zipcode" required /><br />
-      <input type="submit" value="Save" class="btn btn-primary">
+      <label for="razCliEd">Raz&oacute;n Social:</label>
+      <input id="razCliEd" type="text" name="razon" ng-model="clientes.razonsocial" required /><br />
+      <label for="rfcCliEd">RFC:</label>
+      <input id="rfcCliEd" type="text" name="rfc" ng-model="clientes.rfc" required /><br />
+      <label for="ColCLiEd">Colonia:</label>
+      <input id="ColCLiEd" type="text" name="colonia" ng-model="clientes.neighborhood" required /><br />
+      <label for="CalleCliEd">Calle:</label>
+      <input id="CalleCliEd" type="text" name="calle" ng-model="clientes.street" required /><br />
+      <label for="numCliEd">N&uacute;mero:</label>
+      <input id="numCliEd" type="text" name="numero" ng-model="clientes.number" required /><br />
+      <label for="EntiCliEd">Entidad:</label>
+      <input id="EntiCliEd" type="text" name="entidad" ng-model="clientes.entity" required /><br />
+      <label for="munCLiEd">Municipio:</label>
+      <input id="munCLiEd" type="text" name="municipio" ng-model="clientes.city" required /><br />
+      <label for="cpCLiEd">CP:</label>
+      <input id="cpCLiEd" type="text" name="cp" ng-model="clientes.zipcode" required /><br />
+      <input type="submit" value="Guardar" class="btn btn-primary">
       <br />
     </form>    
   </div>

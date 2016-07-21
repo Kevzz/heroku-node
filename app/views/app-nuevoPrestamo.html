@@ -14,11 +14,6 @@
   </ol>
   <div class="page-heading">
     <h1>Nuevo prestamo</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
   </div>
   <div class="container-fluid">
     <form name="productForm" ng-submit="submitOrd()">
@@ -34,15 +29,15 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="productSupp">Seleccione la Locaci&oacute;n:</label>
-                <select id="productSupp" name="productSupp" class="form-control" ng-change="almacenesOrigen()" ng-model="LocOrigen">
+                <label for="LocPres">Seleccione la Locaci&oacute;n:</label>
+                <select id="LocPres" name="LocPres" class="form-control" ng-change="almacenesOrigen()" ng-model="LocOrigen">
                   <option value="">Locaci&oacute;n Origen</option>
                   <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="productSupp">Seleccione el origen:</label>
-                <select id="productSupp" name="productSupp" class="form-control" ng-model="divOrigen" ng-change="prodDiv()">
+                <label for="oriPre">Seleccione el origen:</label>
+                <select id="oriPre" name="oriPre" class="form-control" ng-model="divOrigen" ng-change="prodDiv()">
                   <option value="">Almacen / Divisor</option>
                   <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
                 </select>
@@ -69,8 +64,8 @@
         <div class="row top-buffer" ng-show="transfType==1">
           <div class="col-md-8 col-md-offset-2 borde-input">
             <div class="form-group">
-                <label for="productSupp">Seleccione el destino:</label>
-                <select id="productSupp" name="productSupp" class="form-control" ng-model="divDestinoOp1">
+                <label for="desPres">Seleccione el destino:</label>
+                <select id="desPres" name="desPres" class="form-control" ng-model="divDestinoOp1">
                   <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
                 </select>
             </div>

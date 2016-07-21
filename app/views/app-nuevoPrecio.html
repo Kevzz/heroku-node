@@ -8,14 +8,14 @@
     <h1>Nuevo Precio</h1>
   </div>
   <div class="tab-content">
-      <form name="personForm2"  ng-submit="subPrecio(precioN)">
-        <label for="Divisa">Nombre:</label>
-        <input id="Divisa" type="text" name="nombre" ng-model="precioN.name" required /><br />
-        <label for="Nombre">Descrpci&oacute;n:</label>
-        <input id="Nombre" type="text" name="desc" ng-model="precioN.description" required /><br />
+      <form name="precioForm2"  ng-submit="subPrecio(precioN)">
+        <label for="NomPre">Nombre:</label>
+        <input id="NomPre" type="text" name="nombre" ng-model="precioN.name" required /><br />
+        <label for="DescPre">Descrpci&oacute;n:</label>
+        <input id="DescPre" type="text" name="desc" ng-model="precioN.description" required /><br />
         
         <br />
-        <input type="submit" value="Save" class="btn btn-primary">
+        <input type="submit" value="Guardar" class="btn btn-primary">
       </form>
       <br />
   </div>

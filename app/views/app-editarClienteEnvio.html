@@ -7,29 +7,25 @@
   </ol>
   <div class="page-heading">
     <h1>Editar direccion de envio</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
+    
   </div>
   <div class="tab-content">
-    <form name="personForm3" ng-submit="editEnv()">
+    <form name="EditarEnvio" ng-submit="editEnv()">
       <h3> Datos de envio</h3>
-        <label for="firstNameEdit3">Colonia:</label>
-        <input id="firstNameEdit3" type="text" name="precio" ng-model="sendOrd.neighborhood"   required /><br />
-        <label for="firstNameEdit3">Calle:</label>
-        <input id="firstNameEdit3" type="text" name="desc" ng-model="sendOrd.street"  required /><br />
-        <label for="firstNameEdit3">Numero:</label>
-        <input id="firstNameEdit3" type="text" name="desc" ng-model="sendOrd.number"  required /><br />
-        <label for="firstNameEdit3">Entidad:</label>
-        <input id="firstNameEdit3" type="text" name="desc" ng-model="sendOrd.entity"  required /><br />
-        <label for="firstNameEdit3">Municipio:</label>
-        <input id="firstNameEdit3" type="text" name="desc" ng-model="sendOrd.municipalty"  required /><br />
-        <label for="firstNameEdit3">CP:</label>
-        <input id="firstNameEdit3" type="text" name="desc" ng-model="sendOrd.zipcode" required  /><br />
+        <label for="ColCliEnEd">Colonia:</label>
+        <input id="ColCliEnEd" type="text" name="precio" ng-model="sendOrd.neighborhood"   required /><br />
+        <label for="CalleCliEnEd">Calle:</label>
+        <input id="CalleCliEnEd" type="text" name="desc" ng-model="sendOrd.street"  required /><br />
+        <label for="NumeroCliEnEd">Numero:</label>
+        <input id="NumeroCliEnEd" type="text" name="desc" ng-model="sendOrd.number"  required /><br />
+        <label for="EntCliEnEd">Entidad:</label>
+        <input id="EntCliEnEd" type="text" name="desc" ng-model="sendOrd.entity"  required /><br />
+        <label for="MunCliEnEd">Municipio:</label>
+        <input id="MunCliEnEd" type="text" name="desc" ng-model="sendOrd.municipalty"  required /><br />
+        <label for="cpCliEnEd">CP:</label>
+        <input id="cp" type="text" name="desc" ng-model="sendOrd.zipcode" required  /><br />
         <br />
-        <input type="submit" value="Save" class="btn btn-primary">
+        <input type="submit" value="Guardar" class="btn btn-primary">
     </form>    
   </div>
 
