@@ -1,3 +1,7 @@
+<style type="text/css">
+.bor-tab{border-style: solid;
+    border-width: 1px;}
+</style>
 <div ng-controller="EditCtrlProductos">
     <ol class="breadcrumb">
         <li class=""><a href="#">Home</a></li>
@@ -11,22 +15,26 @@
             </div>
         </div>
     </div>
-    <div class="row inMargin">
-        <div class="col-md-11">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Marca</th> 
-                      <th>Variantes</th> 
-                    </tr>
-                </thead>
-                <tr ng-repeat=" prod in productos">
-                    <td><a href="#/app-vistaProductoInd/{{prod.id}}">{{ prod.name }}</a></td>
-                    <td>{{ prod.brand.name }}</td>
-                    <td>{{prod.variants.length}}</td>
-                </tr>
-            </table>    
+    <div class="tab-content" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 bor-tab">   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="info">
+                              <th>Nombre</th>
+                              <th>Marca</th> 
+                              <th>Variantes</th> 
+                            </tr>
+                        </thead>
+                        <tr ng-repeat=" prod in productos">
+                            <td><a href="#/app-vistaProductoInd/{{prod.id}}">{{ prod.name }}</a></td>
+                            <td>{{ prod.brand.name }}</td>
+                            <td>{{prod.variants.length}}</td>
+                        </tr>
+                    </table> 
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,3 +1,7 @@
+<style type="text/css">
+.bor-tab{border-style: solid;
+    border-width: 1px;}
+</style>
 <div ng-controller="EditCtrlProveedor">
 	<ol class="breadcrumb">
         <li class=""><a href="#/">Home</a></li>
@@ -14,24 +18,30 @@
 	    	</div>
 		</div>
 	</div>
-	<div class="tab-content">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-              <th>Nombre</th> 
-              <th>Correo</th> 
-              <th>Divisa</th> 
-              <th>P&aacute;gina</th> 
-              <th>Telefono</th> 
-            </tr>
-        </thead>
-        <tr>
-            <td>{{ suppUProxy.name }}</td>
-            <td>{{ suppUProxy.email }}</td>
-            <td>{{ suppUProxy.currency.name }}</td>
-            <td>{{ suppUProxy.website }}</td>
-            <td>{{ suppUProxy.phone }}</td> 
-        </tr>
-    </table> 
-</div>
+    <div class="tab-content" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 bor-tab">   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="info">
+                              <th>Nombre</th> 
+                              <th>Correo</th> 
+                              <th>Divisa</th> 
+                              <th>P&aacute;gina</th> 
+                              <th>Telefono</th> 
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>{{ suppUProxy.name }}</td>
+                            <td>{{ suppUProxy.email }}</td>
+                            <td>{{ suppUProxy.currency.name }}</td>
+                            <td>{{ suppUProxy.website }}</td>
+                            <td>{{ suppUProxy.phone }}</td> 
+                        </tr>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

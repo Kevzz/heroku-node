@@ -1,3 +1,17 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="EditCtrlProveedor">
   <ol class="breadcrumb">
     <li class=""><a href="#/">Home</a></li>
@@ -8,26 +22,77 @@
     <h1>Proveedor {{suppUProxy.name}}</h1>
     
   </div>
-  <div class="tab-content">
-    <h1>Formulario para editar</h1>
-      <label for="supplierName">Nombre:</label>
-      <form name="supplierFormEd" ng-submit="editTest(suppUProxy)">
-      <input id="supplierNameEd" type="text" name="name" ng-model="suppUProxy.name" required /><br />
-      <label for="supplierMailEd">Correo:</label>
-      <input id="supplierMailEd" type="text" name="mail" ng-model="suppUProxy.email" required /><br />
-      
-      <label for="supplierCurrEd">Divisa:</label>
-      <select id="supplierCurrEd" ng-model="suppUProxy.currency_id">
-        
-        <option ng-repeat="option in currProxy" value="{{option.id}}" ng-selected="suppUProxy.currency.id==option.id" >{{option.shortcut}}:{{option.name}}</option>
-      </select></br>
-      <label for="supplierWebEd">P&aacute;gina:</label>
-      <input id="supplierWebEd" type="text" name="web" ng-model="suppUProxy.website" required /><br />
-      <label for="supplierPhoneEd">Tel&eacute;fono:</label>
-      <input id="supplierPhoneEd" type="text" name="phone" ng-model="suppUProxy.phone" required /><br />
-      
-      <br />
-      <input type="submit" value="Guardar" class="btn btn-primary">
-    </form> 
-  </div>
+    <div class="container-fluid">
+         <form name="EdPrecioForm"  ng-submit="editTest(suppUProxy)">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="supplierName">Nombre:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  class="form-control" id="supplierNameEd" type="text" name="name" ng-model="suppUProxy.name" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="supplierMailEd">Correo:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="supplierMailEd" type="text" name="mail" ng-model="suppUProxy.email" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="supplierCurrEd">Divisa:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="supplierCurrEd" ng-model="suppUProxy.currency_id">
+                                        <option ng-repeat="option in currProxy" value="{{option.id}}" ng-selected="suppUProxy.currency.id==option.id">
+                                            {{option.shortcut}}:{{option.name}}
+                                    </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="supplierWebEd">P&aacute;gina:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  class="form-control"  id="supplierWebEd" type="text" name="web" ng-model="suppUProxy.website" required />
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="supplierPhoneEd">Tel&eacute;fono:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  class="form-control"  id="supplierPhoneEd" type="text" name="phone" ng-model="suppUProxy.phone" required />
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

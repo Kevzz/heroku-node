@@ -7,10 +7,30 @@
   <div class="page-heading">
     <h1>Editar Critero {{criterioEdit.name}}</h1>
   </div>
-  <div class="tab-content">
-    <form>
-      <input type="text" ng-model="criterioEdit.name" placeholder="Nombre" />
-      <button type="submit" class="btn btn-primary" ng-click="editCrit()">Submit</button>
-    </form>
-  </div>
+    <div class="container-fluid">
+         <form name="personForm2"  ng-submit="editCrit()">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="crit3">Criterio:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control"  type="text" id="crit3" ng-model="criterioEdit.name" placeholder="Nombre" />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  
 </div>

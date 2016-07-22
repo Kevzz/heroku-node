@@ -1,3 +1,17 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="CtrlFacturacion">
   <ol class="breadcrumb">
     <li class=""><a href="#/">Home</a></li>
@@ -7,16 +21,39 @@
   <div class="page-heading">
     <h1>Precio {{pricesEd.name}}</h1>
   </div>
-  <div class="tab-content">
-      <form name="personForm2"  ng-submit="editPrices()">
-        <label for="nomPreEd">Nombre:</label>
-        <input id="nomPreEd" type="text" name="nombre" ng-model="pricesEd.name" required /><br />
-        <label for="desPreEd">Descrpci&oacute;n:</label>
-        <input id="desPreEd" type="text" name="desc" ng-model="pricesEd.description" required /><br />
-        
-        <br />
-        <input type="submit" value="Guardar" class="btn btn-primary">
-      </form>
-      <br />
-  </div>
+    <div class="container-fluid">
+         <form name="EdPrecioForm"  ng-submit="editPrices()">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="nomPreEd">Nombre:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  class="form-control" id="nomPreEd" type="text" name="nombre" ng-model="pricesEd.name" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="desPreEd">Descrpci&oacute;n:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  class="form-control" id="desPreEd" type="text" name="desc" ng-model="pricesEd.description" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

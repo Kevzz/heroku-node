@@ -1,3 +1,8 @@
+<style type="text/css">
+.bor-tab{border-style: solid;
+    border-width: 1px;}
+</style>
+
 <div ng-controller="EditCtrlProveedor">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
@@ -12,26 +17,30 @@
         </div>
     </div>
   </div>
-  <div class="tab-content">
-    
-      <table class="table table-hover">
-          <thead>
-              <tr>
-                <th>Nombre</th> 
-                <th>Correo</th> 
-                <th>Divisa</th> 
-                <th>P&acute;gina</th> 
-                <th>Telefono</th> 
-              </tr>
-          </thead>
-          <tr ng-repeat="supp in suppProxy">
-              <td><a href="#/app-vistaProveedorInd/{{supp.id}}">{{ supp.name }}</a></td>
-              <td>{{ supp.email }}</td>
-              <td>{{supp.currency.shortcut}}</td>
-              <td>{{ supp.website }}</td>
-              <td>{{ supp.phone }}</td>
-          </tr>
-      </table>
-  </div>
-
+    <div class="tab-content" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 bor-tab">   
+                    <table class="table table-hover">
+                        <thead>
+                          <tr class="info">
+                            <th>Nombre</th> 
+                            <th>Correo</th> 
+                            <th>Divisa</th> 
+                            <th>P&acute;gina</th> 
+                            <th>Telefono</th> 
+                          </tr>
+                        </thead>
+                          <tr ng-repeat="supp in suppProxy">
+                              <td><a href="#/app-vistaProveedorInd/{{supp.id}}">{{ supp.name }}</a></td>
+                              <td>{{ supp.email }}</td>
+                              <td>{{supp.currency.shortcut}}</td>
+                              <td>{{ supp.website }}</td>
+                              <td>{{ supp.phone }}</td>
+                          </tr>
+                    </table>  
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

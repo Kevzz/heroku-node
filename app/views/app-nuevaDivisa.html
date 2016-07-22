@@ -1,3 +1,17 @@
+<style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="CtrlFacturacion">
   <ol class="breadcrumb">
     <li class=""><a href="#/">Home</a></li>
@@ -7,17 +21,51 @@
   <div class="page-heading">
     <h1>Nueva Divisa</h1>
   </div>
-  <div class="tab-content">
-      <form name="divisaForm"  ng-submit="subDivisa(divisaN)">
-        <label for="Divisa">Divisa:</label>
-        <input id="Divisa" type="text" name="nombre" ng-model="divisaN.shortcut" required /><br />
-        <label for="Nombre">Nombre:</label>
-        <input id="Nombre" type="text" name="desc" ng-model="divisaN.name" required /><br />
-        <label for="Cambio">Cambio:</label>
-        <input id="Cambio" type="number" name="unit" ng-model="divisaN.unit" required /><br />
-        <br />
-        <input type="submit" value="Guardar" class="btn btn-primary">
-      </form>
-      <br />
-  </div>
+    <div class="container-fluid">
+         <form name="divisaForm"  ng-submit="subDivisa(divisaN)">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input ">
+                        <div class="form-group top-buffer">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="Divisa">Divisa:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  class="form-control" id="Divisa" type="text" name="nombre" ng-model="divisaN.shortcut" required />
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="Nombre">Nombre:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="Nombre" type="text" name="desc" ng-model="divisaN.name" required />
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="Cambio">Cambio:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="Cambio" type="text" name="unit" ng-model="divisaN.unit" required />
+                                </div>
+                            </div>                              
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+ 
 </div>

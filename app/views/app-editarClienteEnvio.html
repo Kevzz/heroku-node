@@ -7,27 +7,80 @@
   </ol>
   <div class="page-heading">
     <h1>Editar direccion de envio</h1>
-    
   </div>
-  <div class="tab-content">
-    <form name="EditarEnvio" ng-submit="editEnv()">
-      <h3> Datos de envio</h3>
-        <label for="ColCliEnEd">Colonia:</label>
-        <input id="ColCliEnEd" type="text" name="precio" ng-model="sendOrd.neighborhood"   required /><br />
-        <label for="CalleCliEnEd">Calle:</label>
-        <input id="CalleCliEnEd" type="text" name="desc" ng-model="sendOrd.street"  required /><br />
-        <label for="NumeroCliEnEd">Numero:</label>
-        <input id="NumeroCliEnEd" type="text" name="desc" ng-model="sendOrd.number"  required /><br />
-        <label for="EntCliEnEd">Entidad:</label>
-        <input id="EntCliEnEd" type="text" name="desc" ng-model="sendOrd.entity"  required /><br />
-        <label for="MunCliEnEd">Municipio:</label>
-        <input id="MunCliEnEd" type="text" name="desc" ng-model="sendOrd.municipalty"  required /><br />
-        <label for="cpCliEnEd">CP:</label>
-        <input id="cp" type="text" name="desc" ng-model="sendOrd.zipcode" required  /><br />
-        <br />
-        <input type="submit" value="Guardar" class="btn btn-primary">
-    </form>    
-  </div>
-
-
+    <div class="container-fluid">
+         <form name="EditarEnvio" ng-submit="editEnv()">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="ColCliEnEd">Colonia:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control"  id="ColCliEnEd" type="text" name="precio" ng-model="sendOrd.neighborhood"   required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="CalleCliEnEd">Calle:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control"  id="CalleCliEnEd" type="text" name="desc" ng-model="sendOrd.street"  required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="NumeroCliEnEd">Numero:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control"  id="NumeroCliEnEd" type="text" name="desc" ng-model="sendOrd.number"  required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="EntCliEnEd">Entidad:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="EntCliEnEd" type="text" name="desc" ng-model="sendOrd.entity"  required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="MunCliEnEd">Municipio:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control"  id="MunCliEnEd" type="text" name="desc" ng-model="sendOrd.municipalty"  required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="cpCliEnEd">CP:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control"  id="cp" type="text" name="desc" ng-model="sendOrd.zipcode" required  />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
