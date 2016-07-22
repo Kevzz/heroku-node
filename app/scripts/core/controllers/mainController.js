@@ -965,8 +965,7 @@ function getRecent(prod)
     if(isLog)
       $location.path('/app-vistaProductos');
     $scope.createLog=function(){
-      console.log($scope.us);
-      console.log($scope.pass);
+      
       if($scope.us=='Admin'&&$scope.pass=='admin')
       {
         SimLog.sendData("Logged");
