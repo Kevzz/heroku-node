@@ -1,3 +1,11 @@
+<style type="text/css">
+
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="CtrlAlmacenNuevo">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
@@ -6,13 +14,30 @@
   <div class="page-heading">
     <h1>Nuevo Locacion</h1>
   </div>
-  <div class="tab-content">
-    <form name="AlmacenForm" ng-submit="nuevoAlmacen()">
-      <h3> Informaci&oacute;n general</h3>
-      <label for="nombreAlmacen">Nombre:</label>
-      <input id="nombreAlmacen" type="text" name="nombreAlmacen" ng-model="almacenN.name" required /><br />
-      <input type="submit" value="Save" class="btn btn-primary">
-      <br />
-    </form>    
-  </div>
+    <div class="container-fluid">
+         <form name="AlmacenForm" ng-submit="nuevoAlmacen()">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="nombreAlmacen">Nombre:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="nombreAlmacen" type="text" name="nombreAlmacen" ng-model="almacenN.name" required />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  
   </div>

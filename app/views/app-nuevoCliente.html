@@ -1,3 +1,10 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="CtrlClientes">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
@@ -7,60 +14,224 @@
   <div class="page-heading">
     <h1>Nuevo Cliente</h1>
   </div>
-  <div class="tab-content">
-    <form name="ClienteForm" ng-submit="nuevo(clienteN)">
-      <h3> Informaci&oacute;n general</h3>
-      <label for="NombreCli">Nombre:</label>
-      <input id="NombreCli" type="text" name="nombre" ng-model="clienteN.name" required /><br />
-      <label for="CorreoCli">Correo:</label>
-      <input id="CorreoCli" type="text" name="correo" ng-model="clienteN.email" required /><br />
-      <select id="productSupp" name="productSupp" class="form-control"  ng-model="clienteN.price_id">
-        <option value="">Seleccione el precio a aplicar</option>
-        <option ng-repeat="option in precios " ng-display="option.name!='Compra'" value="{{option.id}}">{{option.name}}</option>
-      </select>
-      <label for="PAginaCLi">P&aacute;gina:</label>
-      <input id="PAginaCLi" type="text" name="page" ng-model="clienteN.website" required /><br />
-      <label for="TelCli">Tel&eacute;fono:</label>
-      <input id="TelCli" type="text" name="telefono" ng-model="clienteN.phone" required /><br />
-      <br />
-      <h3> Datos Fiscales</h3>
-      <label for="razonCli">Raz&oacute;n Social:</label>
-      <input id="razonCli" type="text" name="razon" ng-model="clienteN.razonsocial" required /><br />
-      <label for="rfcCLi">RFC:</label>
-      <input id="rfcCLi" type="text" name="rfc" ng-model="clienteN.rfc" required /><br />
-      <label for="colCli">Colonia:</label>
-      <input id="colCli" type="text" name="colonia" ng-model="clienteN.neighborhood" required /><br />
-      <label for="calleCli">Calle:</label>
-      <input id="calleCli" type="text" name="calle" ng-model="clienteN.street" required /><br />
-      <label for="numCli">Numero:</label>
-      <input id="numCli" type="text" name="numero" ng-model="clienteN.number" required /><br />
-      <label for="EntidadCli">Entidad:</label>
-      <input id="EntidadCli" type="text" name="entidad" ng-model="clienteN.entity" required /><br />
-      <label for="munCLi">Municipio:</label>
-      <input id="munCLi" type="text" name="municipio" ng-model="clienteN.city" required /><br />
-      <label for="cpCli">CP:</label>
-      <input id="cpCli" type="text" name="cp" ng-model="clienteN.zipcode" required /><br />
-      <input type="submit" value="Guardar" class="btn btn-primary">
-      <br />
-      <h3> Datos de envio</h3>
-      <input type="checkbox" name="vehicle" value="Car" ng-model="clienteN.envio" checked> Utilizar la misma direcci&oacute;n<br>
-      <div class="form-group" ng-hide="clienteN.envio">
-        <label for="ColCLiEn">Colonia:</label>
-        <input id="ColCLiEn" type="text" name="colonia" ng-model="clienteN.coloniaEnvio"  /><br />
-        <label for="CalleCliEn">Calle:</label>
-        <input id="CalleCliEn" type="text" name="calle" ng-model="clienteN.calleEnvio"  /><br />
-        <label for="NumeroCLiEn">N&uacute;mero:</label>
-        <input id="NumeroCLiEn" type="text" name="numero" ng-model="clienteN.numeroEnvio"  /><br />
-        <label for="EntCliEn">Entidad:</label>
-        <input id="EntCliEn" type="text" name="entidad" ng-model="clienteN.entidadEnvio"  /><br />
-        <label for="MunCliEn">Municipio:</label>
-        <input id="MunCliEn" type="text" name="mun" ng-model="clienteN.municipioEnvio"  /><br />
-        <label for="coCliEn">CP:</label>
-        <input id="coCliEn" type="text" name="cp" ng-model="clienteN.cpEnvio"  /><br />
-        <br />
-      </div>
-    </form>    
-  </div>
-
-
+    <div class="container-fluid">
+        <form name="ClienteForm" ng-submit="nuevo(clienteN)">
+            <div class="tab-pane">
+                <div class="row ">
+                    <div class="col-md-6 borde-input">
+                        <div class="title"><h3> Informaci&oacute;n general</h3></div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="NombreCli" class="control-label">Nombre:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="NombreCli" type="text" name="nombre" ng-model="clienteN.name" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   <label for="CorreoCli" class="control-label">Correo:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="CorreoCli" type="text" name="correo" ng-model="clienteN.email" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="clientePre" class="control-label">Precio:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="clientePre" name="clientePre" class="form-control"  ng-model="clienteN.price_id">
+                                        <option value="">Seleccione el precio a aplicar</option>
+                                        <option ng-repeat="option in precios " ng-display="option.name!='Compra'" value="{{option.id}}">{{option.name}}</option>
+                                      </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="PAginaCLi" class="control-label">P&aacute;gina:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="PAginaCLi" type="text" name="page" ng-model="clienteN.website" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="TelCli" class="control-label">Tel&eacute;fono:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="TelCli" type="text" name="telefono" ng-model="clienteN.phone" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="title"><h3> Datos Fiscales</h3></div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="razonCli" class="control-label">Raz&oacute;n Social:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="razonCli" type="text" name="razon" ng-model="clienteN.razonsocial" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="rfcCLi" class="control-label">RFC:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="rfcCLi" type="text" name="rfc" ng-model="clienteN.rfc" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="colCli" class="control-label">Colonia:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="colCli" type="text" name="colonia" ng-model="clienteN.neighborhood" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="calleCli" class="control-label">Calle:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="calleCli" type="text" name="calle" ng-model="clienteN.street" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="numCli" class="control-label">N&uacute;mero:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="numCli" type="text" name="numero" ng-model="clienteN.number" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="EntidadCli" class="control-label">Entidad:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="EntidadCli" type="text" name="entidad" ng-model="clienteN.entity" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="munCLi" class="control-label">Municipio:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="munCLi" type="text" name="municipio" ng-model="clienteN.city" required />
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="title"><h3> Datos de Envio</h3></div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <input type="checkbox" name="vehicle" value="Car" ng-model="clienteN.envio" checked> Utilizar la misma direcci&oacute;n
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-hide="clienteN.envio"> 
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="ColCLiEn" class="control-label">Colonia:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" id="ColCLiEn" type="text" name="colonia" ng-model="clienteN.coloniaEnvio"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="CalleCliEn" class="control-label">Calle:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" id="CalleCliEn" type="text" name="calle" ng-model="clienteN.calleEnvio"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="NumeroCLiEn" class="control-label">N&uacute;mero:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" id="NumeroCLiEn" type="text" name="numero" ng-model="clienteN.numeroEnvio"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="EntCliEn" class="control-label">Entidad:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" id="EntCliEn" type="text" name="entidad" ng-model="clienteN.entidadEnvio"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="MunCliEn" class="control-label">Municipio:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" id="MunCliEn" type="text" name="mun" ng-model="clienteN.municipioEnvio"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="coCliEn" class="control-label">CP:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" id="coCliEn" type="text" name="cp" ng-model="clienteN.cpEnvio"  />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

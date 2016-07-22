@@ -1,3 +1,10 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="EditCtrlProveedor">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
@@ -6,28 +13,74 @@
   </ol>
   <div class="page-heading">
     <h1>Nuevo Proveedores</h1>
-     
   </div>
-  <div class="tab-content">
-    <form name="supplierForm" ng-submit="sub(proveN)">
-      <label for="supplierName">Nombre:</label>
-      <input id="supplierName" type="text" name="name" ng-model="proveN.name" required /><br />
-      <label for="supplierMail">Correo:</label>
-      <input id="supplierMail" type="text" name="mail" ng-model="proveN.email" required /><br />
-      
-      <label for="supplierCurr">Divisa:</label>
-      <select id="supplierCurr" ng-model="proveN.currency_id">
-        <option ng-repeat="option in currProxy" value="{{option.id}}">{{option.shortcut}}:{{option.name}}</option>
-      </select></br>
-      <label for="supplierWeb">P&aacute;gina:</label>
-      <input id="supplierWeb" type="text" name="web" ng-model="proveN.website" required /><br />
-      <label for="supplierPhone">Tel&eacute;fono:</label>
-      <input id="supplierPhone" type="text" name="phone" ng-model="proveN.phone" required /><br />
-      
-      <br />
-      <input type="submit" value="Guardar" class="btn btn-primary">
-    </form>    
-  </div>
-
-
+    <div class="container-fluid">
+         <form name="supplierForm"  ng-submit="sub(proveN)">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   <label for="supplierName">Nombre:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="supplierName" type="text" name="name" ng-model="proveN.name" required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   <label for="supplierMail">Correo:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="supplierMail" type="text" name="mail" ng-model="proveN.email" required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   <label for="supplierCurr">Divisa:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="supplierCurr" ng-model="proveN.currency_id">
+                                        <option value="">Selecciona una divisa</option>
+                                        <option ng-repeat="option in currProxy" value="{{option.id}}">{{option.shortcut}}:{{option.name}}</option>
+                                    </select>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   <label for="supplierWeb">P&aacute;gina:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="supplierWeb" type="text" name="web" ng-model="proveN.website" required />
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   <label for="supplierPhone">Tel&eacute;fono:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="supplierPhone" type="text" name="phone" ng-model="proveN.phone" required />
+                                    
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

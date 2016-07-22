@@ -1,3 +1,10 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="CtrlListas">
   <ol class="breadcrumb">
     <li class=""><a href="#/">Home</a></li>
@@ -7,10 +14,29 @@
   <div class="page-heading">
     <h1>Nueva Critero</h1>
   </div>
-  <div class="tab-content">
-    <form>
-      <input type="text" ng-model="nombreNCrit" placeholder="Nombre" />
-      <button type="submit" class="btn btn-primary" ng-click="nuevoCrit()">Guardar</button>
-    </form>
-  </div>
+    <div class="container-fluid">
+         <form name="nueCritForm"  ng-submit="nuevoCrit()">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="NombreCrit3">Criterio:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="NombreCrit3" type="text" ng-model="nombreNCrit" placeholder="Nombre" />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

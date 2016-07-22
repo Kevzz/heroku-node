@@ -1,3 +1,10 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="CtrlDivisorNuevo">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
@@ -8,13 +15,30 @@
   <div class="page-heading">
     <h1>Nuevo Divisor</h1>
   </div>
-  <div class="tab-content">
-    <form name="personForm3" ng-submit="nuevoDivisor()">
-      <h3> Informaci&oacute;n general</h3>
-      <label for="nombreDivisor">Nombre:</label>
-      <input id="nombreDivisor" type="text" name="nombreDivisor" ng-model="divisorN.name" required /><br />
-      <input type="submit" value="Guardar" class="btn btn-primary">
-      <br />
-    </form>    
-  </div>
+    <div class="container-fluid">
+         <form name="nueDivForm"  ng-submit="nuevoDivisor()">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   <label for="nombreDivisor">Divisor:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input  class="form-control"  id="nombreDivisor" type="text" name="nombreDivisor" ng-model="divisorN.name" required />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
   </div>

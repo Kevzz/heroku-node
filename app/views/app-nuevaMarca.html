@@ -1,3 +1,11 @@
+<style type="text/css">
+    
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+    </style>
 <div ng-controller="EditCtrl">
   <ol class="breadcrumb">
     <li class=""><a href="#/">Home</a></li>
@@ -7,12 +15,29 @@
   <div class="page-heading">
     <h1>Nueva Marca</h1>
   </div>
-  <div class="tab-content">
-    <h1>Formulario para crear marca</h1>
-      <form>
-            <input type="text" ng-model="formData.name" placeholder="Nombre" />
-            <button type="submit" class="btn btn-primary" ng-click="sub(formData)">Guardar</button>
-      </form>
-      <br />
-  </div>
+    <div class="container-fluid">
+         <form name="nueMarcaForm"  ng-submit="sub(formData)">
+            <div class="tab-pane">
+                <div class="row top-buffer ">
+                    <div class="col-md-6 borde-input">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="NombreMarca3">Marca:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="NombreMarca3" type="text" ng-model="formData.name" placeholder="Nombre" required />
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
