@@ -1032,8 +1032,10 @@ function getRecent(prod)
     }
   $scope.nuevaLoc=function()
   {
+    reciente=0;
     apiService.postData(urlLocation,$scope.locacion).then(function(response){
       reciente=getRecent(response.data);
+      console.log(reciente);
       var data={
         name:'Global',
         location_id:reciente
@@ -2155,24 +2157,19 @@ function getRecent(prod)
       amount:0
     };
     
-    apiService.postData(urlOrdenesC,data);
-
-    apiService.getData(urlOrdenesC).then(function(response) {
+    apiService.postData(urlOrdenesC,data).then(function(response){
       idRec=getRecent(response.data);
       //console.log(idRec);
       dataShareCompra.sendData(idRec);
-    });
-    $timeout(function(){
       var dataUpd = {
         number:"OC_"+idRec
       };
         //dataShareCompra.sendData(idRec);
         apiService.putData(urlOrdenesC,idRec,dataUpd);
       $location.path('/app-nuevaOrdenC');
-    }, 7000); 
-    
+    }); 
 
-  };
+  }
 }])
 
 .controller('CtrlOrdenesCNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra){
@@ -2709,20 +2706,12 @@ var IDsendCliente="";
     {
       var idcliente=0;
       apiService.postData(urlClientes,clienteN).then(function(response) {
-        //console.log(response.data);
-        //idcliente=getRecent(response.data);        
-      });
-      apiService.getData(urlClientes).then(function(response) {
-        //console.log(response.data);
-        idcliente=getRecent(response.data);        
-      });
-
-      $timeout(function(){
-
+        idcliente=getRecent(response.data); 
         if($scope.clienteN.envio)
         {
           clienteN.client_id=idcliente;
           clienteN.municipalty=$scope.clienteN.city;
+          clienteN.zipcode=$scope.clienteN.zipcode;
           apiService.postData(urlDirEnvios,clienteN);
         }
         else
@@ -2736,10 +2725,9 @@ var IDsendCliente="";
             number:$scope.clienteN.numeroEnvio
           };
           apiService.postData(urlDirEnvios,data);
-        }
-      }, 8000); 
-        
-        $location.path('/app-vistaClientes');
+        }        
+      });        
+      $location.path('/app-vistaClientes');
     };
   }])
 
@@ -3026,8 +3014,10 @@ var IDsendCliente="";
       $location.path('/app-defVariantes');
     }
     $scope.formVariantes= [];
+    $scope.genVar=false;
     $scope.subVariant = function(formData) {
       //console.log(formData);
+      $scope.genVar=true;
       urlVariant="/variants";
       urlPrices="/prices";
       urlVariantPrices="/variant_prices";
@@ -3038,14 +3028,6 @@ var IDsendCliente="";
         variantesForm.push(value.Text);
       });      
 
-      
-      /*while(idRec)
-      {
-        window.setTimeout(function() {
-            console.log("esperando");
-            console.log(idRec);
-        }, 3000);
-      }*/
       $scope.variantesAsi=variantesForm;
       
       var json = JSON.stringify( variantesForm);
@@ -3085,23 +3067,23 @@ var IDsendCliente="";
               });  
               //apiService.push(urlVariant,);
             });    
+            apiService.getSingleData(urlProducts,idRec).then(function(response){
+              $scope.variantesFormC=response.data.variants;
+              //console.log($scope.variantesFormC);
+              apiService.getData(urlPrices).then(function(response){
+                $scope.pricesProxy=response.data;
+                dataShare.sendData(idRec);
+                $location.path('/app-subVariantes');
+              });
+              
+            });
           });
-          $timeout(function(){
-            dataShare.sendData(idRec);
-          $location.path('/app-subVariantes');
-        }, 10000); 
+          
           
         });
 
 
-      apiService.getSingleData(urlProducts,idRec).then(function(response){
-        $scope.variantesFormC=response.data.variants;
-        //console.log($scope.variantesFormC);
-        apiService.getData(urlPrices).then(function(response){
-          $scope.pricesProxy=response.data;
-        });
-        
-      });
+      
       
     }
     //console.log(cartesian(["rojo","verde","azul"], ["chico","grande"],["feo","bonito"]));
@@ -3305,9 +3287,23 @@ $scope.makeid=function()
   var urlBrands="/brands";
   var urlCurrency="/currencies";
   var urlSellOrd="/sell_orders";
+  var urlVariant="/variants";
 
   var total=0;
   var disp=0;
+  $scope.elimProd=function(){
+      var answer = confirm("Vas a archivar el producto y sus variantes ¿Estás seguro?")
+      if (answer) {
+        var data={status:"A"};
+        angular.forEach($scope.prod.variants,function(value,key){
+          if(value.status='C')
+            apiService.putData(urlVariant,value.id,data);  
+        });
+        $location.path('#/app-vistaProductoInd/'+$routeParams.id);  
+        
+      }
+  };
+
   apiService.getSingleData(urlProducts,$routeParams.id).then(function(response){
         $scope.prod=response.data;
 

@@ -1,16 +1,4 @@
 <style type="text/css">
-div.table 
-{
-    display:table;
-}
-form.tr, div.tr
-{
-    display:table-row;
-}
-span.td
-{
-    display:table-cell;
-}
 .inMargin
 {
   margin-top: 2.3rem;
@@ -23,7 +11,7 @@ span.td
 {
   border-style: solid;
 }
-    </style>
+</style>
 <div ng-controller="EditCtrlVariantes">
   <ol class="breadcrumb">
       <li class=""><a href="#/">Home</a></li>
@@ -33,11 +21,6 @@ span.td
   </ol>
   <div class="page-heading">
     <h1>Alta de variantes</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
   </div>
 
   <div class="container-fluid">
@@ -50,18 +33,18 @@ span.td
               <div class="col-md-6 col-md-offset-1">
                 <h1>{{$index + 1}}. {{variant.name}}</h1>
               </div>
-              <div class="col-md-2">
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-1">
                 <label class="radio-inline">
                   <input type="checkbox" name="status" ng-model="variant.status" ng-value="U" ng-checked="variant.status=='U'" > No Disponible
                 </label>
               </div>
             </div>
-
-            
             <div class="row">
               <div class="col-md-6 col-md-offset-1">
                 <label for="variantCodB">Cod. barras:</label>
-                <input ng-disabled="variant.status=='U'||variant.status==true" id="variantCodB" class="form-control" type="text" ng-model="variant.code" required />
+                <input ng-disabled="variant.status=='U'||variant.status==true" id="variantCodB" class="form-control" type="text" ng-model="variant.code" />
               </div>
             </div>
             <div class="row">
@@ -76,7 +59,7 @@ span.td
             <div class="row">
               <div class="col-md-6 col-md-offset-1">
                 <label for="variantPeso">Peso:</label>
-                <input ng-disabled="variant.status=='U'||variant.status==true" id="variantPeso" class="form-control" type="text" ng-model="variant.weight" required />
+                <input ng-disabled="variant.status=='U'||variant.status==true" id="variantPeso" class="form-control" type="text" ng-model="variant.weight" />
               </div>
             </div>
             <div class="row">
@@ -110,11 +93,7 @@ span.td
           </div>
         </div>
       </div>
-      
-      
-      <button  type="submit" class="btn inline">
-        Guardar
-      </button>
+      <input type="submit" class="btn btn-primary pull-right" value="Guardar" style="background-color:#93351F;border-color:#93351F;">
     </form> 
     <hr>   
   </div>

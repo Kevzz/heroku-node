@@ -23,11 +23,6 @@
   </ol>
   <div class="page-heading">
     <h1>Alta de variantes</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
-        </div>
-    </div>
   </div>
   <div class="container-fluid">
     <form name="productVariantForm" ng-submit="subVariant(variants)">
@@ -35,7 +30,7 @@
         <div class="row ">
           <div class="col-md-12">
             <h3>Crear variantes de productos</h3>
-            <p>Selecciona los criterios para definir las variantes del producto. Por ejemplo color y tamaño te dara todas las combinaciones para tus variantes.</p>
+            <p>Selecciona los criterios para definir las variantes del producto. Por ejemplo color y tamaño te dara todas las combinaciones para tus variantes. Cada variante se separa por coma.</p>
           </div>
         </div>
         <div class="row ">
@@ -54,22 +49,16 @@
                     <textarea class="form-control" ng-list="" data-ng-model="variant.Text"></textarea>
                   </div>
                   <div class="col-md-2 inMargin">
-                    <button data-ng-click="removeItem($index)" type="button" class="btn delete-field-{{$index}} ">
-                      Eliminar
-                    </button>
+                    <input type="button" ng-click="removeItem($index)" class="btn delete-field-{{$index}} btn-primary pull-right" value="Eliminar" style="background-color:#93351F;border-color:#93351F;">
                   </div>
                 </div>             
               </div>
             </div>
-            <button data-ng-click="cloneItem()" type="button" class="btn inline">
-              Agregar criterio
-            </button>
+            <input type="button" ng-click="cloneItem()" class="btn btn-primary pull-right" value="Agregar Variantes" style="background-color:#93351F;border-color:#93351F;">
           </div>
         </div>
       </div>
-      <button  type="submit" class="btn inline inMargin">
-        Generar variantes
-      </button>
+      <input ng-disabled="genVar" type="submit" class="btn btn-primary pull-right" value="Generar Variantes" style="background-color:#93351F;border-color:#93351F;">
     </form>    
   </div>
 </div>

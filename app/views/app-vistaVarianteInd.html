@@ -21,7 +21,7 @@
 		<div class="options">
 	    	<div class="btn-toolbar">
 	        	<a href="#/app-editarVariante/{{variante.id}}" class="btn btn-default"><i class="fa fa-fw fa-pencil"></i>Editar</a>
-                <a ng-click="elimVar()" class="btn btn-default"><i class="fa fa-fw fa-trash"></i>Eliminar</a>
+                <a ng-click="elimVar()" ng-show="variante.status=='A'" class="btn btn-default"><i class="fa fa-fw fa-trash"></i>Eliminar</a>
 	    	</div>
 		</div>
 	</div>

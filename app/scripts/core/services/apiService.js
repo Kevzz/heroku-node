@@ -15,19 +15,25 @@ angular.module('theme.core.services')
 	}
 	ApiService.prototype.postData= function(url,data)
 	{
-		this.$http.post(url,data);
-		return this.$http.get(url);
+		return this.$http.post(url,data).then(function(response)
+			{
+				return $http.get(url);
+			});
+		
 		
 	}
 	ApiService.prototype.deleteData=function(url,id)
 	{
-		this.$http.delete(url+"/"+id);
-		return this.$http.get(url);
-		
+		return this.$http.delete(url+"/"+id).then(function(response)
+		{
+			return $http.get(url);
+		});		
 	}
 	ApiService.prototype.putData=function(url,id,data)
 	{
-		this.$http.put(url+"/"+id,data);
-		return this.$http.get(url);
+		return this.$http.put(url+"/"+id,data).then(function(response)
+		{
+			return $http.get(url);
+		});	
 	}
 }]);

@@ -12,18 +12,21 @@ angular
       label: 'Inicio',
       iconClasses: '',
       separator:true
-    }, {
+    },{
       label: 'Productos',
       iconClasses: 'fa fa-check-circle',
-      url: '#/app-vistaProductos',
-      children: [{
-        label: 'Marcas',
-        url: '#/app-vistaMarcas',
-      }, {
-        label: 'Proveedores',
-        url: '#/app-vistaProveedor'
-      }]
-    }, {
+      url: '#/app-vistaProductos'
+    },{
+      label: 'Marcas',
+      url: '#/app-vistaMarcas',
+      iconClasses: 'fa fa-tag'
+    },
+    {
+      label: 'Proveedores',
+      url: '#/app-vistaProveedor',
+      iconClasses: 'fa fa-truck'
+    }, 
+    {
       label: 'Clientes',
       iconClasses: 'fa fa-users',
       url: '#/app-vistaClientes',

@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="NombreCli" class="control-label">Nombre:</label>
+                                    <label for="NombreCli" class="control-label">Nombre: *</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control" id="NombreCli" type="text" name="nombre" ng-model="clienteN.name" required />
@@ -36,7 +36,7 @@
                                    <label for="CorreoCli" class="control-label">Correo:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="CorreoCli" type="text" name="correo" ng-model="clienteN.email" required />
+                                    <input class="form-control" id="CorreoCli" type="text" name="correo" ng-model="clienteN.email" />
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                 <div class="col-md-8">
                                     <select id="clientePre" name="clientePre" class="form-control"  ng-model="clienteN.price_id">
                                         <option value="">Seleccione el precio a aplicar</option>
-                                        <option ng-repeat="option in precios " ng-display="option.name!='Compra'" value="{{option.id}}">{{option.name}}</option>
+                                        <option ng-repeat="option in precios" ng-show="option.name!='Compra'" value="{{option.id}}">{{option.name}}</option>
                                       </select>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                     <label for="PAginaCLi" class="control-label">P&aacute;gina:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="PAginaCLi" type="text" name="page" ng-model="clienteN.website" required />
+                                    <input class="form-control" id="PAginaCLi" type="text" name="page" ng-model="clienteN.website" />
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                     <label for="TelCli" class="control-label">Tel&eacute;fono:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="TelCli" type="text" name="telefono" ng-model="clienteN.phone" required />
+                                    <input class="form-control" id="TelCli" type="text" name="telefono" ng-model="clienteN.phone"  />
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                     <label for="razonCli" class="control-label">Raz&oacute;n Social:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="razonCli" type="text" name="razon" ng-model="clienteN.razonsocial" required />
+                                    <input class="form-control" id="razonCli" type="text" name="razon" ng-model="clienteN.razonsocial" />
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                                     <label for="rfcCLi" class="control-label">RFC:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="rfcCLi" type="text" name="rfc" ng-model="clienteN.rfc" required />
+                                    <input class="form-control" id="rfcCLi" type="text" name="rfc" ng-model="clienteN.rfc" />
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                     <label for="colCli" class="control-label">Colonia:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="colCli" type="text" name="colonia" ng-model="clienteN.neighborhood" required />
+                                    <input class="form-control" id="colCli" type="text" name="colonia" ng-model="clienteN.neighborhood"  />
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                     <label for="calleCli" class="control-label">Calle:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="calleCli" type="text" name="calle" ng-model="clienteN.street" required />
+                                    <input class="form-control" id="calleCli" type="text" name="calle" ng-model="clienteN.street"  />
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                     <label for="numCli" class="control-label">N&uacute;mero:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="numCli" type="text" name="numero" ng-model="clienteN.number" required />
+                                    <input class="form-control" id="numCli" type="text" name="numero" ng-model="clienteN.number"  />
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                     <label for="EntidadCli" class="control-label">Entidad:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="EntidadCli" type="text" name="entidad" ng-model="clienteN.entity" required />
+                                    <input class="form-control" id="EntidadCli" type="text" name="entidad" ng-model="clienteN.entity"  />
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,17 @@
                                     <label for="munCLi" class="control-label">Municipio:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input class="form-control" id="munCLi" type="text" name="municipio" ng-model="clienteN.city" required />
+                                    <input class="form-control" id="munCLi" type="text" name="municipio" ng-model="clienteN.city" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="munCLi" class="control-label">C&oacute;digo Postal:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="munCLi" type="text" name="municipio" ng-model="clienteN.zipcode" />
                                 </div>
                             </div>
                         </div>

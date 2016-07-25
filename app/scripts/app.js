@@ -230,6 +230,11 @@ angular
           return 'views/app-vistaAlmacen.html';
         }
       })
+      .when('/app-nuevoAlmacen', {
+        templateUrl: function(param) {
+          return 'views/app-nuevoAlmacen.html';
+        }
+      })
       .when('/app-vistaVarProdAl/:id', {
         templateUrl: function(param) {
           return 'views/app-vistaVarProdAl.html';

@@ -118,7 +118,7 @@ hr{    border-top-color: #455A64}
                 <div class="row no-gutter">
                   <div class="col-sm-4">
                     <select id="productSupp" name="productSupp" class="form-control"  ng-model="variant.ordenWarehId">
-                      <option ng-repeat="option in warehouses" value="{{option.id}}">{{option.name}}</option>
+                      <option ng-repeat="option in warehouses" ng-show="option.name!='Global'" value="{{option.id}}">{{option.name}}</option>
                     </select>
                   </div>
                   <div class="col-sm-4">
