@@ -20,57 +20,38 @@
         <div class="row ">
           <div class="col-md-8 col-md-offset-2 borde-input">
             <div class="title"><h3>&Oacute;rden de prestamo</h3></div>
-              <div class="form-group">
-                <label for="transfType" class="control-label">Seleccione el tipo de prestamo</label>
-                <select name="transfType" id="transfType" class="form-control" ng-model="transfType">
-                  <option value="">Selecciona el tipo de prestamo</option>
-                  <option value="1">Almac&eacute;n a almac&eacute;n</option>
-                  <option value="2">Locaci&oacute;n a Locaci&oacute;n</option>
-                </select>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LocPres">Seleccione la Locaci&oacute;n:</label>
+                  <select id="LocPres" name="LocPres" class="form-control" ng-change="almacenesOrigen()" ng-model="LocOrigen">
+                    <option value="">Locaci&oacute;n Origen</option>
+                    <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="LocPres">Seleccione la Locaci&oacute;n:</label>
-                <select id="LocPres" name="LocPres" class="form-control" ng-change="almacenesOrigen()" ng-model="LocOrigen">
-                  <option value="">Locaci&oacute;n Origen</option>
-                  <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
-                </select>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="oriPre">Seleccione el origen:</label>
+                  <select id="oriPre" name="oriPre" class="form-control" ng-model="divOrigen" ng-change="prodDiv()">
+                    <option value="">Almacen / Divisor</option>
+                    <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="oriPre">Seleccione el origen:</label>
-                <select id="oriPre" name="oriPre" class="form-control" ng-model="divOrigen" ng-change="prodDiv()">
-                  <option value="">Almacen / Divisor</option>
-                  <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
-                </select>
-              </div>
-            
-          </div>
-        </div>
-        <div class="row top-buffer" ng-show="transfType==2">
-          <div class="col-md-8 col-md-offset-2 borde-input">
-            <div class="form-group">
-              <label for="LocDestino">Seleccione la Locaci&oacute;n:</label>
-              <select id="LocDestino" name="LocDestino" class="form-control" ng-change="almacenesDestino()" ng-model="LocDestino">
-                <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
-              </select>
             </div>
-            <div class="form-group">
-                <label for="productSupp">Seleccione el destino:</label>
-                <select id="productSupp" name="productSupp" class="form-control" ng-model="divDestinoOp2">
-                  <option ng-repeat="option in opciones_destino" value="{{option.id_div}}">{{option.name}}</option>
-                </select>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="Prestatario">Prestatario:</label>
+                  <input id="Prestatario" type="text" class="form-control" ng-model="prestatario" placeholder="Prestatario">
+                </div>
+              </div>
+              
             </div>
           </div>
         </div>
-        <div class="row top-buffer" ng-show="transfType==1">
-          <div class="col-md-8 col-md-offset-2 borde-input">
-            <div class="form-group">
-                <label for="desPres">Seleccione el destino:</label>
-                <select id="desPres" name="desPres" class="form-control" ng-model="divDestinoOp1">
-                  <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
-                </select>
-            </div>
-          </div>
-        </div>
+        
         <div class="row top-buffer">
 
           <div class="col-md-offset-2 col-md-8 borde-input">
@@ -104,7 +85,9 @@
         </div>
         <div class="row">
           <div class="col-sm-3 col-md-offset-5">
-            <button class="btn-primary btn" ng-disabled="SubmitOnce">Crear orden</button>
+            <input type="submit" class="btn btn-primary pull-right" value="Crear Orden" style="background-color:#93351F;border-color:#93351F;">
+            <a href="#/app-vistaFacturacion" ng-disabled="SubmitOnce" style="padding: 7px 15px;" class="pull-right">Cancelar</a>
+            
           </div>
         </div>
     </form>

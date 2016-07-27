@@ -1,0 +1,160 @@
+<style type="text/css">
+.borde-input
+{
+  border-style: solid;
+}
+.top-buffer { margin-top:20px; }
+.bor-tab{border-style: solid;
+    border-width: 1px;}
+.row-head{text-align: center;
+    background-color: #DDD;
+}
+.row-cont{text-align: center;}
+hr{    border-top-color: #455A64}
+.TotAltura{    line-height: 47px;}
+    </style>
+<div ng-controller="CtrlOrdenesCInd">
+  <ol class="breadcrumb">
+      <li class=""><a href="#/">Home</a></li>
+      <li class=""><a href="#">Ordenes</a></li>
+      <li class=""><a href="#/app-vistaOrdenesCompra">Compra</a></li>
+      <li class="active"><a href="#">{{ordenCompra.number}}</a></li>
+  </ol>
+  <div class="page-heading">
+    <h1>&Oacute;rden de compra : {{ordenCompra.number}}</h1>
+    <div class="options">
+        <div class="btn-toolbar">
+            <a ng-click="changePayment()" ng-show="ordenVenta.payment=='Pendiente'" class="btn btn-default"><i class="fa fa-fw fa-send"></i>Pagada</a>
+        </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    
+      <div class="row borde-input">
+        <div class="col-md-12">
+          <div class="row ">
+            <div class="col-md-4" style="padding: 1em;">
+              <div class="form-group">
+                <span>No. de &oacute;rden: <strong>{{ordenCompra.number}}</strong></span>
+              </div>
+            </div>
+            <div class="col-md-4" style="padding: 1em;">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="productSupp">Proveedor:</label>
+                  </div>
+                  <div class="col-md-9">
+                    {{ordenCompra.supplier.name}}
+                  </div>
+                </div>
+              </div>         
+            </div> 
+            <div class="col-md-4" style="padding: 1em;">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="productDate">Fecha:</label>
+                  </div>
+                  <div class="col-md-10">
+                    {{ordenCompra.date}}
+                  </div>
+                </div>
+              </div>        
+            </div>          
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="radio-inline">
+                  <input type="checkbox" name="billing" ng-model="billing" ng-checked="ordenCompra.billing=='Y'" ng-disabled="true" ng-value="Y"> Facturación
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="productDate">Pago:</label>
+                  </div>
+                  <div class="col-md-10">
+                    {{ordenCompra.payment}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="row top-buffer">     
+        <div class="col-md-12 borde-input">
+          <div class="title"><h3>Datos del destino</h3></div>
+          <div class="row">
+            <div class="col-sm-8">
+              <span>{{Locationstreet}} #{{Locationnumber}} {{Locationneighboorhood}} C.P.{{Locationzipcode}}, {{LocationState}}</span>
+            </div>
+          </div>
+          <div class="row no-gutter  top-buffer">
+            <div class="col-sm-12 ">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="info">
+                    <th>Almacen</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Costo Unitario</th>
+                    <th>Importe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="variant in ordenCompra.variant_orders">
+                    <td>{{variant.warehouse.name}}</td>
+                    <td> {{variant.variant.product_name}} : {{variant.variant.name}}</td>
+                    <td>{{variant.amount}}</td>
+                    <td>{{variant.cost_per_unit}}</td>
+                    <td>{{variant.amount*variant.cost_per_unit}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <HR width="80%"> 
+          <div class="row">
+            <div class="col-sm-8">
+              <label for="ordenCompraNotas">Notas:</label>
+              <p>{{ordenCompra.notes}}</p>
+            </div>
+            <div class="col-sm-4">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Subtotal:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{subTotalInd}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Impuestos:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{ordenCompra.amount-subTotalInd}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6>Total:</h6>
+                </div>
+                <div class="col-sm-6">
+                  <span class="TotAltura">{{ordenCompra.amount}}</span>
+                </div>
+              </div>
+            </div>
+          </div> 
+          
+        </div>
+      </div>
+  </div>
+</div>

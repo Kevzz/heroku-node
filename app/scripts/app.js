@@ -135,6 +135,21 @@ angular
           return 'views/login.html';
         }
       })
+      .when('/app-vistaOrdenesAjuste', {
+        templateUrl: function(param) {
+          return 'views/app-vistaOrdenesAjuste.html';
+        }
+      })
+      .when('/app-vistaOrdenAjusteInd/:id', {
+        templateUrl: function(param) {
+          return 'views/app-vistaOrdenAjusteInd.html';
+        }
+      })
+      .when('/app-nuevaOrdenAjuste', {
+        templateUrl: function(param) {
+          return 'views/app-nuevaOrdenAjuste.html';
+        }
+      })
       .when('/app-vistaListas', {
         templateUrl: function(param) {
           return 'views/app-vistaListas.html';

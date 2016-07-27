@@ -1,14 +1,14 @@
-<div ng-controller="CtrlOrdenesC">
+<div ng-controller="CtrlOrdenesA">
     <ol class="breadcrumb">
         <li class=""><a href="#/">Home</a></li>
         <li class=""><a href="#">&Oacute;rdenes</a></li>
-        <li class="active"><a href="#">Compra</a></li>
+        <li class="active"><a href="#">Ajuste</a></li>
     </ol>
     <div class="page-heading">            
-        <h1>&Oacute;rdenes de compra</h1>
+        <h1>&Oacute;rdenes de ajuste</h1>
         <div class="options">
             <div class="btn-toolbar">
-                <a ng-click="redNOrdenC()" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear &oacute;rden de compra</a>
+                <a ng-click="redNOrdenA()" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear &oacute;rden de ajuste</a>
             </div>
         </div>
     </div>
@@ -19,20 +19,16 @@
                     <table class="table table-hover">
                         <thead>
                             <tr class="info">
-                                <th>&Oacute;rden de compra</th> 
-                                <th>Proveedor</th> 
-                                <th>Estado</th> 
-                                <th>Pago</th> 
-                                <th>Monto</th> 
+                                <th>&Oacute;rden de ajuste</th> 
+                                <th>&Oacute;rden a Ajustar</th> 
+                                <th>Fecha</th> 
                             </tr>
                         </thead>
                         <tbody >
-                            <tr ng-repeat="order in ordenesC">
+                            <tr ng-repeat="order in ordenesA">
                                 <td><a href="#/app-vistaOrdenCInd/{{order.id}}">{{order.number}}</a></td>
                                 <td>{{order.supplier.name}}</td>
-                                <td>{{order.status}}</td>
-                                <td>{{order.payment}}</td>
-                                <td>${{order.amount}}</td>
+                                <td>order.date</td>
                             </tr>
                         </tbody>
                     </table>

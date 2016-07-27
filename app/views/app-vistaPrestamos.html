@@ -33,7 +33,7 @@
                             <tr ng-repeat="pres in prestamos">
                                 <td><a href="#/app-vistaLoanInd/{{pres.id}}">{{pres.number}}</a></td>
                                 <td>{{pres.origin.warehouse.location_name}} - {{pres.origin.warehouse.name}} - {{pres.origin.name}}</td>
-                                <td>{{pres.destination.warehouse.location_name}} - {{pres.destination.warehouse.name}} - {{pres.destination.name}}</td>
+                                <td>{{pres.borrower}}</td>
                                 <td>{{pres.status}}</td>
                             </tr>
                         </tbody>

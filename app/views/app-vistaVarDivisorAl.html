@@ -33,8 +33,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
-            <button class="btn btn-primary" ng-click="ok(divisorDestinoId,cantidadT)">Transferir</button>
+            <input type="button" class="btn btn-primary pull-right" value="Transferir" style="background-color:#93351F;border-color:#93351F;" ng-click="ok(divisorDestinoId,cantidadT)">
+            <a  ng-click="cancel()" style="padding: 7px 15px;" class="pull-right">Cancelar</a>
+            
         </div>
     </script>
 	<ol class="breadcrumb">
@@ -94,7 +95,7 @@
                                     <td>{{divi.ApartadoNot}}</td>
                                     <td>{{divi.total}}</td>
                                     <td>{{divi.pri}}</td>
-                                    <td><button class="btn btn-primary" ng-click="open('lg',divi.divider.id)">Open me!</button></td>
+                                    <td><input type="button" class="btn btn-primary" value="Transferir" style="background-color:#93351F;border-color:#93351F;" ng-click="open('lg',divi.divider.id)"></td>
                                 </tr>
                             </tbody>
                         </table>

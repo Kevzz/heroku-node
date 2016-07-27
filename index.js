@@ -57,6 +57,52 @@ server.all("/brands", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 //******************************************************************+
+//*****************Esto es para obtener la informacion individual de las marcas ************************************
+server.delete('/adjustment_orders/:id', function(req, res) {
+
+    var id= req.params.id;
+    
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.put('/adjustment_orders/:id', function(req, res) {
+    var id= req.params.id;
+
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.get('/adjustment_orders/:id', function(req, res) {
+
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.all("/adjustment_orders", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+//******************************************************************+
+//*****************Esto es para obtener la informacion individual de las marcas ************************************
+server.delete('/variant_adjustments/:id', function(req, res) {
+
+    var id= req.params.id;
+    
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.put('/variant_adjustments/:id', function(req, res) {
+    var id= req.params.id;
+
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.get('/variant_adjustments/:id', function(req, res) {
+
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.all("/variant_adjustments", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+//******************************************************************+
 
 //*****************Esto es para obtener la informacion individual de los clientes*******************************
 server.delete('/clients/:id', function(req, res) {

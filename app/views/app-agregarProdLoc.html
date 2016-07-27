@@ -14,7 +14,7 @@
                     <label for="AlmacenVar">Almacen destino</label>
                     <select id="AlmacenVar" name="AlmacenVar" class="form-control"  ng-model="almacenPG">
                       <option value="">Seleccione una almacen</option>
-                      <option ng-repeat="option in almacenes" value="{{option.id}}">{{option.name}}</option>
+                      <option ng-repeat="option in almacenes" ng-show="option.name!='Global'" value="{{option.id}}">{{option.name}}</option>
                     </select>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <input type="submit" value="Agregar variantes">
+                        <input type="submit" ng-disabled="addVarLoc" class="btn btn-primary pull-right" value="Agregar variantes" style="background-color:#93351F;border-color:#93351F;"> 
                     </form> 
                 </div>
             </div>

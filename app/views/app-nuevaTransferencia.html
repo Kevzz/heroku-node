@@ -56,7 +56,8 @@
             <div class="form-group">
                 <label for="productSupp">Seleccione el destino:</label>
                 <select id="productSupp" name="productSupp" class="form-control" ng-model="divDestinoOp2">
-                  <option ng-repeat="option in opciones_destino" value="{{option.id_div}}">{{option.name}}</option>
+                  <option value="">Almacen / Divisor</option>
+                  <option ng-repeat="option in opciones_destino" ng-show="divOrigen!=option.id_div" value="{{option.id_div}}">{{option.name}}</option>
                 </select>
             </div>
           </div>
@@ -66,7 +67,8 @@
             <div class="form-group">
                 <label for="productSupp">Seleccione el destino:</label>
                 <select id="productSupp" name="productSupp" class="form-control" ng-model="divDestinoOp1">
-                  <option ng-repeat="option in opciones_origen" value="{{option.id_div}}">{{option.name}}</option>
+                  <option value="">Almacen / Divisor</option>
+                  <option ng-repeat="option in opciones_origen" ng-show="divOrigen!=option.id_div" value="{{option.id_div}}">{{option.name}}</option>
                 </select>
             </div>
           </div>
@@ -76,7 +78,7 @@
           <div class="col-md-offset-2 col-md-8 borde-input">
             
             <button data-ng-click="cloneItem()" type="button" class="btn inline">
-              Agregar criterio
+              Agregar variante
             </button>
               <div class="row" ng-repeat="variant in variants">
                 <div class="col-md-5">
@@ -104,7 +106,8 @@
         </div>
         <div class="row">
           <div class="col-sm-3 col-md-offset-5">
-            <button class="btn-primary btn" ng-disabled="SubmitOnce">Crear orden</button>
+            <input type="submit" ng-disabled="SubmitOnce" class="btn btn-primary pull-right" value="Crear Orden" style="background-color:#93351F;border-color:#93351F;">
+            <a href="#/app-vistaTransferencias" style="padding: 7px 15px;" class="pull-right">Cancelar</a>
           </div>
         </div>
     </form>
