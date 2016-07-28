@@ -40,7 +40,7 @@ angular
     angular.forEach(response.data,function(value,key){
       var data={
         label: value.name,
-        iconClasses: '',
+        iconClasses: 'fa fa-map',
         url:'',
         children: []
       };
@@ -74,21 +74,24 @@ angular
       separator:true
     }, {
       label: 'Venta',
-      iconClasses: '',
+      iconClasses: 'fa fa-shopping-cart',
       url: '#/app-vistaOrdenesVenta',
     }, {
       label: 'Compra',
-      iconClasses: '',
+      iconClasses: 'fa fa-level-up ',
       url: '#/app-vistaOrdenesCompra',
     }, {
       label: 'Prestamos',
-      iconClasses: '',
+      iconClasses: 'fa fa-share ',
       url: '#/app-vistaPrestamos',
     }, {
       label: 'Transferencias',
-      iconClasses: '',
-
+      iconClasses: 'fa fa-paper-plane-o ',
       url: '#/app-vistaTransferencias',
+    },{
+      label: 'Ajuste',
+      iconClasses: ' fa fa-level-down',
+      url: '#/app-vistaOrdenesAjuste',
     }];
     angular.forEach(menuFaltante,function(value3,key){
       menuPs.push(value3);

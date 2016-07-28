@@ -22,11 +22,6 @@ hr{    border-top-color: #455A64}
   </ol>
   <div class="page-heading">
     <h1>&Oacute;rdenes de Ajuste</h1>
-    <div class="options">
-        <div class="btn-toolbar">
-            <a  ng-disabled="isDisabled" ng-click="submitOrden()" class="btn btn-default"><i class="fa fa-fw fa-send"></i>Enviar Orden</a>
-        </div>
-    </div>
   </div>
   <div class="container-fluid">
     <form name="productForm" ng-submit="submitOrden()">
@@ -70,26 +65,24 @@ hr{    border-top-color: #455A64}
               </div>        
             </div>          
           </div>
-        </div>
-      </div>
-      <div class="row top-buffer">     
-        <div class="col-md-12 borde-input">
-          <div class="title"><h3>Datos de la Orden</h3></div>
           <div class="row">
-            <div class="col-sm-4">
-              <select id="productSupp" name="productSupp" class="form-control" ng-change="updateInfoAlmacen()" ng-model="ordenLocationId">
-                <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
-              </select>
-            </div>
-            <div class="col-sm-8">
-              <span>{{Locationstreet}} #{{Locationnumber}} {{Locationneighboorhood}} C.P.{{Locationzipcode}}</span>
+            <div class="col-md-4" style="padding: 1em;">
+              <div class="form-group">
+                <p ng-show="noDisp">La &oacute;rden de Compra aun no se encuentra en Almacen</p>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row top-buffer" ng-show="!noDisp">     
+        <div class="col-md-12 borde-input">
+          <div class="title"><h3>Datos de la Orden</h3></div>
+          
           <div class="row no-gutter row-head top-buffer">
-            <div class="col-sm-6 bor-tab">
+            <div class="col-sm-4 bor-tab">
                 Productos
             </div>
-            <div class="col-sm-1 bor-tab">
+            <div class="col-sm-2 bor-tab">
                 Cantidad
             </div>
             <div class="col-sm-2 bor-tab">
@@ -98,21 +91,22 @@ hr{    border-top-color: #455A64}
             <div class="col-sm-2 bor-tab">
                 Importe
             </div>
-            <div class="col-sm-1 bor-tab">
-                Ajuste
+            <div class="col-sm-2 bor-tab">
+                Faltantes
             </div>
             
           </div>
           <div  ng-repeat="variant in OrdenCompleta.variant_orders"> <!-- Aqui se repite el divisor que clona la orden de compra-->
             <div class="row no-gutter row-cont">
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <div class="row no-gutter">
                   <div class="col-sm-12">
-                    {{variant.name}}
+                    {{variant.variant.product_name}} : {{variant.variant.name}}
+
                   </div>
                 </div>
               </div>
-              <div class="col-sm-1">
+              <div class="col-sm-2">
                 {{variant.amount}}
               </div>
               <div class="col-sm-2">
@@ -122,7 +116,7 @@ hr{    border-top-color: #455A64}
                 ${{variant.amount*variant.cost_per_unit}}
               </div>
               <div class="col-sm-2">
-                <input type="number" ng-model="variant.adjust" class="form-control" >
+                <input type="number" value="0" ng-model="variant.adjust" class="form-control" >
               </div>
             </div>
           </div> <!-- Aqui termina la clonacion de orden-->
@@ -138,9 +132,9 @@ hr{    border-top-color: #455A64}
           
         </div>
       </div>
-      <div class="row">
+      <div class="row" ng-show="!noDisp">
         <div class="col-sm-2 col-md-offset-5">
-          <a ng-click="submitOrden()" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-send"></i>Enviar Orden</a>
+          <a ng-click="submitOrden()" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-send"></i>Ajustar</a>
         </div>
       </div>
     </form>

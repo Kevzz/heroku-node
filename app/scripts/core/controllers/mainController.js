@@ -1641,7 +1641,7 @@ function getRecent(prod)
    var ID_divisor;
    var ID_almacen;
    var locID;
-  apiService.getSingleData(urlOrdenesC,$routeParams.id).then(function(response) {
+  apiService.getSingleData(urlOrdenesC,$routeParams.id).then(function(response){
     //console.log(response.data);
     $scope.ordenCompra=response.data;
     //pasamos por cada variante que tiene la orden de compra
@@ -1706,12 +1706,8 @@ function getRecent(prod)
             };
             apiService.putData(urlVarianteAlmacen,value4.id,data2);
           }
-          console.log(value4);
-        
         });        
       });
-      
-
     });
     //Aqui tengo que pasar por cada variante y quitarla del divisor
 
@@ -2272,7 +2268,7 @@ function getRecent(prod)
     
     apiService.postData(urlOrdenesA,data).then(function(response){
       idRec=getRecent(response.data);
-      //console.log(idRec);
+      console.log(idRec);
       dataShareCompra.sendData(idRec);
       var dataUpd = {
         number:"OA_"+idRec
@@ -2294,7 +2290,9 @@ function getRecent(prod)
   var urlOrdenesC="/purchase_orders";
   var urlOrdenesA="/adjustment_orders";
   var urlVariantO="/variant_orders";  
-  var urlVariantOA="/variant_adjustments";  
+  var urlVariantOA="/variant_adjustments"; 
+  var urlVarianteDivisor="/variant_divisions";
+  var urlVarianteAlmacen="/variant_warehouses"; 
 
 
   var isLog=SimLog.getData();
@@ -2332,36 +2330,77 @@ $scope.$on('$locationChangeStart', function( event ) {
     
     apiService.getSingleData(urlOrdenesC,$scope.ordenCId).then(function(response) {
       
-      $scope.OrdenCompleta=response.data;
+      
+      if(response.data.status!="En Almacen")
+      {
+        $scope.noDisp=true;
+      }
+      else
+      {
+        $scope.OrdenCompleta=response.data;
+        $scope.noDisp=false;
+        angular.forEach($scope.OrdenCompleta.variant_orders,function(val,k){
+          apiService.getSingleData(urlProducts,val.variant.product_id).then(function(res){
+            val.variant.product_name=res.data.name;
+          })
+          apiService.getSingleData(urlWarehouses,val.warehouse.id).then(function(resW){
+            angular.forEach(resW.data.dividers,function(val2,k2){
+              if(val2.name=="General")
+              {
+                angular.forEach(val2.variant_divisions,function(val3,k3){
+                  if(val3.variant_id==val.variant.id)
+                  {
+                    val.idVarXdiv=val3.id;
+                    val.totVarXdiv=val3.total;
+                  }
+                });
+              }
+            });
+            angular.forEach(resW.data.variant_warehouses,function(val4,k4){
+              if(val4.variant.id==val.variant.id)
+              {
+                val.idVarXwar=val4.id;
+                val.totVarXwar=val4.stock;
+              }
+            });
+          })
+        });
+      }
+      
       //console.log($scope.variants);
-      });
+    });
   };
 
-  
-  
-
-  
   /* ***************Aqui se hace el submit *****************/
   $scope.submitOrden=function()
   {
     $scope.isDisabled = true;
     
     var dataUpd={
-      purchase_order_id:OrdenCompleta.id,
+      purchase_order_id:$scope.OrdenCompleta.id,
       date:$scope.dt,
-      status:"Solicitado"
+      status:"Ajustado"
     };
     //console.log(dataUpd);
     apiService.putData(urlOrdenesA,idOrdenBorrador,dataUpd);
-    angular.forEach(OrdenCompleta.variant_orders, function(value, key) {
+    angular.forEach($scope.OrdenCompleta.variant_orders, function(value, key) {
       //console.log(value);
+      var TotalNewDiv=value.totVarXdiv-value.adjust;
+      var TotalNewAlm=value.totVarXwar-value.adjust;
+      var dataAlm={stock:TotalNewAlm};
+      var dataDiv={total:TotalNewDiv};
       var data={
         adjustment_order_id:idOrdenBorrador,
         variant_id:value.variant.id,
-        amount:value.amount,
+        total_amount:value.amount,
         adjust_amount:value.adjust
       };
-        apiService.postData(urlVariantOA,data);
+
+      apiService.postData(urlVariantOA,data);
+
+      apiService.putData(urlVarianteDivisor,value.idVarXdiv,dataDiv);
+
+      apiService.putData(urlVarianteAlmacen,value.idVarXwar,dataAlm);
     }); 
     $location.path('/app-vistaOrdenesAjuste');
   }

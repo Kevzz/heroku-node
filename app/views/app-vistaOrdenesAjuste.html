@@ -27,8 +27,8 @@
                         <tbody >
                             <tr ng-repeat="order in ordenesA">
                                 <td><a href="#/app-vistaOrdenCInd/{{order.id}}">{{order.number}}</a></td>
-                                <td>{{order.supplier.name}}</td>
-                                <td>order.date</td>
+                                <td>{{order.purchase_order.number}}</td>
+                                <td>{{order.date}}</td>
                             </tr>
                         </tbody>
                     </table>
