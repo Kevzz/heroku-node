@@ -24,7 +24,7 @@
 	        <tr ng-repeat="marcaP in marcasProxy.data" >
 	            <td>{{ marcaP.name }}</td>
 	            <td><a href="#/app-editarMarcas/{{ marcaP.id }}">Editar</a>
-	            <a ng-click="removeTest(marcaP.id)" ng-confirm-click="Are you sure?">Eliminar</a></td>
+	            <a ng-click="removeTest(marcaP.id)" ng-confirm-click="¿Esta seguro de eliminar el registro?, si la marca esta asignada no se podra eliminar">Eliminar</a></td>
 	        </tr>
 	    </table> 
 	</div>

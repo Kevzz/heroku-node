@@ -134,6 +134,10 @@ angular
         templateUrl: function(param) {
           return 'views/login.html';
         }
+      }).when('/log-out', {
+        templateUrl: function(param) {
+          return 'views/log-out.html';
+        }
       })
       .when('/app-vistaOrdenesAjuste', {
         templateUrl: function(param) {

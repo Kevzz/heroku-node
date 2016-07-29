@@ -957,6 +957,18 @@ function getRecent(prod)
       $theme.set('fullscreen', false);
     });
   }])
+.controller('CtrlSignOut', ['$location','SimLog','$scope', '$theme', function($location,SimLog,$scope, $theme) {
+    'use strict';
+    //console.log('asdkjasdlk')
+    SimLog.sendData("");
+   $location.path('/');
+   
+    $theme.set('fullscreen', true);
+
+    $scope.$on('$destroy', function() {
+      $theme.set('fullscreen', false);
+    });
+  }])
 
 .controller('CtrlLocacionNueva',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlLocation="/locations";
@@ -3149,8 +3161,8 @@ var IDsendCliente="";
 
     $scope.archivarProveedor=function(){
       var data={status:"A"};
-      apiService.putData(urlSuppliers,$routeParams.id,data).then(function(response){
-        $location.path("#/app-vistaProveedor");
+      apiService.deleteData(urlSuppliers,$routeParams.id).then(function(response){
+        $location.path("/app-vistaProveedor");
       });
     };
 
