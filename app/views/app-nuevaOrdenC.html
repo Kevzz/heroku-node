@@ -139,10 +139,10 @@ hr{    border-top-color: #455A64}
                 <input type="number" id="variantOrderCan" name="variantOrderCan" class="form-control" ng-model="variant.cantidad" required>
               </div>
               <div class="col-sm-2">
-                <input type="number" id="variantOrderCasto" name="variantOrderCosto" class="form-control" ng-model="variant.costo" required>
+                <input type="text" id="variantOrderCasto" name="variantOrderCosto" class="form-control" ng-model="variant.costo" required>
               </div>
               <div class="col-sm-1">
-                ${{variant.cantidad*variant.costo}}
+                ${{variant.cantidad*variant.costo | number:2}}
               </div>
               <div class="col-sm-1">
                 <button data-ng-click="removeItem($index)" type="button" class="btn delete-field-{{$index}} ">Eliminar</button>
@@ -161,7 +161,7 @@ hr{    border-top-color: #455A64}
                   <h6>Subtotal:</h6>
                 </div>
                 <div class="col-sm-6">
-                  <span class="TotAltura">{{getSubtotal()}}</span>
+                  <span class="TotAltura">{{getSubtotal() | number:2}}</span>
                 </div>
               </div>
               <div class="row">
@@ -169,7 +169,7 @@ hr{    border-top-color: #455A64}
                   <h6>Impuestos:</h6>
                 </div>
                 <div class="col-sm-6">
-                  <span class="TotAltura">{{getImpuestos()}}</span>
+                  <span class="TotAltura">{{getImpuestos() | number:2}}</span>
                 </div>
               </div>
               <div class="row">
@@ -177,7 +177,7 @@ hr{    border-top-color: #455A64}
                   <h6>Total:</h6>
                 </div>
                 <div class="col-sm-6">
-                  <span class="TotAltura">{{getTotal()}}</span>
+                  <span class="TotAltura">{{getTotal() | number:2}}</span>
                 </div>
               </div>
             </div>

@@ -86,6 +86,8 @@ hr{    border-top-color: #455A64}
                   </div>
                   <div class="col-md-9">
                     <select id="domicilioOrden" name="domicilioOrden" class="form-control" ng-model="ordenDirecctionId">
+                      <option value="">Seleccione una opci&oacute;n</option>
+                      <option value="">Entrega en Sitio</option>
                       <option ng-repeat="option in directionsCli" value="{{option.id}}">{{option.street}} #{{option.number}}, {{option.neighborhood}} </option>
                     </select>
                   </div>
@@ -172,10 +174,10 @@ hr{    border-top-color: #455A64}
                 {{variant.cantidadDisp}}
               </div>
               <div class="col-sm-2">
-                <input type="number"  id="variantCosto" name="variantCosto" class="form-control" ng-model="variant.costo" required>
+                <input type="text"  id="variantCosto" name="variantCosto" class="form-control" ng-model="variant.costo" required>
               </div>
               <div class="col-sm-1">
-                ${{(variant.cantidad*variant.costo)}}
+                ${{(variant.cantidad*variant.costo) | number:2}}
               </div>
               <div class="col-sm-1">
                 <button data-ng-click="removeItem($index)" type="button" class="btn delete-field-{{$index}} ">Eliminar</button>
@@ -194,7 +196,7 @@ hr{    border-top-color: #455A64}
                   <h6>Subtotal:</h6>
                 </div>
                 <div class="col-sm-6">
-                  <span class="TotAltura">{{getSubtotal()}}</span>
+                  <span class="TotAltura">{{getSubtotal() | number:2}}</span>
                 </div>
               </div>
               <div class="row">
@@ -202,7 +204,7 @@ hr{    border-top-color: #455A64}
                   <h6>Impuestos:</h6>
                 </div>
                 <div class="col-sm-6">
-                  <span class="TotAltura">{{getImpuestos()}}</span>
+                  <span class="TotAltura">{{getImpuestos() | number:2}}</span>
                 </div>
               </div>
               <div class="row">
@@ -210,7 +212,7 @@ hr{    border-top-color: #455A64}
                   <h6>Total:</h6>
                 </div>
                 <div class="col-sm-6">
-                  <span class="TotAltura">{{getTotal()}}</span>
+                  <span class="TotAltura">{{getTotal() | number:2}}</span>
                 </div>
               </div>
             </div>

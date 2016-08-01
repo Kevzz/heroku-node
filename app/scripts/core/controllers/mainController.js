@@ -2540,7 +2540,7 @@ $scope.$on('$locationChangeStart', function( event ) {
   var urlVariants="/variants";
   var urlOrdenesC="/purchase_orders";
   var urlVariantO="/variant_orders";  
-
+$scope.Math = window.Math;
 
   var isLog=SimLog.getData();
   if(!isLog)
@@ -2658,7 +2658,7 @@ apiService.getData(urlLocation).then(function(response) {
     }
     return subTotal;
   };
-  
+  $scope.Math = window.Math;
   $scope.getImpuestos=function(){
     var Impuesto = 0;
     for(var i = 0; i < $scope.variants.length; i++){
