@@ -271,15 +271,20 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         var data;
         if (searchText) {
           var ft = searchText.toLowerCase();
-          $http.get('http://private-06269-formacret.apiary-mock.com/loans').success(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
+          apiService.getData(urlPrestamo).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
+
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
-          $http.get('http://private-06269-formacret.apiary-mock.com/loans').success(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
+          apiService.getData(urlPrestamo).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
       }, 100);
@@ -763,15 +768,20 @@ function getRecent(prod)
         var data;
         if (searchText) {
           var ft = searchText.toLowerCase();
-          $http.get('http://private-06269-formacret.apiary-mock.com/transfers').success(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
+          apiService.getData(urlTransfers).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
+
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
-          $http.get('http://private-06269-formacret.apiary-mock.com/transfers').success(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
+          apiService.getData(urlTransfers).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
       }, 100);
@@ -1348,7 +1358,86 @@ function getRecent(prod)
         });
       });
     });
-  
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(largeLoad) {
+            angular.forEach(largeLoad.data.variant_warehouses, function(value, key) {
+              apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
+              value.variant.prodName=response.data.name;
+              value.variant.brand=response.data.brand.name;
+              });
+            });
+            data = largeLoad.data.variant_warehouses.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(largeLoad) {
+            angular.forEach(largeLoad.data.variant_warehouses, function(value, key) {
+              apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
+              value.variant.prodName=response.data.name;
+              console.log(value.variant.prodName);
+              value.variant.brand=response.data.brand.name;
+              });
+            });
+            $scope.setPagingData(largeLoad.data.variant_warehouses, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "variant.prodName", displayName:"Producto",cellTemplate:'<div class="ngCellText ng-scope">'+'<a ng-click="varProdAl(row.entity.variant.product_id)">{{row.entity.variant.prodName}}</a>'+'</div>' },
+            { field: "variant.name", displayName:"Variante" },
+            { field: "variant.brand",displayName:"Marca" },
+            { field: "stock",displayName:"Disponible" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
 }])
 .controller('CtrlCargarOrden',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareVariante",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareVariante) {
 
@@ -1973,15 +2062,20 @@ function getRecent(prod)
         var data;
         if (searchText) {
           var ft = searchText.toLowerCase();
-          $http.get('http://private-06269-formacret.apiary-mock.com/sell_orders').success(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
+          apiService.getData(urlOrdenesV).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
+
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
-          $http.get('http://private-06269-formacret.apiary-mock.com/sell_orders').success(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
+          apiService.getData(urlOrdenesV).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
       }, 100);
@@ -2750,15 +2844,20 @@ $scope.$on('$locationChangeStart', function( event ) {
         var data;
         if (searchText) {
           var ft = searchText.toLowerCase();
-          $http.get('http://private-06269-formacret.apiary-mock.com/purchase_orders').success(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
+          apiService.getData(urlOrdenesC).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
+
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
-          $http.get('http://private-06269-formacret.apiary-mock.com/purchase_orders').success(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
+          apiService.getData(urlOrdenesC).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
       }, 100);
@@ -3321,15 +3420,20 @@ var urlClientes="/clients";
         var data;
         if (searchText) {
           var ft = searchText.toLowerCase();
-          $http.get('http://private-06269-formacret.apiary-mock.com/clients').success(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
+          apiService.getData(urlClientes).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
+
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
-          $http.get('http://private-06269-formacret.apiary-mock.com/clients').success(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
+          apiService.getData(urlClientes).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
       }, 100);
@@ -3355,7 +3459,7 @@ var urlClientes="/clients";
             { field: "email", displayName:"Correo" },
             { field: "website",displayName:"Página" },
             { field: "phone",displayName:"Teléfono" },
-            { field: "currency.shortcut",displayName:"Divisa" }
+            { field: "price.name",displayName:"Precio" }
         ],
       enablePaging: true,
       showFooter: true,
@@ -3627,15 +3731,20 @@ var IDsendCliente="";
         var data;
         if (searchText) {
           var ft = searchText.toLowerCase();
-          $http.get('http://private-06269-formacret.apiary-mock.com/suppliers').success(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
+          apiService.getData(urlSuppliers).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
+
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
-          $http.get('http://private-06269-formacret.apiary-mock.com/suppliers').success(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
+          apiService.getData(urlSuppliers).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
       }, 100);
@@ -3779,9 +3888,14 @@ var IDsendCliente="";
         if (searchText) {
           var ft = searchText.toLowerCase();
           apiService.getData(urlProducts).then(function(largeLoad) {
+            angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });
             data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
+
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
