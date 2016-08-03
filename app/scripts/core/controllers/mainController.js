@@ -215,7 +215,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   }
 
   }])
-.controller('CtrlPrestamos',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
+.controller('CtrlPrestamos',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen","$http",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen,$http) {
   var urlLocations="/locations";
   var urlTransfers="/transfers";
   var urlDividers="/dividers";
@@ -246,6 +246,74 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
+
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          $http.get('http://private-06269-formacret.apiary-mock.com/loans').success(function(largeLoad) {
+            data = largeLoad.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          $http.get('http://private-06269-formacret.apiary-mock.com/loans').success(function(largeLoad) {
+            $scope.setPagingData(largeLoad, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "number", displayName:"Folio",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaLoanInd/{{row.entity.id}}">{{row.entity.number}}</a>'+'</div>' },
+            { field: "origin.warehouse.name", displayName:"Prestamista" },
+            { field: "borrower",displayName:"Prestatario" },
+            { field: "created_at",displayName:"Fecha" },
+            { field: "status",displayName:"Estado" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
 
   apiService.getData(urlPrestamo).then(function(response){
     $scope.prestamos=response.data;
@@ -659,6 +727,74 @@ function getRecent(prod)
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
+
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          $http.get('http://private-06269-formacret.apiary-mock.com/transfers').success(function(largeLoad) {
+            data = largeLoad.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          $http.get('http://private-06269-formacret.apiary-mock.com/transfers').success(function(largeLoad) {
+            $scope.setPagingData(largeLoad, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "number", displayName:"Folio",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaTransInd/{{row.entity.id}}">{{row.entity.number}}</a>'+'</div>' },
+            { field: "origin.warehouse.name", displayName:"Prestamista" },
+            { field: "destination.warehouse.name",displayName:"Prestatario" },
+            { field: "created_at",displayName:"Fecha" },
+            { field: "status",displayName:"Estado" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
 
   apiService.getData(urlTransferences).then(function(response){
     $scope.transferencias=response.data;
@@ -1229,7 +1365,6 @@ function getRecent(prod)
         status:"En Almacen"
       };
       apiService.putData(urlPurchaseOrders,idnumOrden,dataUPD);
-      
 
       angular.forEach($scope.Orden.variant_orders,function(value3,key){
         var idvarianteAlmacen=0;
@@ -1765,13 +1900,81 @@ function getRecent(prod)
 
 }])
 
-.controller('CtrlOrdenesVenta',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout){
+.controller('CtrlOrdenesVenta',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","$http",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,$http){
   var urlOrdenesV="/sell_orders";  
   $scope.isDisabled = false;
 
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
+
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          $http.get('http://private-06269-formacret.apiary-mock.com/sell_orders').success(function(largeLoad) {
+            data = largeLoad.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          $http.get('http://private-06269-formacret.apiary-mock.com/sell_orders').success(function(largeLoad) {
+            $scope.setPagingData(largeLoad, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "number", displayName:"Folio",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaOrdenVInd/{{row.entity.id}}">{{row.entity.number}}</a>'+'</div>' },
+            { field: "client.name", displayName:"Cliente" },
+            { field: "status",displayName:"Estado" },
+            { field: "date",displayName:"Fecha" },
+            { field: "amount",displayName:"Monto" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
 
   apiService.getData(urlOrdenesV).then(function(response) {
     //console.log(response.data);
@@ -1971,7 +2174,7 @@ function getRecent(prod)
     //
   };
   $scope.$on('$locationChangeStart', function( event ) {
-      var answer = confirm("Are you sure you want to leave this page?")
+      var answer = confirm("Saliendo de la creacion de la orden de venta ¿Está seguro?")
       if (!answer) {
           event.preventDefault();
       }
@@ -2331,7 +2534,7 @@ apiService.getData(urlLocation).then(function(response) {
 
   // ***********************************************
 $scope.$on('$locationChangeStart', function( event ) {
-      var answer = confirm("Are you sure you want to leave this page?")
+      var answer = confirm("Saliendo de la creacion de la orden de ajuste ¿Está seguro?")
       if (!answer) {
           event.preventDefault();
       }
@@ -2457,10 +2660,77 @@ $scope.$on('$locationChangeStart', function( event ) {
     $location.path('/app-nuevaOrdenC');
   };
 }])
-.controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout){
+.controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http){
   var urlOrdenesC="/purchase_orders";  
   $scope.isDisabled = false;
 
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          $http.get('http://private-06269-formacret.apiary-mock.com/purchase_orders').success(function(largeLoad) {
+            data = largeLoad.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          $http.get('http://private-06269-formacret.apiary-mock.com/purchase_orders').success(function(largeLoad) {
+            $scope.setPagingData(largeLoad, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "number", displayName:"Folio",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaOrdenCInd/{{row.entity.id}}">{{row.entity.number}}</a>'+'</div>' },
+            { field: "supplier.name", displayName:"Proveedor" },
+            { field: "status",displayName:"Estado" },
+            { field: "Fecha",displayName:"Fecha" },
+            { field: "Monto",displayName:"Monto" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
   var isLog=SimLog.getData();
   if(!isLog)
     $location.path('/');
@@ -2635,7 +2905,7 @@ apiService.getData(urlLocation).then(function(response) {
     //
   };
   $scope.$on('$locationChangeStart', function( event ) {
-      var answer = confirm("Are you sure you want to leave this page?")
+      var answer = confirm("Saliendo de la creacion de la orden de compra ¿Está seguro?")
       if (!answer) {
           event.preventDefault();
       }
@@ -2710,6 +2980,7 @@ apiService.getData(urlLocation).then(function(response) {
       billing:fact,
       date:date,
       notes:notas,
+      reference:$scope.referencia,
       status:"Solicitado",
       supplier_id:parseInt(ordenSupplierId)
     };
@@ -2744,6 +3015,7 @@ apiService.getData(urlLocation).then(function(response) {
       amount:total,
       billing:fact,
       date:date,
+      reference:$scope.referencia,
       notes:notas,
       status:"Borrador",
       supplier_id:parseInt(ordenSupplierId)
@@ -2952,7 +3224,73 @@ var urlClientes="/clients";
       //console.log(response.data);
       $scope.clientesTods=response.data;
     });
+    /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          $http.get('http://private-06269-formacret.apiary-mock.com/clients').success(function(largeLoad) {
+            data = largeLoad.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          $http.get('http://private-06269-formacret.apiary-mock.com/clients').success(function(largeLoad) {
+            $scope.setPagingData(largeLoad, page, pageSize);
+          });
+        }
+      }, 100);
+    };
 
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "name", displayName:"Nombre",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaClienteInd/{{row.entity.id}}">{{row.entity.name}}</a>'+'</div>' },
+            { field: "email", displayName:"Correo" },
+            { field: "website",displayName:"Página" },
+            { field: "phone",displayName:"Teléfono" },
+            { field: "currency.shortcut",displayName:"Divisa" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
     apiService.getData(urlPrices).then(function(response) {
       //console.log(response.data);
       $scope.precios=response.data;
@@ -3181,6 +3519,74 @@ var IDsendCliente="";
       $scope.suppUProxy=response.data;
       });
     }
+     /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          $http.get('http://private-06269-formacret.apiary-mock.com/suppliers').success(function(largeLoad) {
+            data = largeLoad.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          $http.get('http://private-06269-formacret.apiary-mock.com/suppliers').success(function(largeLoad) {
+            $scope.setPagingData(largeLoad, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "name", displayName:"Proveedor",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaProveedorInd/{{row.entity.id}}">{{row.entity.name}}</a>'+'</div>' },
+            { field: "email", displayName:"Correo" },
+            { field: "currency.shortcut",displayName:"Divisa" },
+            { field: "website",displayName:"Página" },
+            { field: "phone",displayName:"Teléfono" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
+
     /* **********************Manejar info desde Heroku y el proxy ********************************* */
     apiService.getData(urlSuppliers).then(function(response) {
     //console.log(response);
@@ -3248,7 +3654,7 @@ var IDsendCliente="";
     };*/
 
   }])
-  .controller('EditCtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout) {
+  .controller('EditCtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http) {
     var urlProducts="/products";
     var urlSuppliers="/suppliers";
     var urlBrands="/brands";
@@ -3263,7 +3669,73 @@ var IDsendCliente="";
     var isLog=SimLog.getData();
     if(!isLog)
       $location.path('/');   
-      
+    
+    /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          $http.get('http://private-06269-formacret.apiary-mock.com/products').success(function(largeLoad) {
+            data = largeLoad.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          $http.get('http://private-06269-formacret.apiary-mock.com/products').success(function(largeLoad) {
+            $scope.setPagingData(largeLoad, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "name", displayName:"Producto",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaProductoInd/{{row.entity.id}}">{{row.entity.name}}</a>'+'</div>' },
+            { field: "brand.name", displayName:"Marca" },
+            { field: "variants.length",displayName:"Variante" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
+
     $scope.initFirst=function()
     {
        apiService.getData(urlProducts).then(function(response) {
@@ -3284,6 +3756,9 @@ var IDsendCliente="";
       
       var tmp;
       var tmp1;
+      console.log(prod.length);
+      if(prod.length=1)
+        return prod.id
       var id=prod[prod.length-1].id;
       var mayor=new Date(prod[prod.length-1].updated_at).getTime();
       //console.log(mayor);
@@ -3360,9 +3835,14 @@ var IDsendCliente="";
       //console.log(formData);
       $scope.prodname=formData.name;
       apiService.postData(urlProducts,formData).then(function(response) {
-      //console.log(response);
+      
+      console.log(response.data);
       $scope.productos=response.data;
-      idRec=getRecent(response.data);
+
+      if(response.data.length>1)
+        idRec=getRecent(response.data);
+      else
+        idRec=response.data[0].id;
         //console.log("se supone que obteve el mas reciente");
         //console.log(idRec);
       dataShare.sendData(idRec);
