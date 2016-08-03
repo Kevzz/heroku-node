@@ -466,45 +466,56 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
     }
 
   };
+
 function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
 }])
 .controller('CtrlLoansInd',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
@@ -1030,43 +1041,53 @@ function getRecent(prod)
   };
 function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
 }])
 
@@ -1118,43 +1139,53 @@ function getRecent(prod)
 
   function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
   $scope.nuevaLoc=function()
   {
@@ -1192,43 +1223,53 @@ function getRecent(prod)
   $scope.almacenN={};
   function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
   $scope.nuevoAlmacen=function(){
     var data={
@@ -1982,43 +2023,53 @@ function getRecent(prod)
   });
   function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
   $scope.redNOrdenV=function()
   {
@@ -2437,42 +2488,53 @@ function getRecent(prod)
   });
   function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
   $scope.redNOrdenA=function()
   {
@@ -2741,42 +2803,53 @@ $scope.$on('$locationChangeStart', function( event ) {
   });
   function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
   $scope.redNOrdenC=function()
   {
@@ -3354,42 +3427,53 @@ var IDsendCliente="";
 
     function getRecent(prod)
     {
+      
       var tmp;
       var tmp1;
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
     if($routeParams.id)
     {
@@ -3694,15 +3778,15 @@ var IDsendCliente="";
         var data;
         if (searchText) {
           var ft = searchText.toLowerCase();
-          $http.get('http://private-06269-formacret.apiary-mock.com/products').success(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
+          apiService.getData(urlProducts).then(function(largeLoad) {
+            data = largeLoad.data.filter(function(item) {
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
             $scope.setPagingData(data, page, pageSize);
           });
         } else {
-          $http.get('http://private-06269-formacret.apiary-mock.com/products').success(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
+          apiService.getData(urlProducts).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
       }, 100);
@@ -3756,48 +3840,55 @@ var IDsendCliente="";
       
       var tmp;
       var tmp1;
-      console.log(prod.length);
-      if(prod.length=1)
-        return prod.id
-      var id=prod[prod.length-1].id;
-      var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-      //console.log(mayor);
+      //console.log(prod.length);
       if(prod.length==1)
       {
-        id=prod.id;
+        console.log(prod[0].id);
+        return prod[0].id;
       }
       else
       {
-        
-        for (var i=prod.length-1; i>=0; i--) {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
           
-          tmp = new Date(prod[i].updated_at).getTime();
-          
-          if( tmp > mayor)
-          {
-            //console.log("tmp>mayor");
-            mayor=tmp;
-            //console.log(mayor);
-            id=prod[i].id;
-          }
-          else if(tmp<mayor)
-          {
-            //id=prod[i].id;
-            continue;
-          }
-          else if(tmp=mayor)
-          {
-            //id=prod[i].id;
-            continue;
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
           }
         }
+        return id;
       }
-      return id;
+        
     }
     apiService.getData(urlProducts).then(function(response) {
           //console.log(response);
         $scope.productos=response.data;
-        getRecent(response.data);
+        //getRecent(response.data);
         });
     apiService.getData(urlSuppliers).then(function(response) {
           //console.log(response);
@@ -3836,13 +3927,11 @@ var IDsendCliente="";
       $scope.prodname=formData.name;
       apiService.postData(urlProducts,formData).then(function(response) {
       
-      console.log(response.data);
+      //console.log(response.data);
       $scope.productos=response.data;
 
-      if(response.data.length>1)
-        idRec=getRecent(response.data);
-      else
-        idRec=response.data[0].id;
+      idRec=getRecent(response.data);
+      
         //console.log("se supone que obteve el mas reciente");
         //console.log(idRec);
       dataShare.sendData(idRec);
