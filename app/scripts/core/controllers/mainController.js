@@ -1,4 +1,62 @@
 angular.module('theme.core.main_controller', ['theme.core.services','firebase','ui.bootstrap','ng-token-auth'])
+.config(function($authProvider) {
+
+    // the following shows the default values. values passed to this method
+    // will extend the defaults using angular.extend
+
+    $authProvider.configure({
+      apiUrl:                  'http://stage-formacret.herokuapp.com/',
+      tokenValidationPath:     'http://stage-formacret.herokuapp.com/auth/validate_token',
+      signOutUrl:              'http://stage-formacret.herokuapp.com/auth/sign_out',
+      emailRegistrationPath:   'http://stage-formacret.herokuapp.com/auth',
+      accountUpdatePath:       'http://stage-formacret.herokuapp.com/auth',
+      accountDeletePath:       'http://stage-formacret.herokuapp.com/auth',
+      confirmationSuccessUrl:  window.location.href,
+      passwordResetPath:       'http://stage-formacret.herokuapp.com/auth/password',
+      passwordUpdatePath:      'http://stage-formacret.herokuapp.com/auth/password',
+      passwordResetSuccessUrl: window.location.href,
+      emailSignInPath:         'http://stage-formacret.herokuapp.com/auth/sign_in',
+      storage:                 'cookies',
+      forceValidateToken:      false,
+      validateOnPageLoad:      true,
+      omniauthWindowType:      'sameWindow',
+      authProviderPaths: {
+        github:   '/auth/github',
+        facebook: '/auth/facebook',
+        google:   '/auth/google'
+      },
+      tokenFormat: {
+        "access-token": "{{ token }}",
+        "token-type":   "Bearer",
+        "client":       "{{ clientId }}",
+        "expiry":       "{{ expiry }}",
+        "uid":          "{{ uid }}"
+      },
+      cookieOps: {
+        path: "/",
+        expires: 9999,
+        expirationUnit: 'days',
+        secure: false,
+        domain: 'https://stage-app-formacret.herokuapp.com'
+      },
+      createPopup: function(url) {
+        return window.open(url, '_blank', 'closebuttoncaption=Cancel');
+      },
+      parseExpiry: function(headers) {
+        // convert from UTC ruby (seconds) to UTC js (milliseconds)
+        return (parseInt(headers['expiry']) * 1000) || null;
+      },
+      handleLoginResponse: function(response) {
+        return response.data;
+      },
+      handleAccountUpdateResponse: function(response) {
+        return response.data;
+      },
+      handleTokenValidationResponse: function(response) {
+        return response.data;
+      }
+    });
+  })
 .filter('unique', function() {
    return function(collection, keyname) {
       var output = [], 
@@ -1110,9 +1168,14 @@ function getRecent(prod)
       $auth.submitLogin($scope.loginForm)
         .then(function(resp) {
           // handle success response
+          console.log("Respuesta con token");
+          console.log(resp);
+
         })
         .catch(function(resp) {
           // handle error response
+          console.log("Respuesta error");
+          console.log(resp);
         });
     };
     var isLog=SimLog.getData();
