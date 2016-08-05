@@ -163,7 +163,7 @@ angular
       
   }])
 */
-.config(['$provide', '$routeProvider', function($provide, $routeProvider) {
+.config(['$provide', '$routeProvider','$auth', function($provide, $routeProvider,$auth) {
     'use strict';
     
     $routeProvider
