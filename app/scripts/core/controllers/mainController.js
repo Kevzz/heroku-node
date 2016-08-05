@@ -1153,10 +1153,12 @@ function getRecent(prod)
     $scope.handleLoginBtnClick = function() {
       console.log("Entrol al login");
       $auth.submitLogin($scope.loginForm)
-        .then(function(resp) {
+        .then(function(resp, status, headers, config) {
           // handle success response
           console.log("Respuesta con token");
           console.log(resp);
+          console.log("Header");
+          console.log(headers);
 
         })
         .catch(function(resp) {
