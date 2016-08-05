@@ -177,7 +177,7 @@ angular
       })
       .when('/app-vistaOrdenesAjuste', {
         
-        templateUrl:'views/app-vistaOrdenesAjuste.html',
+        templateUrl:'views/vistaOrdenesAjuste.html',
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
