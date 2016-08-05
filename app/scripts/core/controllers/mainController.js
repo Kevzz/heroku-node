@@ -10,22 +10,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       emailSignInPath:         '/auth/sign_in',
       storage:                 'cookies',
       forceValidateToken:      false,
-      validateOnPageLoad:      false,
-      omniauthWindowType:      'sameWindow',
-      tokenFormat: {
-        "access-token": "{{ token }}",
-        "token-type":   "Bearer",
-        "client":       "{{ clientId }}",
-        "expiry":       "{{ expiry }}",
-        "uid":          "{{ uid }}"
-      },
-      cookieOps: {
-        path: "/",
-        expires: 9999,
-        expirationUnit: 'days',
-        secure: false,
-        domain: 'https://stage-app-formacret.herokuapp.com'
-      }
+      validateOnPageLoad:      false
     });
   })
 .filter('unique', function() {
