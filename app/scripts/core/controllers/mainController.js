@@ -2463,7 +2463,7 @@ function getRecent(prod)
   $scope.submitOrden=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
     var modalOptions = {
-      closeButtonText: 'Cancel',
+      closeButtonText: 'Cancelar',
       actionButtonText: 'Enviar Orden',
       headerText: '¿ Enviar Orden' + $scope.infoOrden.number  + '?',
       bodyText: '¿Está seguro de enviar la orden?'
@@ -2511,7 +2511,7 @@ function getRecent(prod)
   $scope.submitOrdenBorrador=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
     var modalOptions = {
-      closeButtonText: 'Cancel',
+      closeButtonText: 'Cancelar',
       actionButtonText: 'Enviar Orden',
       headerText: '¿ Enviar Orden' + $scope.infoOrden.number  + '?',
       bodyText: '¿Está seguro de gusrdar la orden como borrador?'
@@ -2923,13 +2923,14 @@ $scope.$on('$locationChangeStart', function( event ) {
   if(dataShareReady.getData())
   {
     var modalOptions = {
-      closeButtonText: 'Cancel',
+      closeButtonText: 'Cancelar',
       actionButtonText: 'Aceptar',
       headerText: 'Orden de compra' + dataShareReady.getData() +"Recibida",
       bodyText: 'La orden de compra ah sido cargada con exito'
     };
 
     modalService2.showModal({}, modalOptions).then(function (result) {
+      dataShareReady.sendData("");
       console.log("cerrar Modal");
     });
   }
@@ -3248,7 +3249,7 @@ apiService.getData(urlLocation).then(function(response) {
   $scope.submitOrden=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
     var modalOptions = {
-      closeButtonText: 'Cancel',
+      closeButtonText: 'Cancelar',
       actionButtonText: 'Enviar Orden',
       headerText: '¿ Enviar Orden' + $scope.infoOrden.number  + '?',
       bodyText: '¿Está seguro de enviar la orden?'
@@ -3295,7 +3296,7 @@ apiService.getData(urlLocation).then(function(response) {
   $scope.submitOrdenBorrador=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
     var modalOptions = {
-      closeButtonText: 'Cancel',
+      closeButtonText: 'Cancelar',
       actionButtonText: 'Enviar Orden',
       headerText: '¿ Guardar como borrador' + $scope.infoOrden.number  + '?',
       bodyText: '¿Está seguro de guardar la orden como borrador?'
@@ -4059,7 +4060,7 @@ var IDsendCliente="";
 
 
         var modalOptions = {
-            closeButtonText: 'Cancel',
+            closeButtonText: 'Cancelar',
             actionButtonText: 'Delete Customer',
             headerText: 'Delete ' + custName + '?',
             bodyText: 'Are you sure you want to delete this customer?'
