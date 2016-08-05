@@ -176,13 +176,12 @@ angular
         }
       })
       .when('/app-vistaOrdenesAjuste', {
+        
+        templateUrl:'views/app-vistaOrdenesAjuste.html',
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
           }
-        },
-        templateUrl: function(param) {
-          return 'views/app-vistaOrdenesAjuste.html';
         }
       })
       .when('/app-vistaOrdenAjusteInd/:id', {
