@@ -18,6 +18,13 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         "expiry":       "{{ expiry }}",
         "uid":          "{{ uid }}"
       },
+      cookieOps: {
+        path: "/",
+        expires: 9999,
+        expirationUnit: 'days',
+        secure: false,
+        domain: 'https://stage-app-formacret.herokuapp.com/index.html#/'
+      },
       createPopup: function(url) {
         return window.open(url, '_blank', 'closebuttoncaption=Cancel');
       },
@@ -25,7 +32,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         // convert from UTC ruby (seconds) to UTC js (milliseconds)
         return (parseInt(headers['expiry']) * 1000) || null;
       },
-      handleLoginResponse: function(response) {
+      handleLoginResponse: function(ressponse) {
         return response.data;
       },
       handleAccountUpdateResponse: function(response) {
