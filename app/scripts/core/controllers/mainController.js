@@ -32,7 +32,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         // convert from UTC ruby (seconds) to UTC js (milliseconds)
         return (parseInt(headers['expiry']) * 1000) || null;
       },
-      handleLoginResponse: function(ressponse) {
+      handleLoginResponse: function(response) {
         return response.data;
       },
       handleAccountUpdateResponse: function(response) {
