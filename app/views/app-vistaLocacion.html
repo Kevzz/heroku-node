@@ -13,31 +13,22 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-transparent">         
+                <div class="panel-body">
+                    <div class="input mb-xl">
+                        <input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Buscar...">
+                    </div>
 
-    <div class="tab-content" >
-        <div class="container-fluid">
-            <div class="row ">
-                <div class="col-md-12">   
-                    <table class="table table-hover">
-                        <thead>
-                            <tr class="info">
-                                <th>Producto</th>
-                                <th>Variante</th> 
-                                <th>Almacen</th> 
-                                <th>Disponible en Locaci&oacute;n</th> 
-                            </tr>
-                        </thead>
-                        <tbody >
-                            <tr ng-repeat="p in productosInLoc" >
-                                <td><a href="#/app-vistaAlmacen/{{p.warehouse.id}}">{{ p.variant.description }}</a></td>
-                                <td>{{ p.variant.name }}</td>
-                                <td>{{ p.warehouse.name }}</td>
-                                <td><span ng-show="p.status=='N'">No disponible</span><span ng-show="p.status=='D'">Disponible</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="panel">
+                        <div class="panel-body no-padding">
+                            <div style="height: 512px;" ng-grid="gridOptions"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

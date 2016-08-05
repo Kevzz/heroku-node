@@ -104,18 +104,21 @@ hr{    border-top-color: #455A64}
           <div class="title"><h3>Datos del almacen remitente</h3></div>
           <div class="row">
             <div class="col-sm-4">
+              <label for="ordenLocacion">Locaci&oacute;n</label>
               <select id="ordenLocacion" name="ordenLocacion" class="form-control" ng-change="updateInfoLocacion()" ng-model="ordenLocationId">
                 <option value="">Selecciona una locacion</option>
                 <option ng-repeat="option in locations" value="{{option.id}}">{{option.name}}</option>
               </select>
             </div>
             <div class="col-sm-4">
+              <label for="ordenAlmacen">Almacen</label>
               <select id="ordenAlmacen" name="ordenAlmacen" class="form-control" ng-change="updateInfoAlmacen()" ng-model="ordenAlmacenId">
                 <option value="">Selecciona una Almacen</option>
                 <option ng-repeat="option in warehouses_Loc" ng-show="option.name!='Global'" value="{{option.id}}">{{option.name}}</option>
               </select>
             </div>
             <div class="col-sm-4">
+              <label for="ordenDivisor">Divisor</label>
               <select id="ordenDivisor" name="ordenDivisor" class="form-control" ng-change="updateInfoDivisor()" ng-model="ordenDivisorId">
                 <option value="">Selecciona una divisor</option>
                 <option ng-repeat="option in divisor_Alm" value="{{option.id}}">{{option.name}}</option>
@@ -124,7 +127,17 @@ hr{    border-top-color: #455A64}
           </div>
           <div class="row no-gutter row-head top-buffer">
             <div class="col-sm-6 bor-tab">
-                Productos
+              <div class="row">
+                <div class="col-sm-4">
+                  Productos
+                </div>
+                <div class="col-sm-4">
+                  Variantes
+                </div>
+                <div class="col-sm-4">
+                  Precio
+                </div>
+              </div>
             </div>
             <div class="col-sm-1 bor-tab">
                 Cantidad

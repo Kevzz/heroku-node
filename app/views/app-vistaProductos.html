@@ -12,26 +12,23 @@
             </div>
         </div>
     </div>
-    <div class="tab-content" >
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12 ">   
-                    <table class="table table-hover">
-                        <thead>
-                            <tr class="info">
-                              <th>Nombre</th>
-                              <th>Marca</th> 
-                              <th>Variantes</th> 
-                            </tr>
-                        </thead>
-                        <tr ng-repeat=" prod in productos">
-                            <td><a href="#/app-vistaProductoInd/{{prod.id}}">{{ prod.name }}</a></td>
-                            <td>{{ prod.brand.name }}</td>
-                            <td>{{prod.variants.length}}</td>
-                        </tr>
-                    </table> 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-transparent">         
+                <div class="panel-body">
+                    <div class="input mb-xl">
+                        <input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Buscar...">
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-body no-padding">
+                            <div style="height: 512px;" ng-grid="gridOptions"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
+    
 </div>

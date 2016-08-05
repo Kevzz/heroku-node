@@ -78,7 +78,18 @@ hr{    border-top-color: #455A64}
                 </label>
               </div>
             </div>
-            
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="ReferenciaOrd">Referencia:</label>
+                  </div>
+                  <div class="col-md-9">
+                    <input class="form-control" name="ReferenciaOrd" id="ReferenciaOrd" type="text" ng-model="referencia">
+                  </div>
+                </div>
+              </div>   
+            </div>
           </div>
         </div>
       </div>
@@ -97,7 +108,17 @@ hr{    border-top-color: #455A64}
           </div>
           <div class="row no-gutter row-head top-buffer">
             <div class="col-sm-6 bor-tab">
-                Productos
+              <div class="row">
+                <div class="col-sm-4">
+                  Almacen
+                </div>
+                <div class="col-sm-4">
+                  Productos
+                </div>
+                <div class="col-sm-4">
+                  Variantes
+                </div>
+              </div>
             </div>
             <div class="col-sm-1 bor-tab">
                 Cantidad
@@ -118,6 +139,7 @@ hr{    border-top-color: #455A64}
                 <div class="row no-gutter">
                   <div class="col-sm-4">
                     <select id="productSupp" name="productSupp" class="form-control"  ng-model="variant.ordenWarehId">
+                      <option value?"">Seleccione un Almacen</option>
                       <option ng-repeat="option in warehouses" ng-show="option.name!='Global'" value="{{option.id}}">{{option.name}}</option>
                     </select>
                   </div>

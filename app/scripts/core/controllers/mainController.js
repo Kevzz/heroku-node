@@ -1,4 +1,4 @@
-angular.module('theme.core.main_controller', ['theme.core.services','firebase','ui.bootstrap'])
+angular.module('theme.core.main_controller', ['theme.core.services','firebase','ui.bootstrap','ng-token-auth'])
 .filter('unique', function() {
    return function(collection, keyname) {
       var output = [], 
@@ -1101,11 +1101,20 @@ function getRecent(prod)
     }
 }])
 
-.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme', function($location,SimLog,$scope, $theme) {
+.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth', function($location,SimLog,$scope, $theme,$auth) {
     'use strict';
     //console.log('asdkjasdlk')
     $scope.us;
     $scope.pass;
+    $scope.handleLoginBtnClick = function() {
+      $auth.submitLogin($scope.loginForm)
+        .then(function(resp) {
+          // handle success response
+        })
+        .catch(function(resp) {
+          // handle error response
+        });
+    };
     var isLog=SimLog.getData();
     if(isLog)
       $location.path('/app-vistaProductos');
@@ -1438,7 +1447,7 @@ function getRecent(prod)
       filterOptions: $scope.filterOptions
     };
   /* ****************************************************************************************************/
-}])
+}])/*
 .controller('CtrlCargarOrden',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareVariante",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareVariante) {
 
   var urlLocation="/locations";
@@ -1488,106 +1497,8 @@ function getRecent(prod)
     });
   }
 
-  $scope.cargarOrden=function(){
-    if($scope.statusOrden=='Solicitado')
-    {
-      var dataUPD={
-        status:"En Almacen"
-      };
-      apiService.putData(urlPurchaseOrders,idnumOrden,dataUPD);
 
-      angular.forEach($scope.Orden.variant_orders,function(value3,key){
-        var idvarianteAlmacen=0;
-        var idvarianteDivisor=0;
-        var idDivisorGeneral=0;
-        apiService.getSingleData(urlWarehouses,value3.warehouse.id).then(function(response2){
-          
-            angular.forEach(response2.data.variant_warehouses,function(value4,key){
-              //console.log("Almacen");
-              //console.log(value4);
-              if( (value4.warehouse.id==value3.warehouse.id )&& (value4.variant.id==value3.variant.id) )
-              {
-                //console.log("si");
-                idvarianteAlmacen=value4.id;
-                console.log(idvarianteAlmacen);
-              }
-            });  
-            angular.forEach(response2.data.dividers,function(value5,key){
-              
-              if(value5.name=='General')
-              {
-                //console.log("divisores entro");
-                //console.log(value5);
-                idDivisorGeneral=value5.id;
-                angular.forEach( value5.variant_divisions,function(value6,key){
-                  if( (value6.divider_id==idDivisorGeneral )&& (value6.variant_id==value3.variant.id) )
-                    {
-                      idvarianteDivisor=value6.id;
-                    }
-                });  
-              }
-            });
-            if(idvarianteDivisor!=0)
-            {
-              var cantidadVieja=0;
-              apiService.getSingleData(urlVarianteDivisor,idvarianteDivisor).then(function(respuesta){
-                cantidadVieja=respuesta.data.total;
-                var data={
-                  total:parseInt(cantidadVieja)+parseInt(value3.amount)
-                  };
-                  apiService.putData(urlVarianteDivisor,idvarianteDivisor,data);  
-              });
-              
-            }
-            else
-            {
-              var newData={
-                divider_id:idDivisorGeneral,
-                variant_id:value3.variant.id,
-                pri:1,
-                total:value3.amount
-              };
-              //console.log(newData);
-              apiService.postData(urlVarianteDivisor,newData);
-            }
-
-            if(idvarianteAlmacen!=0)
-            {
-              console.log("Aqui se supone que entra si encontro un valor de almacen");
-              var cantidadVieja=0;
-              apiService.getSingleData(urlVarianteAlmacen,idvarianteAlmacen).then(function(respuesta){
-                cantidadVieja=respuesta.data.stock;
-                var data={
-                  stock:parseInt(cantidadVieja)+parseInt(value3.amount),
-                  status:"D"
-                  };
-                  apiService.putData(urlVarianteAlmacen,idvarianteAlmacen,data);  
-              });
-              
-            }
-            else
-            {
-              var newData={
-                warehouse_id:value3.warehouse.id,
-                variant_id:value3.variant.id,
-                stock:value3.amount,
-                status:"D"
-              };
-              //console.log(newData);
-              apiService.postData(urlVarianteAlmacen,newData);
-            }  
-        });
-        
-      });
-
-    $location.path('/app-');
-    }
-
-    
-  };
-
-
-  }])
+  }])*/
 .controller('CtrlVarProdAl',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareVariante",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareVariante) {
   var urlLocation="/locations";
   var urlWarehouses="/warehouses";
@@ -1853,11 +1764,18 @@ function getRecent(prod)
       //console.log($scope.divEnVar);  
 }])
 .controller('CtrlOrdenesCInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout){
+   var urlLocation="/locations";
+  var urlWarehouses="/warehouses";
+  var urlProducts="/products";
+  var urlVariantOrders="/variant_orders"
+  var urlPurchaseOrders="/purchase_orders"
+  var urlVarianteDivisor="/variant_divisions";
+  var urlVarianteAlmacen="/variant_warehouses";
 
   var urlOrdenesC="/purchase_orders";
   var urlVariantOC="/variant_orders";
-  var urlProducts="/products";
-  var urlWarehouses="/warehouses";
+ 
+  
   var urlLocation="/locations";
 
   var urlVariantDivisor="/variant_divisions";
@@ -1867,53 +1785,104 @@ function getRecent(prod)
   if(!isLog)
     $location.path('/');
 
-  /*$scope.changeStatus=function(){
-    var dataUPD={
-      status:"Entregado"
-    }
-    apiService.putData(urlOrdenesV,$scope.ordenVenta.id,dataUPD);
-    angular.forEach($scope.ordenVenta.variant_sell_orders,function(value,key){
-      var TotalNew=0;
-      var TotalNewAlm=0;
-      angular.forEach($scope.ordenVenta.variants,function(value2,key2){
-        angular.forEach(value2.variant_divisions,function(value3,key3){
-          if((value.variant.id==value3.variant_id)&&(value.divider.id==value3.divider_id))
-          {
-            var data={
-            total:value3.total-value.amount
-            };
-            apiService.putData(urlVariantDivisor,value3.id,data);
-          }
+  $scope.cargarOrden=function(){
+    if($scope.statusOrden=='Solicitado')
+    {
+      var dataUPD={
+        status:"En Almacen"
+      };
+      apiService.putData(urlPurchaseOrders,$scope.idnumOrden,dataUPD);
+
+      angular.forEach($scope.ordenCompra.variant_orders,function(value3,key){
+        var idvarianteAlmacen=0;
+        var idvarianteDivisor=0;
+        var idDivisorGeneral=0;
+        apiService.getSingleData(urlWarehouses,value3.warehouse.id).then(function(response2){
+          
+            angular.forEach(response2.data.variant_warehouses,function(value4,key){
+              //console.log("Almacen");
+              //console.log(value4);
+              if( (value4.warehouse.id==value3.warehouse.id )&& (value4.variant.id==value3.variant.id) )
+              {
+                //console.log("si");
+                idvarianteAlmacen=value4.id;
+                console.log(idvarianteAlmacen);
+              }
+            });  
+            angular.forEach(response2.data.dividers,function(value5,key){
+              
+              if(value5.name=='General')
+              {
+                //console.log("divisores entro");
+                //console.log(value5);
+                idDivisorGeneral=value5.id;
+                angular.forEach( value5.variant_divisions,function(value6,key){
+                  if( (value6.divider_id==idDivisorGeneral )&& (value6.variant_id==value3.variant.id) )
+                    {
+                      idvarianteDivisor=value6.id;
+                    }
+                });  
+              }
+            });
+            if(idvarianteDivisor!=0)
+            {
+              var cantidadVieja=0;
+              apiService.getSingleData(urlVarianteDivisor,idvarianteDivisor).then(function(respuesta){
+                cantidadVieja=respuesta.data.total;
+                var data={
+                  total:parseInt(cantidadVieja)+parseInt(value3.amount)
+                  };
+                  apiService.putData(urlVarianteDivisor,idvarianteDivisor,data);  
+              });
+              
+            }
+            else
+            {
+              var newData={
+                divider_id:idDivisorGeneral,
+                variant_id:value3.variant.id,
+                pri:1,
+                total:value3.amount
+              };
+              //console.log(newData);
+              apiService.postData(urlVarianteDivisor,newData);
+            }
+
+            if(idvarianteAlmacen!=0)
+            {
+              console.log("Aqui se supone que entra si encontro un valor de almacen");
+              var cantidadVieja=0;
+              apiService.getSingleData(urlVarianteAlmacen,idvarianteAlmacen).then(function(respuesta){
+                cantidadVieja=respuesta.data.stock;
+                var data={
+                  stock:parseInt(cantidadVieja)+parseInt(value3.amount),
+                  status:"D"
+                  };
+                  apiService.putData(urlVarianteAlmacen,idvarianteAlmacen,data);  
+              });
+              
+            }
+            else
+            {
+              var newData={
+                warehouse_id:value3.warehouse.id,
+                variant_id:value3.variant.id,
+                stock:value3.amount,
+                status:"D"
+              };
+              //console.log(newData);
+              apiService.postData(urlVarianteAlmacen,newData);
+            }  
+        });
         
-        }); 
-        angular.forEach(value2.variant_warehouses,function(value4,key4){
-          if((value.variant.id==value4.variant_id)&&(value.divider.warehouse_id==value4.warehouse_id))
-          {
-            var data2={
-            stock:value4.stock-value.amount
-            };
-            apiService.putData(urlVarianteAlmacen,value4.id,data2);
-          }
-          console.log(value4);
-        
-        });        
       });
-      
 
-    });
-    //Aqui tengo que pasar por cada variante y quitarla del divisor
-
-    $location.path('/app-vistaOrdenesVenta/');
-  };*/
-  $scope.changePayment=function(){
-    var dataUPD={
-      payment:"Pagado"
+    $location.path('/app-');
     }
-    apiService.putData(urlOrdenesC,$scope.ordenVenta.id,dataUPD).then(function(response){
-        $location.path('/app-vistaOrdenesCompra/');
-    });
+
     
   };
+  
   $scope.subTotalInd=0;
    var ID_divisor;
    var ID_almacen;
@@ -1921,6 +1890,8 @@ function getRecent(prod)
   apiService.getSingleData(urlOrdenesC,$routeParams.id).then(function(response){
     //console.log(response.data);
     $scope.ordenCompra=response.data;
+    $scope.idnumOrden=$scope.ordenCompra.id;
+    $scope.statusOrden=$scope.ordenCompra.status;
     //pasamos por cada variante que tiene la orden de compra
     angular.forEach(response.data.variant_orders,function(value,key){
       //para obtener el nombre del producto
@@ -2580,6 +2551,80 @@ function getRecent(prod)
     //console.log(response.data);
     $scope.ordenesA=response.data;
   });
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          apiService.getData(urlOrdenesA).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          apiService.getData(urlOrdenesA).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+  /* <tr ng-repeat="order in ordenesA">
+                                <td><a href="#/app-vistaOrdenCInd/{{order.id}}">{{order.number}}</a></td>
+                                <td>{{order.purchase_order.number}}</td>
+                                <td>{{order.date}}</td>
+                            </tr>*/
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "number", displayName:"Folio",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaOrdenCInd/{{row.entity.id}}">{{row.entity.number}}</a>'+'</div>' },
+            { field: "purchase_order.number", displayName:"Orden a Ajustar" },
+            { field: "date",displayName:"Fecha" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
   function getRecent(prod)
     {
       
@@ -2882,8 +2927,8 @@ $scope.$on('$locationChangeStart', function( event ) {
             { field: "number", displayName:"Folio",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaOrdenCInd/{{row.entity.id}}">{{row.entity.number}}</a>'+'</div>' },
             { field: "supplier.name", displayName:"Proveedor" },
             { field: "status",displayName:"Estado" },
-            { field: "Fecha",displayName:"Fecha" },
-            { field: "Monto",displayName:"Monto" }
+            { field: "date",displayName:"Fecha" },
+            { field: "amount",displayName:"Monto" }
         ],
       enablePaging: true,
       showFooter: true,
@@ -3152,7 +3197,7 @@ apiService.getData(urlLocation).then(function(response) {
       billing:fact,
       date:date,
       notes:notas,
-      reference:$scope.referencia,
+      refs:$scope.referencia,
       status:"Solicitado",
       supplier_id:parseInt(ordenSupplierId)
     };
@@ -3253,7 +3298,8 @@ apiService.getData(urlLocation).then(function(response) {
     $scope.marcas = $firebaseObject(marcasURL);
     var marcasURLT = new Firebase("https://formacret.firebaseio.com/marcas/");
     $scope.marcasT = $firebaseArray(marcasURLT);
-    $scope.marcaN={};*/
+    $scope.marcaN={};
+    */
 
     var isLog=SimLog.getData();
     if(!isLog)
@@ -3267,7 +3313,76 @@ apiService.getData(urlLocation).then(function(response) {
         $scope.marcasProxy=response;
         });
      };
+     /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          apiService.getData(urlBrands).then(function(largeLoad) {
+            /*angular.forEach(largeLoad.data,function(val,key){
+              val.supplier="";  
+            });*/
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
 
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          apiService.getData(urlBrands).then(function(largeLoad) {
+            $scope.setPagingData(largeLoad.data, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "name", displayName:"Marca"},
+            { field: "Editar", displayName:"Editar",cellTemplate:'<div class="ngCellText ng-scope">'+'<a  href="#/app-editarMarcas/{{ row.entity.id}}">Editar</a>'+'</div>'  },
+            { field: "Eliminar",displayName:"Eliminar", cellTemplate:'<div class="ngCellText ng-scope">'+'<a ng-click="removeTest(marcaP.id)" ng-confirm-click="¿Esta seguro de eliminar el registro?, si la marca esta asignada no se podra eliminar">Eliminar</a>'+'</div>'  }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
     if($routeParams.id)
     {
       apiService.getSingleData(urlBrands,$routeParams.id).then(function(response) {
@@ -3590,6 +3705,8 @@ var IDsendCliente="";
     $scope.nuevo=function(clienteN)
     {
       var idcliente=0;
+      clienteN.price_id=parseInt(clienteN.price_id);
+      console.log(clienteN);
       apiService.postData(urlClientes,clienteN).then(function(response) {
         idcliente=getRecent(response.data); 
         if($scope.clienteN.envio)
@@ -4394,8 +4511,8 @@ $scope.makeid=function()
   if(!isLog)
     $location.path('/');
 
-  $scope.productosIn
-  Loc=new Array();
+  $scope.productosInLoc1=new Array();
+  $scope.productosInLoc2=new Array();
 
   dataShareLocacion.sendData($routeParams.id);
   $scope.nuevoAlmacen=function(){
@@ -4406,6 +4523,124 @@ $scope.makeid=function()
   $scope.AddProduct=function(){
     $location.path('/app-agregarProdLoc/'+$routeParams.id);
   };
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          apiService.getData(urlWarehouses).then(function(largeLoad) {
+            angular.forEach(largeLoad.data, function(value, key) {
+              if (value.location.id==$routeParams.id) {
+                contador++;
+                if(value.variant_warehouses!='[]')
+                  $scope.productosInLoc2.push(value.variant_warehouses);
+              };
+            });
+            var json = JSON.stringify( $scope.productosInLoc2);
+              newStr = json.substring(1, json.length-1);
+              newStr=newStr.replace("[","");
+              newStr=newStr.replace("]","");
+            for (var i = contador; i >= 0; i--) {
+              newStr=newStr.replace("],[],[",",");
+              newStr=newStr.replace("],[",",");
+            };
+              newStr = newStr.substring(1, newStr.length);
+              newStr=newStr.replace(",]","]");
+              //console.log(newStr);
+              $scope.productosInLoc2=JSON.parse(newStr);
+              angular.forEach($scope.productosInLoc2, function(value, key) {
+                  apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
+                    value.variant.description=response.data.name;
+                    value.variant.brand=response.data.brand.name;
+                  });
+              });
+            data = $scope.productosInLoc2.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          apiService.getData(urlWarehouses).then(function(largeLoad) {
+            angular.forEach(largeLoad.data, function(value, key) {
+              if (value.location.id==$routeParams.id) {
+                contador++;
+                if(value.variant_warehouses!='[]')
+                  $scope.productosInLoc1.push(value.variant_warehouses);
+              };
+            });
+            var json = JSON.stringify( $scope.productosInLoc1);
+              newStr = json.substring(1, json.length-1);
+              newStr=newStr.replace("[","");
+              newStr=newStr.replace("]","");
+            for (var i = contador; i >= 0; i--) {
+              newStr=newStr.replace("],[],[",",");
+              newStr=newStr.replace("],[",",");
+            };
+              newStr = newStr.substring(1, newStr.length);
+              newStr=newStr.replace(",]","]");
+              console.log(newStr);
+              $scope.productosInLoc1=JSON.parse(newStr);
+              angular.forEach($scope.productosInLoc1, function(value, key) {
+                  apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
+                    value.variant.description=response.data.name;
+                    value.variant.brand=response.data.brand.name;
+                  });
+              });
+            $scope.setPagingData($scope.productosInLoc1, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "name", displayName:"Producto",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaAlmacen/{{row.entity.warehouse.id}}">{{row.entity.variant.description}}</a>'+'</div>' },
+            { field: "variant.name", displayName:"Variante" },
+            { field: "warehouse.name",displayName:"Almacen" },
+            { field: "status",displayName:"Disponible en Locación" , cellTemplate:'<div class="ngCellText ng-scope">'+'<span ng-show="p.status==\'N\'">No disponible</span><span ng-show="p.status==\'D\'">Disponible</span>'+'</div>' }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/
    apiService.getData(urlWarehouses).then(function(response){
     angular.forEach(response.data, function(value, key) {
       
@@ -4433,7 +4668,7 @@ $scope.makeid=function()
       
       newStr = newStr.substring(1, newStr.length);
       newStr=newStr.replace(",]","]");
-      console.log(newStr);
+      //console.log(newStr);
       
       $scope.productosInLoc=JSON.parse(newStr);
       angular.forEach($scope.productosInLoc, function(value, key) {

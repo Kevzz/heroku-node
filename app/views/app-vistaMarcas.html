@@ -12,20 +12,22 @@
 	    	</div>
 		</div>
 	</div>
-	<div class="tab-content">
-		<a href=""></a>
-	    <table class="table table-hover">
-	        <thead>
-	            <tr class="info">
-	              	<th>Marca</th>  
-	              	<th></th> 
-	            </tr>
-	        </thead>
-	        <tr ng-repeat="marcaP in marcasProxy.data" >
-	            <td>{{ marcaP.name }}</td>
-	            <td><a href="#/app-editarMarcas/{{ marcaP.id }}">Editar</a>
-	            <a ng-click="removeTest(marcaP.id)" ng-confirm-click="¿Esta seguro de eliminar el registro?, si la marca esta asignada no se podra eliminar">Eliminar</a></td>
-	        </tr>
-	    </table> 
-	</div>
+	<div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-transparent">         
+                <div class="panel-body">
+                    <div class="input mb-xl">
+                        <input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Buscar...">
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-body no-padding">
+                            <div style="height: 512px;" ng-grid="gridOptions"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>	

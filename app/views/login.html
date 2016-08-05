@@ -6,9 +6,9 @@
           <div class="panel-heading">
             <h2>Iniciar sesion</h2>
           </div>
-          <div class="panel-body">
+          <div class="panel-body"> 
             
-            <form ng-submit="createLog()" class="form-horizontal" id="validate-form">
+            <!--<form ng-submit="createLog()" class="form-horizontal" id="validate-form">
               <div class="form-group">
                             <div class="col-xs-12">
                               <div class="input-group">
@@ -36,6 +36,19 @@
                 <input type="submit" class="btn btn-primary pull-right" value="Entrar" style="background-color:#93351F;border-color:#93351F;">
               </div>
             </div>
+            </form>-->
+            <form ng-submit="submitLogin(loginForm)" role="form" ng-init="loginForm = {}">
+              <div class="form-group">
+                <label>email</label>
+                <input type="email" name="email" ng-model="loginForm.email" required="required" class="form-control"/>
+              </div>
+
+              <div class="form-group">
+                <label>password</label>
+                <input type="password" name="password" ng-model="loginForm.password" required="required" class="form-control"/>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
             </form>
           </div>
         </div>
