@@ -3054,7 +3054,7 @@ $scope.$on('$locationChangeStart', function( event ) {
   }
 }])
 
-.controller('CtrlOrdenesCNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra){
+.controller('CtrlOrdenesCNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,modalService){
 
   var urlSuppliers="/suppliers"; 
   var urlLocation="/locations";  
@@ -3220,39 +3220,50 @@ apiService.getData(urlLocation).then(function(response) {
   /* ***************Aqui se hace el submit *****************/
   $scope.submitOrden=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
-    $scope.isDisabled = true;
-    var total=$scope.getTotal();
-
-    var fact="N"
-    if(facturacion==true)
-      fact="Y"
-
-    var dataUpd={
-      payment:"Pendiente",
-      amount:total,
-      billing:fact,
-      date:date,
-      notes:notas,
-      refs:$scope.referencia,
-      status:"Solicitado",
-      supplier_id:parseInt(ordenSupplierId)
+    var modalOptions = {
+      closeButtonText: 'Cancel',
+      actionButtonText: 'Enviar Orden',
+      headerText: '¿ Enviar Orden' + $scope.infoOrden.number  + '?',
+      bodyText: '¿Está seguro de enviar la orden?'
     };
-    //console.log(dataUpd);
-    apiService.putData(urlOrdenesC,idOrdenBorrador,dataUpd);
-    angular.forEach(variantes, function(value, key) {
-      //console.log(value);
-      
-      var data={
 
-        purchase_order_id:idOrdenBorrador,
-        variant_id:value.orderVariant_id,
-        amount:value.cantidad,
-        cost_per_unit:value.costo,
-        warehouse_id:value.ordenWarehId
+    modalService.showModal({}, modalOptions).then(function (result) {
+      $scope.isDisabled = true;
+      var total=$scope.getTotal();
+
+      var fact="N"
+      if(facturacion==true)
+        fact="Y"
+
+      var dataUpd={
+        payment:"Pendiente",
+        amount:total,
+        billing:fact,
+        date:date,
+        notes:notas,
+        refs:$scope.referencia,
+        status:"Solicitado",
+        supplier_id:parseInt(ordenSupplierId)
       };
-        apiService.postData(urlVariantO,data);
-    }); 
-    $location.path('/app-vistaOrdenesCompra');
+      //console.log(dataUpd);
+      apiService.putData(urlOrdenesC,idOrdenBorrador,dataUpd);
+      angular.forEach(variantes, function(value, key) {
+        //console.log(value);
+        
+        var data={
+
+          purchase_order_id:idOrdenBorrador,
+          variant_id:value.orderVariant_id,
+          amount:value.cantidad,
+          cost_per_unit:value.costo,
+          warehouse_id:value.ordenWarehId
+        };
+          apiService.postData(urlVariantO,data);
+      }); 
+      $location.path('/app-vistaOrdenesCompra');
+    });
+
+    
   }
   $scope.submitOrdenBorrador=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
