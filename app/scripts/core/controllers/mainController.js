@@ -2920,13 +2920,13 @@ $scope.$on('$locationChangeStart', function( event ) {
 .controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http","dataShareReady","modalService2",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http,dataShareReady,modalService2){
   var urlOrdenesC="/purchase_orders";  
   $scope.isDisabled = false;
-  if(dataShareReady.getData)
+  if(dataShareReady.getData())
   {
     var modalOptions = {
       closeButtonText: 'Cancel',
       actionButtonText: 'Aceptar',
-      headerText: 'Orden de compra' + dataShareReady +"Recibida",
-      bodyText: 'La orden de compra ah sido cargada copn exito'
+      headerText: 'Orden de compra' + dataShareReady.getData() +"Recibida",
+      bodyText: 'La orden de compra ah sido cargada con exito'
     };
 
     modalService2.showModal({}, modalOptions).then(function (result) {
