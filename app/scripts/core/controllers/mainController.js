@@ -3,28 +3,15 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
 
     // the following shows the default values. values passed to this method
     // will extend the defaults using angular.extend
-
     $authProvider.configure({
       apiUrl:                  'https://stage-formacret.herokuapp.com',
       tokenValidationPath:     '/auth/validate_token',
       signOutUrl:              '/auth/sign_out',
-      emailRegistrationPath:   '/auth',
-      accountUpdatePath:       '/auth',
-      accountDeletePath:       '/auth',
-      confirmationSuccessUrl:  window.location.href,
-      passwordResetPath:       '/auth/password',
-      passwordUpdatePath:      '/auth/password',
-      passwordResetSuccessUrl: window.location.href,
       emailSignInPath:         '/auth/sign_in',
       storage:                 'cookies',
       forceValidateToken:      false,
-      validateOnPageLoad:      true,
+      validateOnPageLoad:      false,
       omniauthWindowType:      'sameWindow',
-      authProviderPaths: {
-        github:   '/auth/github',
-        facebook: '/auth/facebook',
-        google:   '/auth/google'
-      },
       tokenFormat: {
         "access-token": "{{ token }}",
         "token-type":   "Bearer",
@@ -38,22 +25,6 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         expirationUnit: 'days',
         secure: false,
         domain: 'https://stage-app-formacret.herokuapp.com'
-      },
-      createPopup: function(url) {
-        return window.open(url, '_blank', 'closebuttoncaption=Cancel');
-      },
-      parseExpiry: function(headers) {
-        // convert from UTC ruby (seconds) to UTC js (milliseconds)
-        return (parseInt(headers['expiry']) * 1000) || null;
-      },
-      handleLoginResponse: function(response) {
-        return response.data;
-      },
-      handleAccountUpdateResponse: function(response) {
-        return response.data;
-      },
-      handleTokenValidationResponse: function(response) {
-        return response.data;
       }
     });
   })
@@ -1165,6 +1136,7 @@ function getRecent(prod)
     $scope.us;
     $scope.pass;
     $scope.handleLoginBtnClick = function() {
+      console.log("Entrol al login");
       $auth.submitLogin($scope.loginForm)
         .then(function(resp) {
           // handle success response
