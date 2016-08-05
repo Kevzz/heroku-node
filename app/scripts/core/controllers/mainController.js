@@ -10,7 +10,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       emailSignInPath:         '/auth/sign_in',
       storage:                 'cookies',
       forceValidateToken:      false,
-      validateOnPageLoad:      false,
+      validateOnPageLoad:      true,
       tokenFormat: {
         "access-token": "{{ token }}",
         "token-type":   "Bearer",
@@ -59,9 +59,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
    };
 })
 .controller('CtrlFacturacion',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
-  var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');   
+  
   //aqui en la facturacion ponemos primero la parte de las divisas 
   var urlCurrency="/currencies";
     $scope.initFirst=function()
@@ -287,9 +285,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
     $scope.variants.splice(itemIndex, 1);
   }
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+  
 
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
@@ -575,9 +571,7 @@ function getRecent(prod)
   var urlWarehouses="/warehouses";
   var urlVariantDivisor="/variant_divisions";
   var urlVariantWarehouse="/variant_warehouses";
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+  
 
   apiService.getSingleData(urlTransfers,$routeParams.id).then(function(response){
     $scope.LoanInd=response.data;
@@ -623,9 +617,7 @@ function getRecent(prod)
   var urlWarehouses="/warehouses";
   var urlVariantDivisor="/variant_divisions";
   var urlVariantWarehouse="/variant_warehouses";
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+  
 
   apiService.getSingleData(urlTransfers,$routeParams.id).then(function(response){
     $scope.TransInd=response.data;
@@ -784,9 +776,7 @@ function getRecent(prod)
     $scope.variants.splice(itemIndex, 1);
   }
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+ 
 
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
@@ -1217,9 +1207,6 @@ function getRecent(prod)
   $scope.locacion={};
   var reciente=0;
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
   function getRecent(prod)
     {
@@ -1297,9 +1284,6 @@ function getRecent(prod)
   var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urldivisor="/dividers";
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
 
   var idLocacion=dataShareLocacion.getData();
@@ -1380,9 +1364,7 @@ function getRecent(prod)
   var idAlmacen=dataShareAlmacen.getData();
   $scope.divisorN={};
   
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+ 
   apiService.getSingleData(urlWarehouses,idAlmacen).then(function(response){
     $scope.almacenOr=response.data;
   });
@@ -1404,10 +1386,6 @@ function getRecent(prod)
   var idLocacion=0;
   var urlProducts="/products";
 
-
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
   $scope.cargarOrden=function(){
     dataShareAlmacen.sendData($routeParams.id);
@@ -1525,7 +1503,7 @@ function getRecent(prod)
   var idAlmacen=dataShareAlmacen.getData();
 
   var isLog=SimLog.getData();
-  if(!isLog)
+  
     $location.path('/');
 
   $scope.numOrden;
@@ -1569,10 +1547,7 @@ function getRecent(prod)
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
-
+ 
 
   var id_Prod=dataShareAlmacen.getData();
   $scope.varProdAlmacen=new Array();
@@ -1645,10 +1620,6 @@ function getRecent(prod)
     $scope.almacenOrigen=response.data;
     
   });
-
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
   var id_Variante=dataShareVariante.getData();
 
@@ -1846,9 +1817,7 @@ function getRecent(prod)
   var urlVariantDivisor="/variant_divisions";
   var urlVarianteAlmacen="/variant_warehouses";
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+ 
 
   $scope.cargarOrden=function(){
     if($scope.statusOrden=='Solicitado')
@@ -1988,10 +1957,7 @@ function getRecent(prod)
   var urlVariantDivisor="/variant_divisions";
   var urlVarianteAlmacen="/variant_warehouses";
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
-
+  
   $scope.changeStatus=function(){
     var dataUPD={
       status:"Entregado"
@@ -2070,10 +2036,7 @@ function getRecent(prod)
   var urlOrdenesV="/sell_orders";  
   $scope.isDisabled = false;
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
-
+ 
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
       filterText: '',
@@ -2246,9 +2209,7 @@ function getRecent(prod)
 
   var urlVariantOV="/variant_sell_orders";
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+ 
 
 
   $scope.isDisabled = false;
@@ -2628,10 +2589,7 @@ function getRecent(prod)
   var urlOrdenesA="/adjustment_orders";  
   $scope.isDisabled = false;
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
-
+  
   apiService.getData(urlOrdenesA).then(function(response) {
     //console.log(response.data);
     $scope.ordenesA=response.data;
@@ -2795,10 +2753,6 @@ function getRecent(prod)
   var urlVarianteDivisor="/variant_divisions";
   var urlVarianteAlmacen="/variant_warehouses"; 
 
-
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
 
   $scope.isDisabled = false;
@@ -3035,9 +2989,7 @@ $scope.$on('$locationChangeStart', function( event ) {
       filterOptions: $scope.filterOptions
     };
   /* ****************************************************************************************************/
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+ 
 
   apiService.getData(urlOrdenesC).then(function(response) {
     //console.log(response.data);
@@ -3126,10 +3078,6 @@ $scope.$on('$locationChangeStart', function( event ) {
   var urlOrdenesC="/purchase_orders";
   var urlVariantO="/variant_orders";  
 $scope.Math = window.Math;
-
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
 
   $scope.isDisabled = false;
@@ -3415,9 +3363,6 @@ apiService.getData(urlLocation).then(function(response) {
     $scope.marcaN={};
     */
 
-    var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');   
 
     var urlBrands="/brands"
     $scope.initFirst=function()
@@ -3545,9 +3490,7 @@ apiService.getData(urlLocation).then(function(response) {
 .controller('CtrlClientesDirEnv',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
   var urlClientes="/clients";
   var  urlDirEnvios="/send_orders";
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+
 
   var idCliente=dataShareClientes.getData();
 
@@ -3586,9 +3529,7 @@ apiService.getData(urlLocation).then(function(response) {
 .controller('CtrlEditarDirEnvio',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
 var urlClientes="/clients";
     var  urlDirEnvios="/send_orders";
-    var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');   
+     
 
     ID_sendCli=dataShareClientes.getData();
       apiService.getSingleData(urlDirEnvios,ID_sendCli).then(function(response) {
@@ -3617,9 +3558,7 @@ var urlClientes="/clients";
     var  urlDirEnvios="/send_orders";
     var urlPrices="/prices";
 
-    var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');   
+     
 
     apiService.getData(urlClientes).then(function(response) {
       //console.log(response.data);
@@ -3851,9 +3790,7 @@ var IDsendCliente="";
 .controller('EditCtrlDivisas',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
     var urlCurrency="/currencies";
 
-    var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');   
+    
 
     $scope.initFirst=function()
     {
@@ -3912,9 +3849,7 @@ var IDsendCliente="";
 .controller('EditCtrlProveedor',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
     var urlSuppliers="/suppliers"
     var urlCurrency="/currencies"
-    var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');   
+   
 
     $scope.archivarProveedor=function(){
       var data={status:"A"};
@@ -4382,9 +4317,7 @@ var IDsendCliente="";
   var urlProducts="/products";
   var urlSuppliers="/suppliers";
   var urlBrands="/brands";
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+  
 
   apiService.getData(urlSuppliers).then(function(response) {
           //console.log(response);
@@ -4415,9 +4348,7 @@ var IDsendCliente="";
   var urlVariant="/variants";
   var urlTaxes= "/taxes";
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+
 
 
   var idP =  dataShare.getData();  
@@ -4501,9 +4432,6 @@ $scope.makeid=function()
   var urlVariant="/variants";
   var urlTaxes= "/taxes";
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
 
   $scope.guardarCambiosV=function(data){
@@ -4636,9 +4564,7 @@ $scope.makeid=function()
   var contador=0;
   $scope.productosInLoc=[];
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
+  
 
   $scope.productosInLoc1=new Array();
   $scope.productosInLoc2=new Array();
@@ -4818,9 +4744,6 @@ $scope.makeid=function()
 
   $scope.addVarLoc=false;
 
-  var isLog=SimLog.getData();
-  if(!isLog)
-    $location.path('/');
 
   var locacionId=dataShareLocacion.getData();
   $scope.SelectProd=true;
@@ -4886,9 +4809,7 @@ $scope.makeid=function()
 .controller('MainController', ['SimLog','apiService','$resource','$http','$scope', '$theme', '$timeout', 'progressLoader', 'wijetsService', '$location',
     function(SimLog,apiService,$resource,$http,$scope, $theme, $timeout, progressLoader, wijetsService, $location) {
     'use strict';
-    var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');
+    
 
     /*¨Aqui terminan las pruebas de firebase*/
 
