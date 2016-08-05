@@ -1133,7 +1133,7 @@ function getRecent(prod)
 
 .controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth', function($location,SimLog,$scope, $theme,$auth) {
     'use strict';
-    //console.log('asdkjasdlk')
+    console.log('asdkjasdlk');
     $scope.us;
     $scope.pass;
     $scope.handleLoginBtnClick = function() {
