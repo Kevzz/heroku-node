@@ -137,7 +137,32 @@ angular
   };
   return service;
 })
-  .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
+  .config(['$stateProvider', function($stateProvider) {
+    $stateProvider
+      // this state will be visible to everyone
+      .state('index', {
+        url: '/',
+        templateUrl: function(param) {
+          return 'views/login.html';
+        }
+      })
+      // only authenticated users will be able to see routes that are
+      // children of this state
+      .state('admin', {
+        url: '/admin',
+        abstract: true,
+        templateUrl:: function(param) {
+          return 'views/app-vistaMarcas.html';
+        },
+        resolve: {
+          auth: function($auth) {
+            return $auth.validateUser();
+          }
+        }
+      });
+  }])
+
+/*.config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
     
     $routeProvider
@@ -449,7 +474,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  }])
+  }])*/
   .directive('demoOptions', function () {
     return {
       restrict: 'C',
