@@ -1,7 +1,8 @@
 angular
   .module('themesApp', [
     'theme',
-    'theme.demos'
+    'theme.demos',
+    'ng-token-auth'
   ])
   .value('fbURL', 'https://formacret.firebaseio.com/')
   .directive('ngConfirmClick', [
