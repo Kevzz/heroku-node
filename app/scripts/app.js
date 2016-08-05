@@ -175,8 +175,7 @@ angular
           return 'views/log-out.html';
         }
       })
-      .when('/app-vistaOrdenesAjuste', {
-        
+      .when('/pruebaUs', {
         templateUrl:'views/vistaOrdenesAjuste.html',
         resolve: {
           auth: function($auth) {
