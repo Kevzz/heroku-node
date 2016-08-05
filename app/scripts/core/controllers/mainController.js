@@ -1145,7 +1145,7 @@ function getRecent(prod)
     }
 }])
 
-.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth', function($location,SimLog,$scope, $theme,$auth) {
+.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth','$rootScope', function($location,SimLog,$scope, $theme,$auth,$rootScope) {
     'use strict';
     console.log('asdkjasdlk');
     $scope.us;
@@ -1161,7 +1161,11 @@ function getRecent(prod)
           console.log(headers);
           console.log("Header 2");
           console.log(resp.headers);
-          $location.path("/pruebaUs");
+          $rootScope.$on('auth:login-success', function(ev, user) {
+              alert('Welcome ', user.email);
+              $location.path("/pruebaUs");
+          });
+          
 
         })
         .catch(function(resp) {

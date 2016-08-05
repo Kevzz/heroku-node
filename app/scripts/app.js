@@ -1,8 +1,7 @@
 angular
   .module('themesApp', [
     'theme',
-    'theme.demos',
-    'ng-token-auth'
+    'theme.demos'
   ])
   .value('fbURL', 'https://formacret.firebaseio.com/')
   .directive('ngConfirmClick', [
@@ -163,7 +162,7 @@ angular
       
   }])
 */
-.config(['$provide', '$routeProvider','$auth', function($provide, $routeProvider,$auth) {
+.config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
     
     $routeProvider
