@@ -151,7 +151,7 @@ angular
       .state('admin', {
         url: '/admin',
         abstract: true,
-        templateUrl:: function(param) {
+        templateUrl: function(param) {
           return 'views/app-vistaMarcas.html';
         },
         resolve: {

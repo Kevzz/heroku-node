@@ -1159,8 +1159,9 @@ function getRecent(prod)
           console.log(resp);
           console.log("Header");
           console.log(headers);
-          console.log("Header");
-          console.log(resp.headers());
+          console.log("Header 2");
+          console.log(resp.headers);
+          $location.path("/admin");
 
         })
         .catch(function(resp) {
