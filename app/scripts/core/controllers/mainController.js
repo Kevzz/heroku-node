@@ -1799,7 +1799,7 @@ function getRecent(prod)
       //*******************************************************************************
       //console.log($scope.divEnVar);  
 }])
-.controller('CtrlOrdenesCInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout){
+.controller('CtrlOrdenesCInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","dataShareReady",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,dataShareReady){
    var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
@@ -1912,8 +1912,8 @@ function getRecent(prod)
         });
         
       });
-
-    $location.path('/app-');
+    dataShareReady.sendData($scope.ordenCompra.number);
+    $location.path('/app-vistaOrdenesCompra');
     }
 
     
@@ -2462,77 +2462,97 @@ function getRecent(prod)
   /* ***************Aqui se hace el submit *****************/
   $scope.submitOrden=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
-    $scope.isDisabled = true;
-    var total=$scope.getTotal();
-
-    var fact="N"
-    if(facturacion==true)
-      fact="Y"
-
-    var dataUpd={
-      payment:"Pendiente",
-      amount:total,
-      billing:fact,
-      date:date,
-      notes:notas,
-      status:"Solicitado",
-      client_id:$scope.ordenClientId,
-      send_order_id:$scope.ordenDirecctionId
+    var modalOptions = {
+      closeButtonText: 'Cancel',
+      actionButtonText: 'Enviar Orden',
+      headerText: '¿ Enviar Orden' + $scope.infoOrden.number  + '?',
+      bodyText: '¿Está seguro de enviar la orden?'
     };
-    //console.log(dataUpd);
-    apiService.putData(urlOrdenesV,idOrdenVentaBorrador,dataUpd);
-    angular.forEach(variantes, function(value, key) {
-      //console.log("valor de la orden de venta")
-      //console.log(idOrdenVentaBorrador);
-      
-      var data={
 
-        sell_order_id:idOrdenVentaBorrador,
-        variant_id:value.orderVariant_id,
-        amount:value.cantidad,
-        price_per_unit:value.costo,
-        divider_id:$scope.ordenDivisorId
+    modalService.showModal({}, modalOptions).then(function (result) {
+      $scope.isDisabled = true;
+      var total=$scope.getTotal();
+
+      var fact="N"
+      if(facturacion==true)
+        fact="Y"
+
+      var dataUpd={
+        payment:"Pendiente",
+        amount:total,
+        billing:fact,
+        date:date,
+        notes:notas,
+        status:"Solicitado",
+        client_id:$scope.ordenClientId,
+        send_order_id:$scope.ordenDirecctionId
       };
-      //console.log(data);
-        apiService.postData(urlVariantOV,data);
-    }); 
-    $location.path('/app-vistaOrdenesVenta');
+      //console.log(dataUpd);
+      apiService.putData(urlOrdenesV,idOrdenVentaBorrador,dataUpd);
+      angular.forEach(variantes, function(value, key) {
+        //console.log("valor de la orden de venta")
+        //console.log(idOrdenVentaBorrador);
+        
+        var data={
+
+          sell_order_id:idOrdenVentaBorrador,
+          variant_id:value.orderVariant_id,
+          amount:value.cantidad,
+          price_per_unit:value.costo,
+          divider_id:$scope.ordenDivisorId
+        };
+        //console.log(data);
+          apiService.postData(urlVariantOV,data);
+      }); 
+      $location.path('/app-vistaOrdenesVenta');
+    });
+    
   }
   $scope.submitOrdenBorrador=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
-    $scope.isDisabled = true;
-    var total=$scope.getTotal();
-
-    var fact="N"
-    if(facturacion==true)
-      fact="Y"
-
-    var dataUpd={
-      payment:"Pendiente",
-      amount:total,
-      billing:fact,
-      date:date,
-      notes:notas,
-      status:"Borrador",
-      client_id:$scope.ordenClientId,
-      send_order_id:$scope.ordenDirecctionId
+    var modalOptions = {
+      closeButtonText: 'Cancel',
+      actionButtonText: 'Enviar Orden',
+      headerText: '¿ Enviar Orden' + $scope.infoOrden.number  + '?',
+      bodyText: '¿Está seguro de gusrdar la orden como borrador?'
     };
-    //console.log(dataUpd);
-    apiService.putData(urlOrdenesV,idOrdenVentaBorrador,dataUpd);
-    angular.forEach(variantes, function(value, key) {
-      
-      
-      var data={
 
-        sell_order_id:idOrdenVentaBorrador,
-        variant_id:value.orderVariant_id,
-        amount:value.cantidad,
-        price_per_unit:value.costo,
-        divider_id:$scope.ordenDivisorId
+    modalService.showModal({}, modalOptions).then(function (result) {
+      $scope.isDisabled = true;
+      var total=$scope.getTotal();
+
+      var fact="N"
+      if(facturacion==true)
+        fact="Y"
+
+      var dataUpd={
+        payment:"Pendiente",
+        amount:total,
+        billing:fact,
+        date:date,
+        notes:notas,
+        status:"Borrador",
+        client_id:$scope.ordenClientId,
+        send_order_id:$scope.ordenDirecctionId
       };
-        apiService.postData(urlVariantOV,data);
-    }); 
-    $location.path('/app-vistaOrdenesVenta');
+      //console.log(dataUpd);
+      apiService.putData(urlOrdenesV,idOrdenVentaBorrador,dataUpd);
+      angular.forEach(variantes, function(value, key) {
+        
+        
+        var data={
+
+          sell_order_id:idOrdenVentaBorrador,
+          variant_id:value.orderVariant_id,
+          amount:value.cantidad,
+          price_per_unit:value.costo,
+          divider_id:$scope.ordenDivisorId
+        };
+          apiService.postData(urlVariantOV,data);
+      }); 
+      $location.path('/app-vistaOrdenesVenta');
+    });
+    
   }
   /* ***************************** */
   $scope.today = function() {
@@ -2897,10 +2917,22 @@ $scope.$on('$locationChangeStart', function( event ) {
     $location.path('/app-nuevaOrdenC');
   };
 }])
-.controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http){
+.controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http","dataShareReady","modalService2",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http,dataShareReady,modalService2){
   var urlOrdenesC="/purchase_orders";  
   $scope.isDisabled = false;
+  if(dataShareReady.getData)
+  {
+    var modalOptions = {
+      closeButtonText: 'Cancel',
+      actionButtonText: 'Aceptar',
+      headerText: 'Orden de compra' + dataShareReady +"Recibida",
+      bodyText: 'La orden de compra ah sido cargada copn exito'
+    };
 
+    modalService2.showModal({}, modalOptions).then(function (result) {
+      console.log("cerrar Modal");
+    });
+  }
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
       filterText: '',
@@ -3157,12 +3189,7 @@ apiService.getData(urlLocation).then(function(response) {
     });
     //
   };
-  $scope.$on('$locationChangeStart', function( event ) {
-      var answer = confirm("Saliendo de la creacion de la orden de compra ¿Está seguro?")
-      if (!answer) {
-          event.preventDefault();
-      }
-  });
+  
   $scope.getTax=function(indexV,varID){
     
     apiService.getSingleData(urlVariants,varID).then(function(response) {
@@ -3267,36 +3294,46 @@ apiService.getData(urlLocation).then(function(response) {
   }
   $scope.submitOrdenBorrador=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
-    $scope.isDisabled = true;
-    var total=$scope.getTotal();
-
-    var fact="N"
-    if(facturacion==true)
-      fact="Y"
-
-    var dataUpd={
-      payment:"Pendiente",
-      amount:total,
-      billing:fact,
-      date:date,
-      reference:$scope.referencia,
-      notes:notas,
-      status:"Borrador",
-      supplier_id:parseInt(ordenSupplierId)
+    var modalOptions = {
+      closeButtonText: 'Cancel',
+      actionButtonText: 'Enviar Orden',
+      headerText: '¿ Guardar como borrador' + $scope.infoOrden.number  + '?',
+      bodyText: '¿Está seguro de guardar la orden como borrador?'
     };
-    //console.log(dataUpd);
-    apiService.putData(urlOrdenesC,idOrdenBorrador,dataUpd);
-    angular.forEach(variantes, function(value, key) {
-      var data={
-        purchase_order_id:idOrdenBorrador,
-        variant_id:value.orderVariant_id,
-        amount:value.cantidad,
-        cost_per_unit:value.costo,
-        warehouse_id:value.ordenWarehId
+
+    modalService.showModal({}, modalOptions).then(function (result) {
+      $scope.isDisabled = true;
+      var total=$scope.getTotal();
+
+      var fact="N"
+      if(facturacion==true)
+        fact="Y"
+
+      var dataUpd={
+        payment:"Pendiente",
+        amount:total,
+        billing:fact,
+        date:date,
+        reference:$scope.referencia,
+        notes:notas,
+        status:"Borrador",
+        supplier_id:parseInt(ordenSupplierId)
       };
-        apiService.postData(urlVariantO,data);
-    }); 
-    $location.path('/app-vistaOrdenesCompra');
+      //console.log(dataUpd);
+      apiService.putData(urlOrdenesC,idOrdenBorrador,dataUpd);
+      angular.forEach(variantes, function(value, key) {
+        var data={
+          purchase_order_id:idOrdenBorrador,
+          variant_id:value.orderVariant_id,
+          amount:value.cantidad,
+          cost_per_unit:value.costo,
+          warehouse_id:value.ordenWarehId
+        };
+          apiService.postData(urlVariantO,data);
+      }); 
+      $location.path('/app-vistaOrdenesCompra');
+    });
+    
   }
   /* ***************************** */
   $scope.today = function() {

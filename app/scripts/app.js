@@ -53,6 +53,17 @@ angular
     return this.data;
   };
   return service;
+}).factory('dataShareReady',function($rootScope){
+  var service = {};
+  service.data = false;
+  service.sendData = function(data){
+      this.data = data;
+      $rootScope.$broadcast('data_shared');
+  };
+  service.getData = function(){
+    return this.data;
+  };
+  return service;
 })
     .factory('dataShareVenta',function($rootScope){
   var service = {};
