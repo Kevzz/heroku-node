@@ -1158,7 +1158,7 @@ function getRecent(prod)
           console.log("Respuesta con token");
           console.log(resp);
           console.log("Header");
-          console.log(headers;
+          console.log(headers);
           console.log("Header");
           console.log(resp.headers());
 
