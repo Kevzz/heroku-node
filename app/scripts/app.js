@@ -166,7 +166,7 @@ angular
   $rootScope.$on('auth:login-success', function() {
     alert("Siii");
   })
-}]);
+}])
 .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
     
