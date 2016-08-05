@@ -10,7 +10,23 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       emailSignInPath:         '/auth/sign_in',
       storage:                 'cookies',
       forceValidateToken:      false,
-      validateOnPageLoad:      false
+      validateOnPageLoad:      false,
+      createPopup: function(url) {
+        return window.open(url, '_blank', 'closebuttoncaption=Cancel');
+      },
+      parseExpiry: function(headers) {
+        // convert from UTC ruby (seconds) to UTC js (milliseconds)
+        return (parseInt(headers['expiry']) * 1000) || null;
+      },
+      handleLoginResponse: function(response) {
+        return response.data;
+      },
+      handleAccountUpdateResponse: function(response) {
+        return response.data;
+      },
+      handleTokenValidationResponse: function(response) {
+        return response.data;
+      }
     });
   })
 .filter('unique', function() {
@@ -3984,12 +4000,29 @@ var IDsendCliente="";
     };*/
 
   }])
-  .controller('EditCtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http) {
+  .controller('EditCtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
     var urlProducts="/products";
     var urlSuppliers="/suppliers";
     var urlBrands="/brands";
     var urlCriterios="/rules";
+    $scope.deleteCustomer = function () {
 
+        var custName = "Kevin Dominguez";
+
+
+        var modalOptions = {
+            closeButtonText: 'Cancel',
+            actionButtonText: 'Delete Customer',
+            headerText: 'Delete ' + custName + '?',
+            bodyText: 'Are you sure you want to delete this customer?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+            dataService.deleteCustomer($scope.customer.id).then(function () {
+                $location.path('/customers');
+            }, processError);
+        });
+    }
     apiService.getData(urlCriterios).then(function(response3){
       $scope.rules=response3.data;
     });
