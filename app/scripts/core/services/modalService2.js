@@ -1,4 +1,4 @@
-angular.module('theme.core.services').service('modalService', ['$modal',
+angular.module('theme.core.services').service('modalService2', ['$modal',
     function ($modal) {
 
         var modalDefaults = {
