@@ -11,6 +11,13 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       storage:                 'cookies',
       forceValidateToken:      false,
       validateOnPageLoad:      false,
+      tokenFormat: {
+        "access-token": "{{ token }}",
+        "token-type":   "Bearer",
+        "client":       "{{ clientId }}",
+        "expiry":       "{{ expiry }}",
+        "uid":          "{{ uid }}"
+      },
       createPopup: function(url) {
         return window.open(url, '_blank', 'closebuttoncaption=Cancel');
       },
