@@ -164,7 +164,7 @@ angular
 */
 .run(['$rootScope', '$location', function($rootScope, $location) {
   $rootScope.$on('auth:login-success', function() {
-    alert("Siii");
+    $location.path('/app-vistaProductos')
   })
 }])
 .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
@@ -180,12 +180,9 @@ angular
           return 'views/log-out.html';
         }
       })
-      .when('/pruebaUs', {
-        templateUrl:'views/vistaOrdenesAjuste.html',
-        resolve: {
-          auth: function($auth) {
-            return $auth.validateUser();
-          }
+      .when('/app-vistaOrdenesAjuste', {
+        templateUrl: function(param) {
+          return 'views/app-vistaOrdenesAjuste.html';
         }
       })
       .when('/app-vistaOrdenAjusteInd/:id', {

@@ -1196,8 +1196,14 @@ function getRecent(prod)
     'use strict';
     //console.log('asdkjasdlk')
     SimLog.sendData("");
-   $location.path('/');
    
+   $auth.signOut()
+        .then(function(resp) {
+          // handle success response
+        })
+        .catch(function(resp) {
+          // handle error response
+        });
     $theme.set('fullscreen', true);
 
     $scope.$on('$destroy', function() {
