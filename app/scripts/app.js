@@ -137,7 +137,7 @@ angular
   };
   return service;
 })
-  .config(['$stateProvider', function($stateProvider) {
+ /* .config(['$stateProvider', function($stateProvider) {
     $stateProvider
       // this state will be visible to everyone
       .state('index', {
@@ -161,8 +161,8 @@ angular
       // this route will only be available to authenticated users
       
   }])
-
-/*.config(['$provide', '$routeProvider', function($provide, $routeProvider) {
+*/
+.config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
     
     $routeProvider
@@ -176,6 +176,11 @@ angular
         }
       })
       .when('/app-vistaOrdenesAjuste', {
+        resolve: {
+          auth: function($auth) {
+            return $auth.validateUser();
+          }
+        },
         templateUrl: function(param) {
           return 'views/app-vistaOrdenesAjuste.html';
         }
@@ -474,7 +479,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  }])*/
+  }])
   .directive('demoOptions', function () {
     return {
       restrict: 'C',

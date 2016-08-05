@@ -1161,7 +1161,7 @@ function getRecent(prod)
           console.log(headers);
           console.log("Header 2");
           console.log(resp.headers);
-          $location.path("/admin");
+          $location.path("/vistaOrdenesAjuste");
 
         })
         .catch(function(resp) {
