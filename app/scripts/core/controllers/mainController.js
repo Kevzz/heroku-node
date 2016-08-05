@@ -5,7 +5,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
     // will extend the defaults using angular.extend
 
     $authProvider.configure({
-      apiUrl:                  'https://stage-formacret.herokuapp.com/',
+      apiUrl:                  'https://stage-formacret.herokuapp.com',
       tokenValidationPath:     '/auth/validate_token',
       signOutUrl:              '/auth/sign_out',
       emailRegistrationPath:   '/auth',
