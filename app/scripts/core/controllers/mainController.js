@@ -4107,9 +4107,7 @@ var IDsendCliente="";
     $scope.prodname;
     var idRec;
 
-    var isLog=SimLog.getData();
-    if(!isLog)
-      $location.path('/');   
+    
     
     /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
