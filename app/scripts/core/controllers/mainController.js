@@ -1,6 +1,5 @@
 angular.module('theme.core.main_controller', ['theme.core.services','firebase','ui.bootstrap','ng-token-auth'])
 .config(function($authProvider) {
-
     // the following shows the default values. values passed to this method
     // will extend the defaults using angular.extend
     $authProvider.configure({
@@ -20,7 +19,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         "uid":          "{{ uid }}"
       },
       cookieOps: {
-        path: "/",
+        path: "/#",
         expires: 9999,
         expirationUnit: 'days',
         secure: false,
