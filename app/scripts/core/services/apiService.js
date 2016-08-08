@@ -40,4 +40,8 @@ angular.module('theme.core.services')
 			return $http.get(url);
 		});	
 	}
+	ApiService.prototype.putDataPrices=function(url,id,data)
+	{
+		this.$http.put(url+"/"+id,data);
+	}
 }]);

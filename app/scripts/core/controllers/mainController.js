@@ -4383,13 +4383,13 @@ $scope.makeid=function()
           currency_id:value.currency_id,
           tax_id:value.tax_id
         };
-        apiService.putData(urlVariant,value.id,data);
+        apiService.putDataPrices(urlVariant,value.id,data);
 
         angular.forEach(value.variant_prices, function(value1, key) {
           var dataP={
             cost:value1.cost
           };
-          apiService.putData(urlVariantPrices,value1.id,dataP);
+          apiService.putDataPrices(urlVariantPrices,value1.id,dataP);
         });
       });
     $location.path('/app-vistaProductoInd/'+dataShare.getData());
