@@ -4789,8 +4789,8 @@ $scope.makeid=function()
   }
 }])
 
-.controller('MainController', ['SimLog','apiService','$resource','$http','$scope', '$theme', '$timeout', 'progressLoader', 'wijetsService', '$location',
-    function(SimLog,apiService,$resource,$http,$scope, $theme, $timeout, progressLoader, wijetsService, $location) {
+.controller('MainController', ['$auth','SimLog','apiService','$resource','$http','$scope', '$theme', '$timeout', 'progressLoader', 'wijetsService', '$location',
+    function($auth,SimLog,apiService,$resource,$http,$scope, $theme, $timeout, progressLoader, wijetsService, $location) {
     'use strict';
     /*¨Aqui terminan las pruebas de firebase*/
 
