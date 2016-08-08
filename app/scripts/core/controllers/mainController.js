@@ -11,6 +11,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       storage:                 'cookies',
       forceValidateToken:      false,
       validateOnPageLoad:      true,
+      omniauthWindowType:      'sameWindow',
       tokenFormat: {
         "access-token": "{{ token }}",
         "token-type":   "Bearer",
