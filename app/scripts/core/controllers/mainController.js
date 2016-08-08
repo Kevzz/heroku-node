@@ -23,7 +23,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         expires: 9999,
         expirationUnit: 'days',
         secure: false,
-        domain: 'https://stage-app-formacret.herokuapp.com/index.html#/'
+        domain: 'https://stage-app-formacret.herokuapp.com/'
       },
       createPopup: function(url) {
         return window.open(url, '_blank', 'closebuttoncaption=Cancel');
@@ -1145,18 +1145,8 @@ function getRecent(prod)
       $auth.submitLogin($scope.loginForm)
         .then(function(resp, status, headers, config) {
           // handle success response
-          console.log("Respuesta con token");
-          console.log(resp);
-          console.log("Header");
-          console.log(headers);
-          console.log("Header 2");
-          console.log(resp.headers);
-          $rootScope.$on('auth:login-success', function(ev, user) {
-              alert('Welcome ', user.email);
-              $location.path("/pruebaUs");
-          });
+          console.log("logged in"):
           
-
         })
         .catch(function(resp) {
           // handle error response
@@ -1186,14 +1176,8 @@ function getRecent(prod)
     'use strict';
     //console.log('asdkjasdlk')
     SimLog.sendData("");
+
    
-   $auth.signOut()
-        .then(function(resp) {
-          $location.path('/');
-        })
-        .catch(function(resp) {
-          console.log(resp);
-        });
     $theme.set('fullscreen', true);
 
     $scope.$on('$destroy', function() {
@@ -4845,7 +4829,17 @@ $scope.makeid=function()
       'zoomInRight',
       'zoomInUp'
     ];
-
+    
+  $scope.sign_u_out=function()
+   {
+      $auth.signOut()
+        .success(function(resp) {
+          $location.path('/');
+        })
+        .catch(function(resp) {
+          console.log(resp);
+        });
+   }
     $scope.layoutLoading = true;
 
     $scope.getLayoutOption = function(key) {

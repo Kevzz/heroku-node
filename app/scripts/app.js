@@ -165,7 +165,10 @@ angular
 .run(['$rootScope', '$location', function($rootScope, $location) {
   $rootScope.$on('auth:login-success', function() {
     $location.path('/app-vistaProductos')
-  })
+  });
+  $rootScope.$on('auth:logout-success', function(ev) {
+    $location.path('/')
+  });
 }])
 .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
