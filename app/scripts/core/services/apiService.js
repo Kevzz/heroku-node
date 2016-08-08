@@ -22,6 +22,10 @@ angular.module('theme.core.services')
 		
 		
 	}
+	ApiService.prototype.postDataPrices= function(url,data)
+	{
+		this.$http.post(url,data);
+	}
 	ApiService.prototype.deleteData=function(url,id)
 	{
 		return this.$http.delete(url+"/"+id).then(function(response)

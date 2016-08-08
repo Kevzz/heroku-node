@@ -4255,7 +4255,7 @@ var IDsendCliente="";
                 status: "I",
                 product_id: idRec//aqui me traigo el id de ultimo agregado
             };
-        apiService.postData(urlVariant,data);
+        apiService.postDataPrices(urlVariant,data);
         
       });
       apiService.getData(urlPrices).then(function(response){
@@ -4270,21 +4270,13 @@ var IDsendCliente="";
                   cost:0,
                   label:value2.name
                 };
-                apiService.postData(urlVariantPrices,data);
+                apiService.postDataPrices(urlVariantPrices,data);
                 //console.log("se guarda el dato");
               });  
               //apiService.push(urlVariant,);
             });    
-            apiService.getSingleData(urlProducts,idRec).then(function(response){
-              $scope.variantesFormC=response.data.variants;
-              //console.log($scope.variantesFormC);
-              apiService.getData(urlPrices).then(function(response){
-                $scope.pricesProxy=response.data;
-                dataShare.sendData(idRec);
-                $location.path('/app-subVariantes');
-              });
-              
-            });
+            dataShare.sendData(idRec);
+            $location.path('/app-subVariantes');
           });
           
           
@@ -4333,25 +4325,22 @@ var IDsendCliente="";
   var urlVariant="/variants";
   var urlTaxes= "/taxes";
 
-
-
-
-  var idP =  dataShare.getData();  
+ var idP =  dataShare.getData();  
 
   $scope.$on('data_shared',function(){
         var idP =  dataShare.getData();          
   });
 
   apiService.getSingleData(urlProducts,idP).then(function(response){
-        $scope.variantesFormC=response.data.variants.sort(function(a, b) {
-    return a.id - b.id;
-});
-        console.log($scope.variantesFormC);
-        /*apiService.getData(urlPrices).then(function(response){
-          $scope.pricesProxy=response.data;
-        });*/
-        
-      });
+    $scope.variantesFormC=response.data.variants.sort(function(a, b) {
+        return a.id - b.id;
+    });
+    console.log($scope.variantesFormC);
+    /*apiService.getData(urlPrices).then(function(response){
+      $scope.pricesProxy=response.data;
+    });*/
+    
+  });
   apiService.getData(urlCurrency).then(function(response) {
     //console.log(response);
     $scope.currProxy=response.data;
