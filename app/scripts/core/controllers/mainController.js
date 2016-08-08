@@ -1182,7 +1182,7 @@ function getRecent(prod)
       $theme.set('fullscreen', false);
     });
   }])
-.controller('CtrlSignOut', ['$location','SimLog','$scope', '$theme', function($location,SimLog,$scope, $theme) {
+.controller('CtrlSignOut', ['$location','SimLog','$scope', '$theme','$auth', function($location,SimLog,$scope, $theme, $auth) {
     'use strict';
     //console.log('asdkjasdlk')
     SimLog.sendData("");
