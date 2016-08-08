@@ -1145,7 +1145,7 @@ function getRecent(prod)
       $auth.submitLogin($scope.loginForm)
         .then(function(resp, status, headers, config) {
           // handle success response
-          console.log("logged in"):
+          console.log("logged in");
           
         })
         .catch(function(resp) {
@@ -4829,7 +4829,7 @@ $scope.makeid=function()
       'zoomInRight',
       'zoomInUp'
     ];
-    
+
   $scope.sign_u_out=function()
    {
       $auth.signOut()
