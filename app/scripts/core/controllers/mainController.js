@@ -24,7 +24,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         expires: 9999,
         expirationUnit: 'days',
         secure: false,
-        domain: 'https://stage-app-formacret.herokuapp.com/'
+        domain: 'https://stage-formacret.herokuapp.com'
       },
       createPopup: function(url) {
         return window.open(url, '_blank', 'closebuttoncaption=Cancel');
