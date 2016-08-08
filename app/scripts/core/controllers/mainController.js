@@ -1189,10 +1189,10 @@ function getRecent(prod)
    
    $auth.signOut()
         .then(function(resp) {
-          // handle success response
+          $location.path('/');
         })
         .catch(function(resp) {
-          // handle error response
+          console.log(resp);
         });
     $theme.set('fullscreen', true);
 
@@ -4803,14 +4803,11 @@ $scope.makeid=function()
     });    
     //console.log(formData);
   }
-   /**/
 }])
 
 .controller('MainController', ['SimLog','apiService','$resource','$http','$scope', '$theme', '$timeout', 'progressLoader', 'wijetsService', '$location',
     function(SimLog,apiService,$resource,$http,$scope, $theme, $timeout, progressLoader, wijetsService, $location) {
     'use strict';
-    
-
     /*¨Aqui terminan las pruebas de firebase*/
 
     $scope.layoutFixedHeader = $theme.get('fixedHeader');
