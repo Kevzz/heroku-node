@@ -2974,22 +2974,9 @@ $scope.$on('$locationChangeStart', function( event ) {
           });
         } else {
           apiService.getData(urlOrdenesC).then(function(largeLoad) {
-            angular.forEach(largeLoad.data,function(val,key){
-              if(val.status == "Archivado") // delete index
-              {
-                  delete largeLoad.data[key];
-              }
+            largeLoad.data = largeLoad.data.filter(function(col){
+              return col.status !== 'Archivado';
             });
-            angular.forEach(largeLoad.data,function(val,key){
-              if (val === "" || val === null){
-                largeLoad.data.splice(key,1);
-              }
-            });
-            walkclean(largeLoad.data);
-            console.log(largeLoad.data);
-            $scope.muestra=largeLoad.data;
-            
-            console.log($scope.muestra);
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
