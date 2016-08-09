@@ -4584,7 +4584,7 @@ $scope.makeid=function()
       }
   };
 }])
-.controller('EditCtrlProdInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
+.controller('EditCtrlProdInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare","modalService",function(SimLog,apiService,$scope, $location, $routeParams,dataShare,modalService) {
 
   var urlProducts="/products";
   var urlSuppliers="/suppliers";
