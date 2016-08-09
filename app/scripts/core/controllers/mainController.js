@@ -2982,23 +2982,13 @@ $scope.$on('$locationChangeStart', function( event ) {
             });
             angular.forEach(largeLoad.data,function(val,key){
               if (val === "" || val === null){
-                delete largeLoad.data[key];
+                largeLoad.data.splice(key,1);
               }
             });
             walkclean(largeLoad.data);
             console.log(largeLoad.data);
             $scope.muestra=largeLoad.data;
-            $scope.muestra=(function filter(obj) {
-              $.each(obj, function(key, value){
-                  if (value === "" || value === null){
-                      delete obj[key];
-                  } else if (Object.prototype.toString.call(value) === '[object Object]') {
-                      filter(value);
-                  } else if ($.isArray(value)) {
-                      $.each(value, function (k,v) { filter(v); });
-                  }
-              });
-            })($scope.muestra);
+            
             console.log($scope.muestra);
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
