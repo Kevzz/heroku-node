@@ -25,7 +25,7 @@
                                 <th>Variantes</th> 
                             </tr>
                         </thead>
-                        <tr ng-repeat=" prod in productos | filter:searchText">
+                        <tr ng-repeat=" prod in productos | filter:searchText" ng-show="prod.satus!='A'" >
                             <td><a href="#/app-vistaProductoInd/{{prod.id}}">{{ prod.name }}</a></td>
                             <td>{{ prod.brand.name }}</td>
                             <td>{{prod.variants.length}}</td>
