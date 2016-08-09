@@ -2980,6 +2980,11 @@ $scope.$on('$locationChangeStart', function( event ) {
                   delete largeLoad.data[key];
               }
             });
+            angular.forEach(largeLoad.data,function(val,key){
+              if (val === "" || val === null){
+                delete sjonObj[key];
+              }
+            });
             walkclean(largeLoad.data);
             console.log(largeLoad.data);
             $scope.setPagingData(largeLoad.data, page, pageSize);
