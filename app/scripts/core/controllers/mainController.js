@@ -3060,6 +3060,91 @@ $scope.$on('$locationChangeStart', function( event ) {
 
   }
 }])
+.controller('CtrlOrdenesCArchivo',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http","dataShareReady","modalService2",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http,dataShareReady,modalService2){
+  var urlOrdenesC="/purchase_orders";  
+  
+  /*  Prueba de data tables con las ordenes de compra************************************************** */
+  $scope.filterOptions = {
+      filterText: '',
+      useExternalFilter: true
+    };
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+      pageSizes: [25, 50, 100],
+      pageSize: 25,
+      currentPage: 1
+    };
+    $scope.setPagingData = function(data, page, pageSize) {
+      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+      $scope.myData = pagedData;
+      $scope.totalServerItems = data.length;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
+    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
+      setTimeout(function() {
+        var data;
+        if (searchText) {
+          var ft = searchText.toLowerCase();
+          apiService.getData(urlOrdenesC).then(function(largeLoad) {
+            angular.forEach(largeLoad.data,function(val,key){
+              if(val.status != "Archivado") // delete index
+              {
+                  delete largeLoad.data[key];
+              }
+            });
+            data = largeLoad.data.filter(function(item) {
+              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
+              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
+            });
+
+            $scope.setPagingData(data, page, pageSize);
+          });
+        } else {
+          apiService.getData(urlOrdenesC).then(function(largeLoad) {
+            angular.forEach(largeLoad.data,function(val,key){
+              if(val.status != "Archivado") // delete index
+              {
+                  delete largeLoad.data[key];
+              }
+            });
+            $scope.setPagingData(largeLoad.data, page, pageSize);
+          });
+        }
+      }, 100);
+    };
+
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+
+    $scope.$watch('pagingOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+    $scope.$watch('filterOptions', function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+      }
+    }, true);
+
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: [
+            { field: "number", displayName:"Folio",cellTemplate:'<div class="ngCellText ng-scope">'+'<a href="#/app-vistaOrdenCInd/{{row.entity.id}}">{{row.entity.number}}</a>'+'</div>' },
+            { field: "supplier.name", displayName:"Proveedor" },
+            { field: "status",displayName:"Estado" },
+            { field: "date",displayName:"Fecha" },
+            { field: "amount",displayName:"Monto" }
+        ],
+      enablePaging: true,
+      showFooter: true,
+      totalServerItems: 'totalServerItems',
+      pagingOptions: $scope.pagingOptions,
+      filterOptions: $scope.filterOptions
+    };
+  /* ****************************************************************************************************/ 
+}])
 
 .controller('CtrlOrdenesCNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,modalService){
 

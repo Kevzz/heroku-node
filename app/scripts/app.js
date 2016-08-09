@@ -328,6 +328,11 @@ angular
           return 'views/app-vistaOrdenesCompra.html';
         }
       })
+      .when('/app-vistaOrdenesCompraArchivo/',{
+        templateUrl: function(param) {
+          return 'views/app-vistaOrdenesCompraArchivo.html';
+        }
+      })
       .when('/app-nuevaOrdenC/',{
         templateUrl: function(param) {
           return 'views/app-nuevaOrdenC.html';

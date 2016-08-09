@@ -1,17 +1,12 @@
-<div ng-controller="CtrlOrdenesC">
+<div ng-controller="CtrlOrdenesCArchivo">
     <ol class="breadcrumb">
         <li class=""><a href="#/">Home</a></li>
         <li class=""><a href="#">&Oacute;rdenes</a></li>
-        <li class="active"><a href="#">Compra</a></li>
+        <li class=""><a href="#/app-vistaOrdenesCompra/">Compra</a></li>
+        <li class="active"><a href="#">Archivo</a></li>
     </ol>
     <div class="page-heading">            
-        <h1>&Oacute;rdenes de compra</h1>
-        <div class="options">
-            <div class="btn-toolbar">
-                <a href="#/app-vistaOrdenesCompraArchivo" class="btn btn-default"><i class="fa fa-fw fa-archive"></i>Archivo</a>
-                <a ng-click="redNOrdenC()" ng-disabled="isDisabled" class="btn btn-default"><i class="fa fa-fw fa-plus"></i>Crear &oacute;rden de compra</a>
-            </div>
-        </div>
+        <h1>Archivo de las &oacute;rdenes de compra</h1>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -20,7 +15,6 @@
                     <div class="input mb-xl">
                         <input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Buscar...">
                     </div>
-
                     <div class="panel">
                         <div class="panel-body no-padding">
                             <div style="height: 512px;" ng-grid="gridOptions"></div>
