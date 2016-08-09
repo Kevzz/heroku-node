@@ -2924,7 +2924,7 @@ $scope.$on('$locationChangeStart', function( event ) {
     if ((type == 'array') || (type == 'object')) {
       for (k in x) {
         var v = x[k];
-        if ((v === '') && (type == 'object')) {
+        if (((v === '') && (type == 'object'))||v === null) {
           delete x[k];
         } else {
           walkclean(v);
@@ -2980,9 +2980,8 @@ $scope.$on('$locationChangeStart', function( event ) {
                   delete largeLoad.data[key];
               }
             });
-            console.log(largeLoad.data);
             walkclean(largeLoad.data);
-            $scope.muestra=largeLoad.data;
+            console.log(largeLoad.data);
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
