@@ -7,7 +7,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       tokenValidationPath:     '/auth/validate_token',
       signOutUrl:              '/auth/sign_out',
       emailSignInPath:         '/auth/sign_in',
-      storage:                 'sessionStorage',
+      storage:                 'localStorage',
       forceValidateToken:      false,
       validateOnPageLoad:      true,
       omniauthWindowType:      'sameWindow',
