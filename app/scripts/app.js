@@ -170,7 +170,7 @@ angular
     $location.path('/')
   });
 }])
-.config(['$provide', '$routeProvider', function($provide, $routeProvider) {
+.config(['$provide', '$routeProvider','$auth', function($provide, $routeProvider,$auth) {
     'use strict';
     
     $routeProvider
@@ -438,6 +438,7 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        }
       })
       .when('/app-nuevoProducto/', {
         templateUrl: function(param) {
