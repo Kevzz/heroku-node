@@ -2980,7 +2980,9 @@ $scope.$on('$locationChangeStart', function( event ) {
                   delete largeLoad.data[key];
               }
             });
-            console.log(largeLoad.data)
+            console.log(largeLoad.data);
+            walkclean(largeLoad.data);
+            $scope.muestra=largeLoad.data;
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
