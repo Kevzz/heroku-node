@@ -5,8 +5,7 @@ angular.module('theme.core.services')
 	//this.url = "/brands";
 
 	ApiService.prototype.getData = function(url) {
-		//console.log(url);
-		return this.$http.get(url)
+		return this.$http.get(url);
 	};
 	ApiService.prototype.getSingleData=function(url,id)
 	{

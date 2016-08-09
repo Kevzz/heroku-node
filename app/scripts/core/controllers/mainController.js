@@ -2926,9 +2926,12 @@ $scope.$on('$locationChangeStart', function( event ) {
         if (searchText) {
           var ft = searchText.toLowerCase();
           apiService.getData(urlOrdenesC).then(function(largeLoad) {
-            /*angular.forEach(largeLoad.data,function(val,key){
-              val.supplier="";  
-            });*/
+            angular.forEach(largeLoad.data,function(val,key){
+              if(val.status == "Archivado") // delete index
+              {
+                  delete largeLoad.data[key];
+              }
+            });
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
@@ -2938,6 +2941,12 @@ $scope.$on('$locationChangeStart', function( event ) {
           });
         } else {
           apiService.getData(urlOrdenesC).then(function(largeLoad) {
+            angular.forEach(largeLoad.data,function(val,key){
+              if(val.status == "Archivado") // delete index
+              {
+                  delete largeLoad.data[key];
+              }
+            });
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
