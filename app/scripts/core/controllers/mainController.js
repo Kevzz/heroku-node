@@ -2982,7 +2982,7 @@ $scope.$on('$locationChangeStart', function( event ) {
             });
             angular.forEach(largeLoad.data,function(val,key){
               if (val === "" || val === null){
-                delete sjonObj[key];
+                delete largeLoad.data[key];
               }
             });
             walkclean(largeLoad.data);
