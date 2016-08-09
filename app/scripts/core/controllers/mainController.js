@@ -2987,6 +2987,7 @@ $scope.$on('$locationChangeStart', function( event ) {
             });
             walkclean(largeLoad.data);
             console.log(largeLoad.data);
+            $scope.muestra=largeLoad.data;
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
