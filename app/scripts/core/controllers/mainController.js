@@ -4601,7 +4601,7 @@ $scope.makeid=function()
   var modalOptions = {
       closeButtonText: 'Cancelar',
       actionButtonText: 'Archivar',
-      headerText: '¿Archivar Producto' + $scope.prod.name  + '?',
+      headerText: '¿Archivar Producto: ' + $scope.prod.name  + '?',
       bodyText: '¿Está seguro de archivar este producto y todas sus variantes?'
     };
 
@@ -4616,7 +4616,7 @@ $scope.makeid=function()
         if(value.status='C')
           apiService.putDataPrices(urlVariant,value.id,data);  
       });
-      $location.path("#/app-vistaProductos");
+      $location.path("/app-vistaProductos");
     });
   };
 
