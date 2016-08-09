@@ -1783,7 +1783,7 @@ function getRecent(prod)
       //*******************************************************************************
       //console.log($scope.divEnVar);  
 }])
-.controller('CtrlOrdenesCInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","dataShareReady",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,dataShareReady){
+.controller('CtrlOrdenesCInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","dataShareReady","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,dataShareReady,modalService){
    var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
@@ -1801,7 +1801,22 @@ function getRecent(prod)
   var urlVariantDivisor="/variant_divisions";
   var urlVarianteAlmacen="/variant_warehouses";
 
- 
+ $scope.archivar=function(){
+  var modalOptions = {
+      closeButtonText: 'Cancelar',
+      actionButtonText: 'Archivar Orden',
+      headerText: '¿ Archivar Orden' + $scope.infoOrden.number  + '?',
+      bodyText: '¿Está seguro de archivar la orden?'
+    };
+
+    modalService.showModal({}, modalOptions).then(function (result) {
+      var dataUPD={
+        status:"Archivado"
+      };
+      apiService.putData(urlPurchaseOrders,$scope.idnumOrden,dataUPD);
+      $location.path("/app-vistaOrdenesCompra");
+    });
+ }
 
   $scope.cargarOrden=function(){
     if($scope.statusOrden=='Solicitado')
@@ -2901,6 +2916,22 @@ $scope.$on('$locationChangeStart', function( event ) {
       console.log("cerrar Modal");
     });
   }
+  function walkclean(x) {
+    var type = typeof x;
+    if (x instanceof Array) {
+      type = 'array';
+    }
+    if ((type == 'array') || (type == 'object')) {
+      for (k in x) {
+        var v = x[k];
+        if ((v === '') && (type == 'object')) {
+          delete x[k];
+        } else {
+          walkclean(v);
+        }
+      }
+    }
+  }
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
       filterText: '',
@@ -2932,6 +2963,8 @@ $scope.$on('$locationChangeStart', function( event ) {
                   delete largeLoad.data[key];
               }
             });
+            walkclean(largeLoad.data);
+            console.log(largeLoad.data)
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
@@ -2947,6 +2980,7 @@ $scope.$on('$locationChangeStart', function( event ) {
                   delete largeLoad.data[key];
               }
             });
+            console.log(largeLoad.data)
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }

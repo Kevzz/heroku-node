@@ -24,6 +24,9 @@ hr{    border-top-color: #455A64}
     <h1>&Oacute;rden de compra : {{ordenCompra.number}}</h1>
     <div class="options">
         <div class="btn-toolbar">
+            <a ng-click="archivar()" ng-show="ordenCompra.status=='Solicitado'" class="btn btn-default"><i class="fa fa-fw fa-archive"></i>Archivar</a>
+        </div>
+        <div class="btn-toolbar">
             <a ng-click="cargarOrden()" ng-show="ordenCompra.status=='Solicitado'" class="btn btn-default"><i class="fa fa-fw fa-send"></i>Cargar Orden</a>
         </div>
     </div>
