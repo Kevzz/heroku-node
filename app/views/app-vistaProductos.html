@@ -12,7 +12,30 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="tab-content" >
+        <div class="container-fluid">
+            <div class="row">
+                <label>Buscar: <input ng-model="searchText"></label>
+                <div class="col-md-12 bor-tab">   
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>Nombre</th>
+                                <th>Marca</th> 
+                                <th>Variantes</th> 
+                            </tr>
+                        </thead>
+                        <tr ng-repeat=" prod in productos | filter:searchText">
+                            <td><a href="#/app-vistaProductoInd/{{prod.id}}">{{ prod.name }}</a></td>
+                            <td>{{ prod.brand.name }}</td>
+                            <td>{{prod.variants.length}}</td>
+                        </tr>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="row">
         <div class="col-md-12">
             <div class="panel panel-transparent">         
                 <div class="panel-body">
@@ -29,6 +52,6 @@
             </div>
 
         </div>
-    </div>
+    </div>-->
     
 </div>
