@@ -3094,7 +3094,9 @@ $scope.$on('$locationChangeStart', function( event ) {
                   delete largeLoad.data[key];
               }
             });
+            console.log(largeLoad.data);
             data = largeLoad.data.filter(function(item) {
+
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
             });
@@ -3109,6 +3111,7 @@ $scope.$on('$locationChangeStart', function( event ) {
                   delete largeLoad.data[key];
               }
             });
+            console.log(largeLoad.data);
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
