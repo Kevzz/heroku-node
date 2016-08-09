@@ -2999,6 +2999,7 @@ $scope.$on('$locationChangeStart', function( event ) {
                   }
               });
             })($scope.muestra);
+            console.log($scope.muestra);
             $scope.setPagingData(largeLoad.data, page, pageSize);
           });
         }
