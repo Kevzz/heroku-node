@@ -4950,7 +4950,7 @@ $scope.makeid=function()
    {
       $auth.signOut()
         .success(function(resp) {
-          $location.path('/');
+          console.log("salio muahahaha");
         })
         .catch(function(resp) {
           console.log(resp);

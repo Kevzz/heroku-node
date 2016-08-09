@@ -433,7 +433,11 @@ angular
       .when('/app-vistaProductos/', {
         templateUrl: function(param) {
           return 'views/app-vistaProductos.html';
-        }
+        },
+        resolve: {
+          auth: function($auth) {
+            return $auth.validateUser();
+          }
       })
       .when('/app-nuevoProducto/', {
         templateUrl: function(param) {
