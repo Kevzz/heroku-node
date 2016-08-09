@@ -740,7 +740,7 @@ function getRecent(prod)
            
             
           });
-          $location.path('#/app-vistaTransferencias');
+          $location.path('/app-vistaTransferencias');
       });
     });
 
@@ -1078,7 +1078,7 @@ function getRecent(prod)
             
           });
         })
-        $location.path('#/app-vistaTransferencias');
+        $location.path('/app-vistaTransferencias');
       });
     }
 
@@ -1335,7 +1335,7 @@ function getRecent(prod)
         warehouse_id:reciente
         };
       apiService.postData(urldivisor,data2);
-      $location.path('#/app-vistaLocacion/'+idLocacion);
+      $location.path('/app-vistaLocacion/'+idLocacion);
     });
   };
 
@@ -4578,7 +4578,7 @@ $scope.makeid=function()
         apiService.putData(urlVariant,$routeParams.id,data).then(function(response){
           if(response.status==200)
           {
-            $location.path('#/app-vistaProductoInd/'+$scope.variante.product.id);  
+            $location.path('/app-vistaProductoInd/'+$scope.variante.product.id);  
           }
         });
       }
@@ -4595,17 +4595,29 @@ $scope.makeid=function()
 
   var total=0;
   var disp=0;
+  
   $scope.elimProd=function(){
-      var answer = confirm("Vas a archivar el producto y sus variantes ¿Estás seguro?")
-      if (answer) {
-        var data={status:"A"};
-        angular.forEach($scope.prod.variants,function(value,key){
-          if(value.status='C')
-            apiService.putData(urlVariant,value.id,data);  
-        });
-        $location.path('#/app-vistaProductoInd/'+$routeParams.id);  
-        
-      }
+      
+  var modalOptions = {
+      closeButtonText: 'Cancelar',
+      actionButtonText: 'Archivar',
+      headerText: '¿Archivar Producto' + $scope.prod.name  + '?',
+      bodyText: '¿Está seguro de archivar este producto y todas sus variantes?'
+    };
+
+    modalService.showModal({}, modalOptions).then(function (result) {
+      var dataUPD={
+        status:"A"
+      };
+      apiService.putDataPrices(urlProducts,$routeParams.id,dataUPD);
+
+      var data={status:"A"};
+      angular.forEach($scope.prod.variants,function(value,key){
+        if(value.status='C')
+          apiService.putDataPrices(urlVariant,value.id,data);  
+      });
+      $location.path("#/app-vistaProductos");
+    });
   };
 
   apiService.getSingleData(urlProducts,$routeParams.id).then(function(response){
