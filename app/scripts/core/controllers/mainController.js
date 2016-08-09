@@ -1805,7 +1805,7 @@ function getRecent(prod)
   var modalOptions = {
       closeButtonText: 'Cancelar',
       actionButtonText: 'Archivar Orden',
-      headerText: '¿ Archivar Orden' + $scope.infoOrden.number  + '?',
+      headerText: '¿ Archivar Orden' + $scope.statusOrden.number  + '?',
       bodyText: '¿Está seguro de archivar la orden?'
     };
 
@@ -1813,7 +1813,7 @@ function getRecent(prod)
       var dataUPD={
         status:"Archivado"
       };
-      apiService.putData(urlPurchaseOrders,$scope.idnumOrden,dataUPD);
+      apiService.putData(urlPurchaseOrders,$scope.statusOrden,dataUPD);
       $location.path("/app-vistaOrdenesCompra");
     });
  }
@@ -2957,14 +2957,9 @@ $scope.$on('$locationChangeStart', function( event ) {
         if (searchText) {
           var ft = searchText.toLowerCase();
           apiService.getData(urlOrdenesC).then(function(largeLoad) {
-            angular.forEach(largeLoad.data,function(val,key){
-              if(val.status == "Archivado") // delete index
-              {
-                  delete largeLoad.data[key];
-              }
+            largeLoad.data = largeLoad.data.filter(function(col){
+              return col.status !== 'Archivado';
             });
-            walkclean(largeLoad.data);
-            console.log(largeLoad.data)
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
               return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
@@ -3118,13 +3113,9 @@ $scope.$on('$locationChangeStart', function( event ) {
         if (searchText) {
           var ft = searchText.toLowerCase();
           apiService.getData(urlOrdenesC).then(function(largeLoad) {
-            angular.forEach(largeLoad.data,function(val,key){
-              if(val.status != "Archivado") // delete index
-              {
-                  delete largeLoad.data[key];
-              }
+            largeLoad.data = largeLoad.data.filter(function(col){
+              return col.status === 'Archivado';
             });
-            console.log(largeLoad.data);
             data = largeLoad.data.filter(function(item) {
 
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
@@ -3135,11 +3126,8 @@ $scope.$on('$locationChangeStart', function( event ) {
           });
         } else {
           apiService.getData(urlOrdenesC).then(function(largeLoad) {
-            angular.forEach(largeLoad.data,function(val,key){
-              if(val.status != "Archivado") // delete index
-              {
-                  delete largeLoad.data[key];
-              }
+            largeLoad.data = largeLoad.data.filter(function(col){
+              return col.status === 'Archivado';
             });
             console.log(largeLoad.data);
             $scope.setPagingData(largeLoad.data, page, pageSize);
