@@ -1140,18 +1140,18 @@ function getRecent(prod)
     console.log('asdkjasdlk');
     $scope.us;
     $scope.pass;
+    $scope.ErrorLog=true;
     $scope.handleLoginBtnClick = function() {
       console.log("Entrol al login");
       $auth.submitLogin($scope.loginForm)
         .then(function(resp, status, headers, config) {
           // handle success response
-          console.log("logged in");
-          
+          $scope.ErrorLog=false;
         })
         .catch(function(resp) {
           // handle error response
-          console.log("Respuesta error");
-          console.log(resp);
+          $scope.ErrorLog=true;
+          
         });
     };
     var isLog=SimLog.getData();

@@ -32,7 +32,7 @@
                 <th>Telefono</th> 
               </tr>
             </thead>
-            <tr ng-repeat="supp in suppProxy | filter:{name: searchText}| filter:{status:'D'}">
+            <tr ng-repeat="supp in suppProxy | filter:{name: searchText} | filter:{status:'D'}">
              <td><a href="#/app-vistaProveedorInd/{{supp.id}}">{{ supp.name }}</a></td>
              <td>{{ supp.email }}</td>
              <td>{{supp.currency.shortcut}}</td>
