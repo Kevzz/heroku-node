@@ -3917,6 +3917,7 @@ var IDsendCliente="";
     });
     $scope.sub = function(formData) {
       //console.log(formData);
+      formData.status='D';
       apiService.postData(urlSuppliers,formData).then(function(response) {
       //console.log(response);
       $scope.suppProxy=response.data;
