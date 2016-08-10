@@ -3478,6 +3478,7 @@ apiService.getData(urlLocation).then(function(response) {
     });
     $scope.sub = function(formData) {
       //console.log(formData);
+      formData.status='D';
       apiService.postData(urlBrands,formData).then(function(response) {
       //console.log(response);
       $scope.marcasProxy=response;
@@ -3498,11 +3499,12 @@ apiService.getData(urlLocation).then(function(response) {
       };
 
       modalService.showModal({}, modalOptions).then(function (result) {
-          dataService.deleteCustomer($scope.customer.id).then(function () {
-              apiService.deleteData(urlBrands,id);
+          
+              var updData={status:'A'};
+              apiService.putDataPrices(urlBrands,id,updData);
               $scope.initFirst();
               $location.path('/app-vistaMarcas');
-          }, processError);
+          
       });
       
       
@@ -3879,17 +3881,12 @@ var IDsendCliente="";
     }
   }])
 
-.controller('EditCtrlProveedor',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
+.controller('EditCtrlProveedor',['SimLog',"apiService","$scope","$location","$routeParams","modalService",function (SimLog,apiService,$scope, $location, $routeParams,modalService) {
     var urlSuppliers="/suppliers"
     var urlCurrency="/currencies"
    
 
-    $scope.archivarProveedor=function(){
-      var data={status:"A"};
-      apiService.deleteData(urlSuppliers,$routeParams.id).then(function(response){
-        $location.path("/app-vistaProveedor");
-      });
-    };
+   
 
     $scope.initFirst=function()
     {
@@ -3946,33 +3943,25 @@ var IDsendCliente="";
       $location.path('/app-vistaProveedor');
       
     }
-
-    /*var proveURL = new Firebase("https://formacret.firebaseio.com/proveedores/" + $routeParams.id);
-    $scope.proveedores = $firebaseObject(proveURL);
-
-    var proveURLT = new Firebase("https://formacret.firebaseio.com/proveedores/");
-    $scope.proveedoresT = $firebaseArray(proveURLT);
-
-    $scope.edit = function() {
-      $scope.proveedores.$save();
-      $location.path('/app-vistaProveedor');
-    };
-    $scope.remove = function(id) {
-      var elim= new Firebase("https://formacret.firebaseio.com/proveedores/" + id);
-      elim.remove();
-      //$location.path('/app-vistaProveedor');
-    };
-    $scope.nuevo=function(proveN)
+    $scope.removeTest=function(id)
     {
-        proveURLT.push({
-          correo:$scope.proveN.correo,
-          nombre:$scope.proveN.nombre,
-          divisa:$scope.proveN.divisa,
-          pagina:$scope.proveN.pagina,
-          telefono:$scope.proveN.telefono
-        });
-        $location.path('/app-vistaProveedor');
-    };*/
+      //console.log(id);
+      var modalOptions = {
+          closeButtonText: 'Cancelar',
+          actionButtonText: 'Archivar marca',
+          headerText: '¿Archivar Proveedor?',
+          bodyText: '¿Esta seguro que va a archivar el proveedor?'
+      };
+
+      modalService.showModal({}, modalOptions).then(function (result) {
+              var updData={status:'A'};
+              apiService.putDataPrices(urlSuppliers,$routeParams.id,updData);
+              $location.path('/app-vistaProveedor');          
+      });
+      
+      
+    }
+
 
   }])
   .controller('EditCtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
