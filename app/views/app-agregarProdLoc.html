@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody >
-                            <tr ng-repeat=" prod in products | filter:searchText">
+                            <tr ng-repeat=" prod in products | filter:searchText| filter:{status:'D'}">
                                 <td><a ng-click="showVar($index)">{{ prod.name }}</a></td>
                                 <td>{{ prod.brand.name }}</td>
                                 <td>{{prod.variants.length}}</td>
