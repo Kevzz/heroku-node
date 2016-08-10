@@ -4101,6 +4101,7 @@ var IDsendCliente="";
     $scope.sub = function(formData) {
       //console.log(formData);
       $scope.prodname=formData.name;
+      formData.status='D';
       apiService.postData(urlProducts,formData).then(function(response) {
       
       //console.log(response.data);

@@ -163,19 +163,19 @@ hr{    border-top-color: #455A64}
                   <div class="col-sm-4">
                     <select id="productSupp" name="productSupp" class="form-control" ng-change="updateInfoProduct($index,variant.prodID)" ng-model="variant.prodID">
                       <option value="">Seleccione un producto</option>
-                      <option ng-repeat="option in variant.products | unique:'id'" value="{{option.id}}">{{option.name}}</option>
+                      <option ng-repeat="option in variant.products | unique:'id' | filter:{status:'D'}" value="{{option.id}}">{{option.name}}</option>
                     </select>
                   </div>
                   <div class="col-sm-4">
                     <select id="productSupp" name="productSupp" class="form-control" ng-change="getTax($index,variant.orderVariant_id)" ng-model="variant.orderVariant_id">
                       <option value="">Seleccione una variante</option>
-                      <option ng-repeat="option in variant.variantes " value="{{option.variant.id}}">{{option.variant.name}}</option>
+                      <option ng-repeat="option in variant.variantes" value="{{option.variant.id}}">{{option.variant.name}}</option>
                     </select>
                   </div>
                   <div class="col-sm-4">
                     <select id="OrdenCliPrecio" name="OrdenCliPrecio" class="form-control" ng-change="changeCost($index,variant.OrdenCliPrecio)" ng-model="variant.OrdenCliPrecio">
                       <option value="">Seleccione un precio</option>
-                      <option ng-repeat="option in variant.precios" value="{{option.price.id}}">{{option.price.name}}</option>
+                      <option ng-repeat="option in variant.precios " value="{{option.price.id}}">{{option.price.name}}</option>
                     </select>
                   </div>
                 </div>

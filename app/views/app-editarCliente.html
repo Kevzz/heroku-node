@@ -51,7 +51,7 @@
                                 <div class="col-md-8">
                                     <select id="preCLiEd" name="productSupp" class="form-control"  ng-model="clientes.price_id">
                                         <option value="">Seleccione el precio a aplicar</option>
-                                        <option ng-repeat="option in precios " ng-selected="option.id==clientes.price.id" value="{{option.id}}">{{option.name}}</option>
+                                        <option ng-repeat="option in precios | filter:{status:'D'}" ng-selected="option.id==clientes.price.id" value="{{option.id}}">{{option.name}}</option>
                                     </select>
                                 </div>
                             </div>
