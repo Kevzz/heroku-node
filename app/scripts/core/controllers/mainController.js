@@ -58,7 +58,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       return output;
    };
 })
-.controller('CtrlFacturacion',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
+.controller('CtrlFacturacion',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen","modalService",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen,modalService) {
   
   //aqui en la facturacion ponemos primero la parte de las divisas 
   var urlCurrency="/currencies";
@@ -80,6 +80,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       $scope.currencies=response.data;
     });
     $scope.subDivisa = function(formData) {
+      formData.status='D';
       apiService.postData(urlCurrency,formData).then(function(response) {
         $scope.currencies=response.data;
         $scope.initFirst();
@@ -87,15 +88,25 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       });
       
     }
-    $scope.removeDivisa=function(id)
-    {
-      var datUpdDiv={
-        status:"D"
-      }
-      apiService.putData(urlCurrency,id,datUpdDiv).then(function(response){
-        $scope.initFirst();
-      });
-    }
+    $scope.removeDivisa=function(id){
+      var modalOptions = {
+          closeButtonText: 'Cancelar',
+          actionButtonText: 'Archivar Divisa',
+          headerText: '¿ Archivar Divisa ?',
+          bodyText: '¿Está seguro de archivar la divisa?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+         var datUpdDiv={
+            status:"A"
+          }
+          apiService.putData(urlCurrency,id,datUpdDiv).then(function(response){
+            $scope.initFirst();
+          });
+          $location.path('/app-vistaFacturacion');
+        });
+     }
+    
     $scope.editDivisa=function()
     {
       var data = {
@@ -130,6 +141,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       $scope.taxes=response.data;
     });
     $scope.subTax = function(formData) {
+      formData.status='D';
       apiService.postData(urlTaxes,formData).then(function(response) {
         $scope.taxes=response.data;
         $scope.initFirstT();
@@ -137,15 +149,25 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       });
       
     }
-    $scope.removeTax=function(id)
-    {
-      var datUpdTax={
-        status:"D"
-      }
-      apiService.putData(urlTaxes,id,datUpdTax).then(function(response){
-        $scope.initFirstT();
-      });
-    }
+    
+    $scope.removeTax=function(id){
+      var modalOptions = {
+          closeButtonText: 'Cancelar',
+          actionButtonText: 'Archivar Impuesto',
+          headerText: '¿ Archivar Impuesto ?',
+          bodyText: '¿Está seguro de archivar el impuesto?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+         var datUpdDiv={
+            status:"A"
+          }
+          apiService.putData(urlTaxes,id,datUpdTax).then(function(response){
+            $scope.initFirstT();
+          });
+          $location.path('/app-vistaFacturacion');
+        });
+     }
     $scope.editTax=function()
     {
       var data = {
@@ -159,7 +181,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
     }
   //aqui se termina la parte de las impuestos
 
-  //aqui en la facturacion ponemos primero la parte de las divisas 
+  //aqui en la facturacion ponemos primero la parte de los precios
   var urlPrices="/prices";
     $scope.initFirstP=function()
     {
@@ -179,21 +201,32 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
       $scope.prices=response.data;
     });
     $scope.subPrecio = function(formData) {
+      formData.status='D';
       apiService.postData(urlPrices,formData).then(function(response) {
         $scope.prices=response.data;
         $scope.initFirstP();
         $location.path('/app-vistaFacturacion');
       });
     }
-    $scope.removePrecio=function(id)
-    {
-      var datUpdPre={
-        status:"D"
-      }
-      apiService.putData(urlPrices,id,datUpdPre).then(function(response){
-        $scope.initFirstP();
-      });
-    }
+    
+    $scope.removePrecio=function(id){
+      var modalOptions = {
+          closeButtonText: 'Cancelar',
+          actionButtonText: 'Archivar Precio',
+          headerText: '¿ Archivar Precio ?',
+          bodyText: '¿Está seguro de archivar el precio?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+         var datUpdDiv={
+            status:"A"
+          }
+          apiService.putData(urlPrices,id,datUpdPre).then(function(response){
+            $scope.initFirstP();
+          });
+          $location.path('/app-vistaFacturacion');
+        });
+     }
     $scope.editPrices=function()
     {
       var data = {
@@ -247,14 +280,23 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
     });    
   };
 
+$scope.archivarCrit=function(idC){
+      var modalOptions = {
+          closeButtonText: 'Cancelar',
+          actionButtonText: 'Archivar criterio',
+          headerText: '¿ Archivar criterio ?',
+          bodyText: '¿Está seguro de archivar el criterio ?'
+        };
 
-  $scope.archivarCrit=function(idC)
-  {
-    var data={status:"A"};
-    apiService.putData(urlCriterios,idC,data).then(function(response3){
-      $scope.initFirst();
-    });
-  }
+        modalService.showModal({}, modalOptions).then(function (result) {
+         var data={status:"A"};
+          apiService.putData(urlCriterios,idC,data).then(function(response3){
+            $scope.initFirst();
+          });
+          $location.path('/app-vistaFacturacion');
+        });
+     }
+  
 
   }])
 .controller('CtrlPrestamos',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen","$http",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen,$http) {
