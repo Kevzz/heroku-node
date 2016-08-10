@@ -11,7 +11,34 @@
 	    	</div>
 		</div>
 	</div>
-  <div class="row">
+    <div class="tab-content" >
+         <div class="container-fluid">
+             <div class="row">
+                 <div class="col-md-12 bor-tab"> 
+                    <label>Buscar: <input ng-model="searchText"></label>  
+                     <table class="table table-hover">
+                       <thead>
+                           <tr class="info">
+                             <th>Nombre</th> 
+                             <th>Correo</th> 
+                             <th>P&aacute;gina</th> 
+                             <th>Tel&eacute;fono</th> 
+                             <th>Precio</th>
+                           </tr>
+                       </thead>
+                       <tr ng-repeat="cliente in clientesTods  | filter:{name: searchText}| filter:{status:'D'}">
+                           <td><a href="#/app-vistaClienteInd/{{ cliente.id }}">{{ cliente.name }}</a></td>
+                           <td>{{ cliente.email }}</td>
+                           <td>{{ cliente.website }}</td>
+                           <td>{{ cliente.phone }}</td>
+                           <td>{{ cliente.price.name }}</td>
+                       </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!--<div class="row">
         <div class="col-md-12">
             <div class="panel panel-transparent">         
                 <div class="panel-body">
@@ -28,6 +55,6 @@
             </div>
 
         </div>
-    </div>
+    </div>-->
     
 </div>	

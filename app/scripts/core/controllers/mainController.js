@@ -3454,15 +3454,8 @@ apiService.getData(urlLocation).then(function(response) {
   };
 }])
 
-.controller('EditCtrl',['SimLog','apiService',"$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
-    /*var marcasURL = new Firebase("https://formacret.firebaseio.com/marcas/" + $routeParams.id);
-    $scope.marcas = $firebaseObject(marcasURL);
-    var marcasURLT = new Firebase("https://formacret.firebaseio.com/marcas/");
-    $scope.marcasT = $firebaseArray(marcasURLT);
-    $scope.marcaN={};
-    */
-
-
+.controller('EditCtrl',['SimLog','apiService',"$scope","$location","$routeParams","modalService",function (SimLog,apiService,$scope, $location, $routeParams,modalService) {
+ 
     var urlBrands="/brands"
     $scope.initFirst=function()
     {
@@ -3567,9 +3560,22 @@ apiService.getData(urlLocation).then(function(response) {
     $scope.removeTest=function(id)
     {
       //console.log(id);
-      apiService.deleteData(urlBrands,id);
-      $scope.initFirst();
-      $location.path('/app-vistaMarcas');
+      var modalOptions = {
+          closeButtonText: 'Cancelar',
+          actionButtonText: 'Archivar marca',
+          headerText: 'Archivar Marca?',
+          bodyText: '¿Esta seguro que va a archivar esta Marca?'
+      };
+
+      modalService.showModal({}, modalOptions).then(function (result) {
+          dataService.deleteCustomer($scope.customer.id).then(function () {
+              apiService.deleteData(urlBrands,id);
+              $scope.initFirst();
+              $location.path('/app-vistaMarcas');
+          }, processError);
+      });
+      
+      
     }
     $scope.editTest=function(marcaUProxy)
     {
@@ -3656,8 +3662,6 @@ var urlClientes="/clients";
     var urlClientes="/clients";
     var  urlDirEnvios="/send_orders";
     var urlPrices="/prices";
-
-     
 
     apiService.getData(urlClientes).then(function(response) {
       //console.log(response.data);

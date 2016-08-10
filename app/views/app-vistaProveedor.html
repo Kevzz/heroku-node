@@ -17,7 +17,34 @@
         </div>
     </div>
   </div>
-  <div class="row">
+  <div class="tab-content" >
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 ">   
+          <label>Buscar: <input ng-model="searchText"></label>
+          <table class="table table-hover">
+            <thead>
+              <tr class="info">
+                <th>Nombre</th> 
+                <th>Correo</th> 
+                <th>Divisa</th> 
+                <th>P&aacute;gina</th> 
+                <th>Telefono</th> 
+              </tr>
+            </thead>
+            <tr ng-repeat="supp in suppProxy | filter:{name: searchText}| filter:{status:'D'}">
+             <td><a href="#/app-vistaProveedorInd/{{supp.id}}">{{ supp.name }}</a></td>
+             <td>{{ supp.email }}</td>
+             <td>{{supp.currency.shortcut}}</td>
+             <td>{{ supp.website }}</td>
+             <td>{{ supp.phone }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div> 
+  </div>  
+  <!--<div class="row">
         <div class="col-md-12">
             <div class="panel panel-transparent">         
                 <div class="panel-body">
@@ -34,6 +61,6 @@
             </div>
 
         </div>
-    </div>
+    </div>-->
     
 </div>
