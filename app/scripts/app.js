@@ -182,6 +182,7 @@ angular
         templateUrl: function(param) {
           return 'views/login.html';
         }
+        
       })
       .when('/app-vistaOrdenesAjuste', {
         templateUrl: function(param) {

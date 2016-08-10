@@ -1186,8 +1186,9 @@ function getRecent(prod)
     $scope.handleLoginBtnClick = function() {
       console.log("Entrol al login");
       $auth.submitLogin($scope.loginForm)
-        .then(function(resp, status, headers, config) {
+        .then(function(resp) {
           // handle success response
+          console.log(resp);
           $scope.ErrorLog=false;
         })
         .catch(function(resp) {
