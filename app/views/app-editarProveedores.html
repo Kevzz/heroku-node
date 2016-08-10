@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select id="supplierCurrEd" ng-model="suppUProxy.currency_id">
-                                        <option ng-repeat="option in currProxy" value="{{option.id}}" ng-selected="suppUProxy.currency.id==option.id">
+                                        <option ng-repeat="option in currProxy | filter:{status:'D'}" value="{{option.id}}" ng-selected="suppUProxy.currency.id==option.id">
                                             {{option.shortcut}}:{{option.name}}
                                     </option>
                                     </select>

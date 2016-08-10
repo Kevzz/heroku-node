@@ -48,7 +48,7 @@
                                 <div class="col-md-8">
                                     <select id="clientePre" name="clientePre" class="form-control"  ng-model="clienteN.price_id">
                                         <option value="">Seleccione el precio a aplicar</option>
-                                        <option ng-repeat="option in precios" ng-show="option.name!='Compra'" value="{{option.id}}">{{option.name}}</option>
+                                        <option ng-repeat="option in precios | filter:{status:'D'}" ng-show="option.name!='Compra'" value="{{option.id}}">{{option.name}}</option>
                                       </select>
                                 </div>
                             </div>

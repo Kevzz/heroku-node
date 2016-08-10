@@ -25,13 +25,13 @@
                 <label for="productBrand" class="control-label">Marca:</label>
                 <select name="productBrand" id="productBrand" class="form-control" ng-model="productN.brand_id">
 
-                  <option ng-repeat="option in brands" value="{{option.id}}">{{option.name}}</option>
+                  <option ng-repeat="option in brands | filter:{status:'D'}" value="{{option.id}}">{{option.name}}</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="productSupp">Proveedor:</label>
                 <select id="productSupp" name="productSupp" class="form-control" ng-model="productN.supplier_id">
-                  <option ng-repeat="option in suppliers" value="{{option.id}}">{{option.name}}</option>
+                  <option ng-repeat="option in suppliers | filter:{status:'D'}" value="{{option.id}}">{{option.name}}</option>
                 </select>
               </div>
             

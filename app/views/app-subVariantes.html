@@ -52,7 +52,7 @@
                 <label for="variantCurr">Impuesto:</label>
                 <select ng-disabled="variant.status=='U'||variant.status==true" id="variantCurr" class="form-control" ng-model="variant.tax_id">
                   <option value="" selected>No obligatorio</option>
-                  <option ng-repeat="option in taxProxy" value="{{option.id}}" ng-selected="variant.tax.id==option.id" >{{option.name}} : {{option.percentage}}%</option>
+                  <option ng-repeat="option in taxProxy | filter:{status:'D'}" value="{{option.id}}" ng-selected="variant.tax.id==option.id" >{{option.name}} : {{option.percentage}}%</option>
                 </select>
               </div>
             </div>
@@ -72,7 +72,7 @@
               <div class="col-md-6 col-md-offset-1">
                 <label for="variantCurr">Divisa:</label>
                 <select ng-disabled="variant.status=='U'||variant.status==true" id="variantCurr" class="form-control" ng-model="variant.currency_id">
-                  <option ng-repeat="option in currProxy" value="{{option.id}}" ng-selected="variant.currency.id==option.id">{{option.shortcut}}:{{option.name}}</option>
+                  <option ng-repeat="option in currProxy | filter:{status:'D'}" value="{{option.id}}" ng-selected="variant.currency.id==option.id">{{option.shortcut}}:{{option.name}}</option>
                 </select>
               </div>
             </div>

@@ -41,7 +41,7 @@ hr{    border-top-color: #455A64}
                   </div>
                   <div class="col-md-9">
                     <select id="ordenC" name="ordenC" class="form-control" ng-change="updateInfo()" ng-model="ordenCId">
-                      <option ng-repeat="option in ordenesC" value="{{option.id}}">{{option.number}}</option>
+                      <option ng-repeat="option in ordenesC | filter:{status:'En Almacen'}" value="{{option.id}}">{{option.number}}</option>
                     </select>
                   </div>
                 </div>
