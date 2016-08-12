@@ -4357,7 +4357,9 @@ $scope.makeid=function()
       data.status="U";
 
     apiService.putDataPrices(urlVariant,$routeParams.id,data);
+    console.log(data);
     angular.forEach(data.variant_prices, function(value1, key) {
+
           var dataP={
             cost:value1.cost
           };
