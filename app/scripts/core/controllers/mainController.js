@@ -4342,7 +4342,7 @@ $scope.makeid=function()
   var urlProducts="/products";
   var urlSuppliers="/suppliers";
   var urlBrands="/brands";
-  var urlCurrency="/currencies";
+  var urlCurrency="/currencies";  
   var urlVariantPrices="/variant_prices";
   var urlVariant="/variants";
   var urlTaxes= "/taxes";
@@ -4356,12 +4356,12 @@ $scope.makeid=function()
     if(data.status==true)
       data.status="U";
 
-    apiService.putData(urlVariant,$routeParams.id,data);
+    apiService.putDataPrices(urlVariant,$routeParams.id,data);
     angular.forEach(data.variant_prices, function(value1, key) {
           var dataP={
             cost:value1.cost
           };
-          apiService.putData(urlVariantPrices,value1.id,dataP);
+          apiService.putDataPrices(urlVariantPrices,value1.id,dataP);
         });
     $location.path('/app-vistaVarianteInd/'+$routeParams.id);
   };
