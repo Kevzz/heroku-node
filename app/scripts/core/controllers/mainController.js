@@ -4357,12 +4357,13 @@ $scope.makeid=function()
       data.status="U";
 
     apiService.putDataPrices(urlVariant,$routeParams.id,data);
-    console.log(data);
+    //console.log(data);
     angular.forEach(data.variant_prices, function(value1, key) {
 
           var dataP={
             cost:parseFloat(value1.cost)
           };
+          console.log(dataP);
           apiService.putDataPrices(urlVariantPrices,value1.id,dataP);
         });
     $location.path('/app-vistaVarianteInd/'+$routeParams.id);
