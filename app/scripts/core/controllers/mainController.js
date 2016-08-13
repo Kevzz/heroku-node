@@ -4328,7 +4328,7 @@ $scope.makeid=function()
 
         angular.forEach(value.variant_prices, function(value1, key) {
           var dataP={
-            cost:value1.cost
+            cost:parseFloat(value1.cost)
           };
           apiService.putDataPrices(urlVariantPrices,value1.id,dataP);
         });
@@ -4361,7 +4361,7 @@ $scope.makeid=function()
     angular.forEach(data.variant_prices, function(value1, key) {
 
           var dataP={
-            cost:value1.cost
+            cost:parseFloat(value1.cost)
           };
           apiService.putDataPrices(urlVariantPrices,value1.id,dataP);
         });
