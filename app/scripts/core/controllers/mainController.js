@@ -2238,7 +2238,7 @@ function getRecent(prod)
 
   };
 }])
-.controller('CtrlOrdenesVNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta){
+.controller('CtrlOrdenesVNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,modalService){
   var urlSuppliers="/suppliers"; 
   var urlLocation="/locations";  
   var urlWarehouses="/warehouses";
