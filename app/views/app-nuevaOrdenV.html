@@ -175,7 +175,7 @@ hr{    border-top-color: #455A64}
                   <div class="col-sm-4">
                     <select id="OrdenCliPrecio" name="OrdenCliPrecio" class="form-control" ng-change="changeCost($index,variant.OrdenCliPrecio)" ng-model="variant.OrdenCliPrecio">
                       <option value="">Seleccione un precio</option>
-                      <option ng-repeat="option in variant.precios " value="{{option.price.id}}">{{option.price.name}}</option>
+                      <option ng-repeat="option in variant.precios" value="{{option.price.id}}" ng-show="option.price.status!='A'">{{option.price.name}}</option>
                     </select>
                   </div>
                 </div>
