@@ -35,7 +35,7 @@
 			            <td>{{ precio.description }}</td>
 			            <td><span ng-show="precio.status=='A'">Archivado</span><span ng-show="precio.status=='D'">Disponible</span></td>
 			            <td><a href="#/app-editarPrecio/{{ precio.id }}">Editar</a></td>
-			            <td><a ng-click="removePrecio(precio.id)" ng-confirm-click="Are you sure?">Archivar</a></td>
+			            <td><a ng-click="removePrecio(precio.id)" >Archivar</a></td>
 			        </tr>
 			    </table>    
             </div>
@@ -72,7 +72,7 @@
 			            <td>{{ divisa.unit }}</td>
 			            <td><span ng-show="divisa.status=='A'">Archivado</span><span ng-show="divisa.status=='D'">Disponible</span></td>
 			            <td><a href="#/app-editarDivisa/{{ divisa.id }}">Editar</a></td>
-			            <td><a ng-click="removeDivisa(divisa.id)" ng-confirm-click="Are you sure?">Archivar</a></td>
+			            <td><a ng-click="removeDivisa(divisa.id)" >Archivar</a></td>
 			        </tr>
 			    </table>    
             </div>
@@ -107,7 +107,7 @@
 			            <td>{{ tax.percentage }}</td>
 			            <td><span ng-show="tax.status=='A'">Archivado</span><span ng-show="tax.status=='D'">Disponible</span></td>
 			            <td><a href="#/app-editarImpuesto/{{ tax.id }}">Editar</a></td>
-			            <td><a ng-click="removeTax(tax.id)" ng-confirm-click="Are you sure?">Archivar</a></td>
+			            <td><a ng-click="removeTax(tax.id)" >Archivar</a></td>
 			        </tr>
 			    </table>    
             </div>

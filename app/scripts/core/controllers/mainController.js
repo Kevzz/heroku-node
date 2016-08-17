@@ -221,7 +221,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
          var datUpdDiv={
             status:"A"
           }
-          apiService.putData(urlPrices,id,datUpdPre).then(function(response){
+          apiService.putData(urlPrices,id,datUpdDiv).then(function(response){
             $scope.initFirstP();
           });
           $location.path('/app-vistaFacturacion');
