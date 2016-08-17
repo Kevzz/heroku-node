@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="panel-body no-padding">
-                        <div class="col-md-2" ng-repeat="price in variante.variant_prices" nd-show="price.price.status!='A'">
+                        <div class="col-md-2" ng-repeat="price in variante.variant_prices" ng-show="price.price.status!='A'">
                             <label>{{price.label}}</label>
                             <div class="input-group bootstrap-touchspin">
                                 <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
