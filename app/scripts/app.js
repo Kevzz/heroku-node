@@ -1,8 +1,14 @@
 angular
   .module('themesApp', [
     'theme',
-    'theme.demos','ng-token-auth'
+    'theme.demos',
+    'ng-token-auth',
+    'permission',
+    'ngPermission'
   ])
+.value('appConf', {
+    isAuthorized: false
+  })
   .value('fbURL', 'https://formacret.firebaseio.com/')
   .directive('ngConfirmClick', [
         function(){
@@ -162,9 +168,10 @@ angular
       
   }])
 */
-.run(['$rootScope', '$location', function($rootScope, $location) {
+.run(['$rootScope', '$location', 'PermRoleStore', 'appConf', function($rootScope, $location, PermRoleStore, appConf) {
   $rootScope.$on('auth:login-success', function() {
     $location.path('/app-vistaProductos')
+    console.log(localStorage);
   });
   $rootScope.$on('auth:logout-success', function(ev) {
     $location.path('/')
@@ -173,6 +180,9 @@ angular
       //never gets called
       $location.path('/');
   });
+  PermRoleStore.defineRole('AUTHORIZED', function() {
+      return appConf.isAuthorized;
+    });
 }])
 .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
