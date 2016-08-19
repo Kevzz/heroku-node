@@ -4,7 +4,7 @@ angular
     'theme.demos',
     'ng-token-auth',
     'permission',
-    'ngPermission'
+    'permission.ng'
   ])
 .value('appConf', {
     isAuthorized: false

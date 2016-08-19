@@ -1,6 +1,7 @@
 {
     "jscodehints.detectedExclusions": [
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-bootstrap/ui-bootstrap.min.js",
-        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/rangy/rangy-classapplier.min.js"
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/rangy/rangy-classapplier.min.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/rangy/rangy-core.js"
     ]
 }
