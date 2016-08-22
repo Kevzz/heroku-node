@@ -710,7 +710,7 @@ angular
           permissions: {
             only: ['AUTHORIZED'],
             except: ['anonymous'],
-            redirectTo: 'login'
+            redirectTo: 'login.html'
           }
         }
       })
