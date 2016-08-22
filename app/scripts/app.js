@@ -12,6 +12,9 @@ angular
 .value('appConf2', {
     isAuthorized: false
 })
+.value('appConf3', {
+    isAuthorized: false
+})
   .value('fbURL', 'https://formacret.firebaseio.com/')
   .directive('ngConfirmClick', [
         function(){
@@ -171,7 +174,7 @@ angular
       
   }])
 */
-.run(['$rootScope', '$location', 'PermRoleStore', 'appConf','appConf2','apiService', function($rootScope, $location, PermRoleStore, appConf,appConf2,apiService) {
+.run(['$rootScope', '$location', 'PermRoleStore', 'appConf','appConf2','appConf3','apiService', function($rootScope, $location, PermRoleStore, appConf,appConf2,appConf3,apiService) {
   $rootScope.$on('auth:login-success', function() {
    $location.path('/app-vistaProductos');
     var str = localStorage.auth_headers;
@@ -179,6 +182,8 @@ angular
     var sesion = JSON.parse(pre_sesion);
     if(sesion.uid=="armando@omakase.mx")
       appConf.isAuthorized=true;
+    else if(sesion.uid=="dibildox@formacret.mx")
+      appConf2.isAuthorized=true;
     //console.log(localStorage);
   });
   $rootScope.$on('auth:logout-success', function(ev) {
@@ -188,11 +193,14 @@ angular
       //never gets called
       $location.path('/');
   });
-  PermRoleStore.defineRole('AUTHORIZED', function() {
+  PermRoleStore.defineRole('SELL', function() {
       return appConf.isAuthorized;
     });
-  PermRoleStore.defineRole('anonymous', function() {
+  PermRoleStore.defineRole('ADMIN', function() {
       return appConf2.isAuthorized;
+    });
+  PermRoleStore.defineRole('anonymous', function() {
+      return appConf3.isAuthorized;
     });
 }])
 .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
@@ -213,6 +221,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaOrdenAjusteInd/:id', {
@@ -222,6 +237,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -233,6 +255,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaListas', {
@@ -242,6 +271,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -253,6 +289,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-nuevoPrecio', {
@@ -262,6 +305,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -273,6 +323,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-nuevoImpuesto', {
@@ -282,6 +339,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -293,6 +357,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-nuevoCriterio', {
@@ -302,6 +373,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -313,6 +391,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaTransferencias', {
@@ -322,6 +407,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -333,6 +425,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-nuevaTransferencia', {
@@ -342,6 +441,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -353,6 +459,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaLoanInd/:id', {
@@ -362,6 +475,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -373,6 +493,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-agregarClientesDirEnv', {
@@ -382,6 +509,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -393,15 +527,12 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
-        }
-      })
-      .when('/app-vistaCargarOrden', {
-        templateUrl: function(param) {
-          return 'views/app-vistaCargarOrden.html';
         },
-        resolve: {
-          auth: function($auth) {
-            return $auth.validateUser();
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -413,6 +544,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaAlmacen/:id', {
@@ -422,6 +560,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -433,6 +578,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaVarProdAl/:id', {
@@ -442,6 +594,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -453,6 +612,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaVarDivisorAl/:id', {
@@ -462,6 +628,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -473,6 +646,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-nuevoCliente/', {
@@ -482,6 +662,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -493,6 +680,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-vistaOrdenesCompraArchivo/',{
@@ -502,6 +696,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -513,6 +714,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-vistaOrdenCInd/:id',{
@@ -522,6 +730,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -533,6 +748,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-nuevaOrdenV/',{
@@ -542,6 +764,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -553,6 +782,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-vistaClienteInd/:id', {
@@ -562,6 +798,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -573,6 +816,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-editarCliente/:id', {
@@ -582,6 +832,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -593,6 +850,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-vistaProveedor/', {
@@ -602,6 +866,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -613,6 +884,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-vistaProveedorInd/:id', {
@@ -622,6 +900,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -633,6 +918,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-vistaDivisa/', {
@@ -642,6 +934,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -653,6 +952,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-nuevaMarca/', {
@@ -663,6 +969,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-editarDivisa/:id', {
@@ -672,6 +985,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -684,6 +1004,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       
@@ -694,6 +1021,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -708,7 +1042,7 @@ angular
         },
         data: {
           permissions: {
-            only: ['AUTHORIZED'],
+            only: ['SELL','ADMIN'],
             except: ['anonymous'],
             redirectTo: 'login.html'
           }
@@ -722,6 +1056,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-defVariantes/', {
@@ -731,6 +1072,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -742,6 +1090,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-vistaProductoInd/:id', {
@@ -751,6 +1106,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
@@ -762,6 +1124,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
+          }
         }
       })
       .when('/app-editarProducto/:id', {
@@ -772,6 +1141,13 @@ angular
           auth: function($auth) {
             return $auth.validateUser();
           }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
+          }
         }
       })
       .when('/app-editarVariante/:id', {
@@ -781,6 +1157,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: ['SELL'],
+            redirectTo: 'error-401.html'
           }
         }
       })
@@ -802,6 +1185,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['SELL','ADMIN'],
+            except: ['anonymous'],
+            redirectTo: 'login.html'
           }
         }
       })
