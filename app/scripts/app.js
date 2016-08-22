@@ -171,10 +171,14 @@ angular
       
   }])
 */
-.run(['$rootScope', '$location', 'PermRoleStore', 'appConf','apiService', function($rootScope, $location, PermRoleStore, appConf,apiService) {
+.run(['$rootScope', '$location', 'PermRoleStore', 'appConf','appConf2','apiService', function($rootScope, $location, PermRoleStore, appConf,appConf2,apiService) {
   $rootScope.$on('auth:login-success', function() {
-   
-    $location.path('/app-vistaProductos')
+   $location.path('/app-vistaProductos');
+    var str = localStorage.auth_headers;
+    var pre_sesion = str.replace("-","_");
+    var sesion = JSON.parse(pre_sesion);
+    if(sesion.uid=="armando@omakase.mx")
+      appConf.isAuthorized=true;
     //console.log(localStorage);
   });
   $rootScope.$on('auth:logout-success', function(ev) {
@@ -186,6 +190,9 @@ angular
   });
   PermRoleStore.defineRole('AUTHORIZED', function() {
       return appConf.isAuthorized;
+    });
+  PermRoleStore.defineRole('anonymous', function() {
+      return appConf2.isAuthorized;
     });
 }])
 .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
@@ -697,6 +704,13 @@ angular
         resolve: {
           auth: function($auth) {
             return $auth.validateUser();
+          }
+        },
+        data: {
+          permissions: {
+            only: ['AUTHORIZED'],
+            except: ['anonymous'],
+            redirectTo: 'login'
           }
         }
       })

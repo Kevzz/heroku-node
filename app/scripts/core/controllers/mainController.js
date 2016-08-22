@@ -1190,9 +1190,9 @@ function getRecent(prod)
         .then(function(resp) {
           // handle success response
           //console.log(resp);
-          apiService.getSingleData(urlUsers,resp.id).then(function(response){
+          /*apiService.getSingleData(urlUsers,resp.id).then(function(response){
             console.log(response.data);
-          });
+          });*/
           $scope.ErrorLog=true;
         })
         .catch(function(resp) {
