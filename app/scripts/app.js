@@ -1,7 +1,6 @@
 angular
   .module('themesApp', [
     'theme',
-    'theme.demos',
     'ng-token-auth',
     'permission',
     'permission.ng'
