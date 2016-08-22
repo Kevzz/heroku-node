@@ -171,14 +171,11 @@ angular
       
   }])
 */
-.run(['$rootScope', '$location', 'PermRoleStore', 'appConf', function($rootScope, $location, PermRoleStore, appConf) {
+.run(['$rootScope', '$location', 'PermRoleStore', 'appConf','apiService', function($rootScope, $location, PermRoleStore, appConf,apiService) {
   $rootScope.$on('auth:login-success', function() {
+   
     $location.path('/app-vistaProductos')
     //console.log(localStorage);
-    var str = localStorage.auth_headers;
-    var pre_sesion = str.replace("-","_");
-    var sesion = JSON.parse(pre_sesion);
-    console.log(sesion);
   });
   $rootScope.$on('auth:logout-success', function(ev) {
     $location.path('/')

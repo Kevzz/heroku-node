@@ -1177,23 +1177,27 @@ function getRecent(prod)
     }
 }])
 
-.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth','$rootScope', function($location,SimLog,$scope, $theme,$auth,$rootScope) {
+.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth','$rootScope',"apiService", function($location,SimLog,$scope, $theme,$auth,$rootScope,apiService) {
     'use strict';
-    console.log('asdkjasdlk');
+    //console.log('asdkjasdlk');
+    var urlUsers="/users"
     $scope.us;
     $scope.pass;
     $scope.ErrorLog=true;
     $scope.handleLoginBtnClick = function() {
-      console.log("Entrol al login");
+      //console.log("Entrol al login");
       $auth.submitLogin($scope.loginForm)
         .then(function(resp) {
           // handle success response
-          console.log(resp);
-          $scope.ErrorLog=false;
+          //console.log(resp);
+          apiService.getSingleData(urlUsers,resp.id).then(function(response){
+            console.log(response.data);
+          });
+          $scope.ErrorLog=true;
         })
         .catch(function(resp) {
           // handle error response
-          $scope.ErrorLog=true;
+          $scope.ErrorLog=false;
           
         });
     };

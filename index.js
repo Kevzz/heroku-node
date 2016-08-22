@@ -57,6 +57,19 @@ server.all("/brands", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 //******************************************************************+
+
+//*****************Esto es para obtener la informacion individual de los usuarios ************************************
+server.get('/users /:id', function(req, res) {
+
+    var id= req.params.id;
+
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
+});
+server.all("/users", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
+//******************************************************************+
+
 //*****************Esto es para obtener la informacion individual de las marcas ************************************
 server.delete('/adjustment_orders/:id', function(req, res) {
 
