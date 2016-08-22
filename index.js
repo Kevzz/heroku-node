@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var jwt = require('jwt-simple');
 
 
-var apiForwardingUrl = 'http://production-formacret.herokuapp.com';
+var apiForwardingUrl = 'http://stage-formacret.herokuapp.com';
 var portHeroku = process.env.PORT || 3000;
 
 // Solution for forwarding from http to https taken from:
@@ -39,13 +39,13 @@ server.delete('/brands/:id', function(req, res) {
 
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/brands/:id', function(req, res) {
     var id= req.params.id;
 
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/brands/:id', function(req, res) {
 
@@ -63,7 +63,7 @@ server.get('/users /:id', function(req, res) {
 
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/users", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -75,19 +75,19 @@ server.delete('/adjustment_orders/:id', function(req, res) {
 
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/adjustment_orders/:id', function(req, res) {
     var id= req.params.id;
 
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/adjustment_orders/:id', function(req, res) {
 
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/adjustment_orders", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -98,19 +98,19 @@ server.delete('/variant_adjustments/:id', function(req, res) {
 
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/variant_adjustments/:id', function(req, res) {
     var id= req.params.id;
 
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/variant_adjustments/:id', function(req, res) {
 
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/variant_adjustments", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -121,17 +121,17 @@ server.all("/variant_adjustments", function(req, res) {
 server.delete('/clients/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/clients/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/clients/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/clients", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -141,17 +141,17 @@ server.all("/clients", function(req, res) {
 server.delete('/send_orders/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/send_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/send_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/send_orders", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -161,17 +161,17 @@ server.all("/send_orders", function(req, res) {
 server.delete('/products/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/products/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/products/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/products", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -183,18 +183,18 @@ server.delete('/suppliers/:id', function(req, res) {
 
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/suppliers/:id', function(req, res) {
     var id= req.params.id;
 
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/suppliers/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/suppliers", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -204,16 +204,16 @@ server.all("/suppliers", function(req, res) {
 //*****************Esto es para obtener la informacion individual de las proveedores*******************************
 server.delete('/locations/:id', function(req, res) {
     var id= req.params.id;
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/locations/:id', function(req, res) {
     var id= req.params.id;
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/locations/:id', function(req, res) {
 
     var id= req.params.id;
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/locations", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -224,17 +224,17 @@ server.all("/locations", function(req, res) {
 server.delete('/warehouses/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/warehouses/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/warehouses/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/warehouses", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -245,17 +245,17 @@ server.all("/warehouses", function(req, res) {
 server.delete('/dividers/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/dividers/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/dividers/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/dividers", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -265,15 +265,15 @@ server.all("/dividers", function(req, res) {
 //*****************Esto es para obtener la informacion individual de las divisas*******************************
 server.delete('/currencies/:id', function(req, res) {
     var id= req.params.id;
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/currencies/:id', function(req, res) {
     var id= req.params.id;
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/currencies/:id', function(req, res) {
     var id= req.params.id;
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/currencies", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -284,17 +284,17 @@ server.all("/currencies", function(req, res) {
 server.delete('/variants/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/variants/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/variants/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/variants", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -305,17 +305,17 @@ server.all("/variants", function(req, res) {
 server.delete('/prices/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/prices/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/prices/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/prices", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -326,17 +326,17 @@ server.all("/prices", function(req, res) {
 server.delete('/taxes/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/taxes/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/taxes/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/taxes", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -347,17 +347,17 @@ server.all("/taxes", function(req, res) {
 server.delete('/variant_prices/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/variant_prices/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/variant_prices/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/variant_prices", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -368,17 +368,17 @@ server.all("/variant_prices", function(req, res) {
 server.delete('/purchase_orders/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/purchase_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/purchase_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/purchase_orders", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -388,17 +388,17 @@ server.all("/purchase_orders", function(req, res) {
 server.delete('/sell_orders/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/sell_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/sell_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/sell_orders", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -408,17 +408,17 @@ server.all("/sell_orders", function(req, res) {
 server.delete('/variant_orders/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/variant_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/variant_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/variant_orders", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -428,17 +428,17 @@ server.all("/variant_orders", function(req, res) {
 server.delete('/variant_sell_orders/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/variant_sell_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/variant_sell_orders/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/variant_sell_orders", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -449,17 +449,17 @@ server.all("/variant_sell_orders", function(req, res) {
 server.delete('/variant_warehouses/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/variant_warehouses/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/variant_warehouses/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/variant_warehouses", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -470,17 +470,17 @@ server.all("/variant_warehouses", function(req, res) {
 server.delete('/variant_divisions/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/variant_divisions/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/variant_divisions/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/variant_divisions", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -492,17 +492,17 @@ server.all("/variant_divisions", function(req, res) {
 server.delete('/transfer_variants/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/transfer_variants/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/transfer_variants/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/transfer_variants", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -514,17 +514,17 @@ server.all("/transfer_variants", function(req, res) {
 server.delete('/transfers/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/transfers/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/transfers/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/transfers", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
@@ -536,17 +536,17 @@ server.all("/transfers", function(req, res) {
 server.delete('/rules/:id', function(req, res) {
     var id= req.params.id;
     
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.put('/rules/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.get('/rules/:id', function(req, res) {
     var id= req.params.id;
 
-    apiProxy.web(req, res, {target: "http://production-formacret.herokuapp.com"});
+    apiProxy.web(req, res, {target: "http://stage-formacret.herokuapp.com"});
 });
 server.all("/rules", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
