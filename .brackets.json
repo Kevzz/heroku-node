@@ -20,6 +20,7 @@
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/carousel.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/collapse/collapse.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/index-nocss.js",
-        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/dateparser/dateparser.js"
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/dateparser/dateparser.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/index.js"
     ]
 }
