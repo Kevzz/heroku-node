@@ -4023,7 +4023,7 @@ var IDsendCliente="";
   .controller('CtrlProductoNuevo',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
     var urlSuppliers="/suppliers";
     var urlBrands="/brands";
-    
+    var urlProducts="/products";
     apiService.getData(urlSuppliers).then(function(response) {
       //console.log(response);
       $scope.suppliers=response.data;
