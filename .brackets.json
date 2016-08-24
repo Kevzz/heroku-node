@@ -6,6 +6,10 @@
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/rangy/rangy-core.min.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/buttons/buttons.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/scripts/core/modules/templates.js",
-        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/scripts/map/vectorMaps.js"
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/scripts/map/vectorMaps.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/collapse/docs/demo.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/alert/alert.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/alert/index.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/buttons/docs/demo.js"
     ]
 }

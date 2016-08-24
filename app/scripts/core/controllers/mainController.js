@@ -4017,6 +4017,12 @@ var IDsendCliente="";
     var urlSuppliers="/suppliers";
     var urlBrands="/brands";
     var urlCriterios="/rules";
+    var urlProductsRes="/product/resume"
+    
+    apiService.getData(urlProductsRes).then(function(resp){
+      console.log(resp.data);
+      $scope.productResume=resp.data;
+    });
     $scope.deleteCustomer = function () {
 
         var custName = "Kevin Dominguez";

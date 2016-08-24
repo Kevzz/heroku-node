@@ -176,6 +176,9 @@ server.get('/products/:id', function(req, res) {
 server.all("/products", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
+server.all("/product/resume", function(req, res) {
+    apiProxy.web(req, res, {target: apiForwardingUrl});
+});
 //******************************************************************+
 
 //*****************Esto es para obtener la informacion individual de las proveedores*******************************
