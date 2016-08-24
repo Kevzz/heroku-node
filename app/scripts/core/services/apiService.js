@@ -17,9 +17,14 @@ angular.module('theme.core.services')
 		return this.$http.post(url,data).then(function(response)
 			{
 				return $http.get(url);
-			});
-		
-		
+			});		
+	}
+    ApiService.prototype.postProdData= function(url,data)
+	{
+		return this.$http.post(url,data).then(function(response)
+			{
+				return $http.get("/product/resume");
+			});		
 	}
 	ApiService.prototype.postDataPrices= function(url,data)
 	{

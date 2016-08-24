@@ -4012,6 +4012,169 @@ var IDsendCliente="";
 
 
   }])
+  .controller('CtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
+    var urlProductsRes="/product/resume"
+    
+    apiService.getData(urlProductsRes).then(function(resp){
+      console.log(resp.data);
+      $scope.productResume=resp.data;
+    });
+  }])
+  .controller('CtrlProductoNuevo',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
+    var urlSuppliers="/suppliers";
+    var urlBrands="/brands";
+    
+    apiService.getData(urlSuppliers).then(function(response) {
+      //console.log(response);
+      $scope.suppliers=response.data;
+    });
+    apiService.getData(urlBrands).then(function(response) {
+      //console.log(response);
+      $scope.brands=response.data;
+    });
+    function getRecent(prod)
+    {
+      var tmp;
+      var tmp1;
+      //console.log(prod.length);
+      if(prod.length==1)
+      {
+        console.log(prod[0].id);
+        return prod[0].id;
+      }
+      else
+      {
+        var id=prod[prod.length-1].id;
+        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
+        //console.log(mayor);
+        if(prod.length==1)
+        {
+          id=prod.id;
+        }
+        else
+        {
+          
+          for (var i=prod.length-1; i>=0; i--) {
+            
+            tmp = new Date(prod[i].updated_at).getTime();
+            
+            if( tmp > mayor)
+            {
+              //console.log("tmp>mayor");
+              mayor=tmp;
+              //console.log(mayor);
+              id=prod[i].id;
+            }
+            else if(tmp<mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+            else if(tmp=mayor)
+            {
+              //id=prod[i].id;
+              continue;
+            }
+          }
+        }
+        return id;
+      }
+        
+    }
+    $scope.sub = function(formData) {
+      //console.log(formData);
+      $scope.prodname=formData.name;
+      formData.status='D';
+      apiService.postProdData(urlProducts,formData).then(function(response) {
+        //console.log(response.data);
+        //$scope.productos=response.data;
+        idRec=getRecent(response.data);
+        dataShare.sendData(idRec);
+        $location.path('/app-defVariantes');
+      });
+    }
+    
+  }])
+  .controller('CtrlProductosDefVariantes',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
+    var urlCriterios="/rules";
+    var urlProducts="/products";
+    idRec=dataShare.getData();
+    apiService.getData(urlCriterios).then(function(response3){
+      $scope.rules=response3.data;
+    });
+    
+    apiService.getSingleData(urlProducts,idRec).then(function(response) {
+      //console.log(response.data);
+      $scope.prodIndv=response.data;
+    });
+
+    $scope.variants = [
+      {
+        "Selection": "",
+        "Text": ""
+      }
+    ];
+
+    $scope.cloneItem = function () {
+      var itemToClone = { "Selection": "", "Text": "" };
+      $scope.variants.push(itemToClone);
+    }
+
+    $scope.removeItem = function (itemIndex) {
+      $scope.variants.splice(itemIndex, 1);
+    }
+    $scope.formVariantes= [];
+    $scope.genVar=false;
+    $scope.subVariant = function(formData) {
+      $scope.genVar=true;
+      urlVariant="/variants";
+      urlPrices="/prices";
+      urlVariantPrices="/variant_prices";
+      var variantesForm =[];
+
+      angular.forEach(formData, function(value, key) {
+        variantesForm.push(value.Text);
+      });      
+
+      $scope.variantesAsi=variantesForm;
+      
+      var json = JSON.stringify( variantesForm);
+      var newStr = json.substring(1, json.length-1);
+      
+      $scope.variantesAsi=newStr;
+      eval("$scope.variantesAsi=cartesian("+newStr+")");
+      idRec=dataShare.getData();
+      angular.forEach($scope.variantesAsi, function(value, key) {
+        valor=value.join(', ');
+        var data = {
+                name: valor,
+                status: "I",
+                product_id: idRec//aqui me traigo el id de ultimo agregado
+            };
+        apiService.postDataPrices(urlVariant,data);
+      });
+      apiService.getData(urlPrices).then(function(response){
+          $scope.pricesProxy=response.data;
+          apiService.getSingleData(urlProducts,idRec).then(function(response){
+            angular.forEach(response.data.variants, function(value1, key) {
+              angular.forEach($scope.pricesProxy, function(value2, key) {
+                var data ={
+                  variant_id: value1.id,
+                  price_id: value2.id,
+                  cost:0,
+                  label:value2.name
+                };
+                apiService.postDataPrices(urlVariantPrices,data);
+                //console.log("se guarda el dato");
+              });  
+              //apiService.push(urlVariant,);
+            });    
+            dataShare.sendData(idRec);
+            $location.path('/app-subVariantes');
+          });
+        }); 
+    }
+  }])
   .controller('EditCtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
     var urlProducts="/products";
     var urlSuppliers="/suppliers";
@@ -4019,36 +4182,12 @@ var IDsendCliente="";
     var urlCriterios="/rules";
     var urlProductsRes="/product/resume"
     
-    apiService.getData(urlProductsRes).then(function(resp){
-      console.log(resp.data);
-      $scope.productResume=resp.data;
-    });
-    $scope.deleteCustomer = function () {
-
-        var custName = "Kevin Dominguez";
-
-
-        var modalOptions = {
-            closeButtonText: 'Cancelar',
-            actionButtonText: 'Delete Customer',
-            headerText: 'Delete ' + custName + '?',
-            bodyText: 'Are you sure you want to delete this customer?'
-        };
-
-        modalService.showModal({}, modalOptions).then(function (result) {
-            dataService.deleteCustomer($scope.customer.id).then(function () {
-                $location.path('/customers');
-            }, processError);
-        });
-    }
     apiService.getData(urlCriterios).then(function(response3){
       $scope.rules=response3.data;
     });
+    
     $scope.prodname;
-    var idRec;
-
-    
-    
+    var idRec;    
 
     $scope.initFirst=function()
     {
@@ -4060,14 +4199,13 @@ var IDsendCliente="";
           //console.log(response);
         $scope.suppliers=response.data;
         });
-    apiService.getData(urlBrands).then(function(response) {
+      apiService.getData(urlBrands).then(function(response) {
           //console.log(response);
         $scope.brands=response.data;
         });
     }
     function getRecent(prod)
     {
-      
       var tmp;
       var tmp1;
       //console.log(prod.length);

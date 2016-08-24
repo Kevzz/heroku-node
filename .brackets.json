@@ -12,6 +12,14 @@
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/alert/index.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/buttons/docs/demo.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/collapse/index.js",
-        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/dateparser/docs/demo.js"
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/dateparser/docs/demo.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/buttons/test/buttons.spec.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/buttons/index.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-chartist.js/gulp/tasks/browser-sync.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/test/carousel.spec.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/carousel.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/collapse/collapse.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/index-nocss.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/dateparser/dateparser.js"
     ]
 }
