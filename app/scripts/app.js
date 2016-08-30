@@ -180,7 +180,7 @@ angular
     var pre_sesion = str.replace("-","_");
     var sesion = JSON.parse(pre_sesion);
     if(sesion.uid=="armando@omakase.mx")
-      appConf.isAuthorized=true;
+      appConf2.isAuthorized=true;
     else if(sesion.uid=="dibildox@formacret.mx")
       appConf2.isAuthorized=true;
     //console.log(localStorage);

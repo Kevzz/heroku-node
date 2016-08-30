@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var jwt = require('jwt-simple');
 
 
-var apiForwardingUrl = 'http://stage-formacret.herokuapp.com';
+var apiForwardingUrl = 'http://production-formacret.herokuapp.com';
 var portHeroku = process.env.PORT || 3000;
 
 // Solution for forwarding from http to https taken from:
