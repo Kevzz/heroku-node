@@ -21,6 +21,10 @@
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/collapse/collapse.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/index-nocss.js",
         "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/dateparser/dateparser.js",
-        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/index.js"
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/carousel/index.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/datepickerPopup/test/popup.spec.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/collapse/test/collapse.spec.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/collapse/test/collapseHorizontally.spec.js",
+        "C:/xampp-portable/htdocs/formaTheme/heroku-node/app/bower_components/angular-ui-bootstrap/src/dateparser/test/dateparser.spec.js"
     ]
 }

@@ -405,7 +405,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%= yeoman.app %>/assets/less',
             src: 'styles.less',
-            dest: '.tmp/assets/css',
+            dest: '<%= yeoman.app %>/assets/css',
             ext: '.css'
           },
         ]
@@ -420,7 +420,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%= yeoman.app %>/assets/less',
             src: 'styles.less',
-            dest: '.tmp/assets/css',
+            dest: '<%= yeoman.app %>/assets/css',
             ext: '.css'
           },
         ]
