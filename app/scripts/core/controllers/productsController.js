@@ -29,7 +29,7 @@ angular.module('theme.core.products_controller', ['theme.core.services'])
     });
   }
 }])
-.controller('CtrlProductosDefVariantes',["apiService","$scope","$location","$routeParams","dataShare",function (SimLog,apiService,$scope, $location, $routeParams,dataShare) {
+.controller('CtrlProductosDefVariantes',["apiService","$scope","$location","$routeParams","dataShare",function (apiService,$scope, $location, $routeParams,dataShare) {
   var urlCriterios="/rules";
   var urlProducts="/products";
   idRec=dataShare.getData();
