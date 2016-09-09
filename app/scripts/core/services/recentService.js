@@ -1,5 +1,5 @@
 angular.module('theme.core.services')
-  .service('recentService',['$http' ,function ApiService($http) {
+  .service('recentService',['$http' ,function RecentService($http) {
     'use strict';
 	RecentService.prototype.getRecent = function(prod) {
     var tmp;
