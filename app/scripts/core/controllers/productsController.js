@@ -2,11 +2,11 @@ angular.module('theme.core.products_controller', ['theme.core.services'])
 .controller('CtrlProductos',["apiService","$scope","$location","$routeParams",function (apiService, $scope, $location, $routeParams) {
   var urlProductsRes="/product/resume"
   apiService.getData(urlProductsRes).then(function(resp){
-    console.log(resp.data);
+    console.log("Hola si furulo");
     $scope.productResume=resp.data;
   });
 }])
-.controller('CtrlProductoNuevo',["SimLog","apiService","recentService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
+.controller('CtrlProductoNuevo',["SimLog","apiService","recentService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,recentService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
   var urlSuppliers="/suppliers";
   var urlBrands="/brands";
   var urlProducts="/products";
