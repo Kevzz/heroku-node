@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var jwt = require('jwt-simple');
 
 
-var apiForwardingUrl = 'http://production-formacret.herokuapp.com';
+var apiForwardingUrl = 'http://stage-formacret.herokuapp.com';
 var portHeroku = process.env.PORT || 3000;
 
 // Solution for forwarding from http to https taken from:
@@ -38,7 +38,7 @@ server.use(express.static(__dirname + '/app'));
 server.delete('/brands/:id', function(req, res) {
 
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/brands/:id', function(req, res) {
@@ -74,7 +74,7 @@ server.all("/users", function(req, res) {
 server.delete('/adjustment_orders/:id', function(req, res) {
 
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/adjustment_orders/:id', function(req, res) {
@@ -97,7 +97,7 @@ server.all("/adjustment_orders", function(req, res) {
 server.delete('/variant_adjustments/:id', function(req, res) {
 
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/variant_adjustments/:id', function(req, res) {
@@ -120,7 +120,7 @@ server.all("/variant_adjustments", function(req, res) {
 //*****************Esto es para obtener la informacion individual de los clientes*******************************
 server.delete('/clients/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/clients/:id', function(req, res) {
@@ -140,7 +140,7 @@ server.all("/clients", function(req, res) {
 //*****************Esto es para obtener la informacion individual de los direcciones de envio*******************************
 server.delete('/send_orders/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/send_orders/:id', function(req, res) {
@@ -160,7 +160,7 @@ server.all("/send_orders", function(req, res) {
 //*****************Esto es para obtener la informacion individual de las productos*******************************
 server.delete('/products/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/products/:id', function(req, res) {
@@ -185,7 +185,7 @@ server.all("/product/resume", function(req, res) {
 server.delete('/suppliers/:id', function(req, res) {
 
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/suppliers/:id', function(req, res) {
@@ -221,12 +221,12 @@ server.get('/locations/:id', function(req, res) {
 server.all("/locations", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
-//****************************************************************** 
+//******************************************************************
 
 //*****************Esto es para obtener la informacion individual de las almacenes*******************************
 server.delete('/warehouses/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/warehouses/:id', function(req, res) {
@@ -242,12 +242,12 @@ server.get('/warehouses/:id', function(req, res) {
 server.all("/warehouses", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
-//****************************************************************** 
+//******************************************************************
 
 //*****************Esto es para obtener la informacion individual de las divisores*******************************
 server.delete('/dividers/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/dividers/:id', function(req, res) {
@@ -263,7 +263,7 @@ server.get('/dividers/:id', function(req, res) {
 server.all("/dividers", function(req, res) {
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
-//****************************************************************** 
+//******************************************************************
 
 //*****************Esto es para obtener la informacion individual de las divisas*******************************
 server.delete('/currencies/:id', function(req, res) {
@@ -286,7 +286,7 @@ server.all("/currencies", function(req, res) {
 //*****************Esto es para obtener la informacion individual de las variantes de los productos*******************************
 server.delete('/variants/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/variants/:id', function(req, res) {
@@ -307,7 +307,7 @@ server.all("/variants", function(req, res) {
 //*****************Esto es para obtener la informacion individual de los precios*******************************
 server.delete('/prices/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/prices/:id', function(req, res) {
@@ -328,7 +328,7 @@ server.all("/prices", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de taxes*******************************
 server.delete('/taxes/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/taxes/:id', function(req, res) {
@@ -349,7 +349,7 @@ server.all("/taxes", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de variantes x precios*******************************
 server.delete('/variant_prices/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/variant_prices/:id', function(req, res) {
@@ -370,7 +370,7 @@ server.all("/variant_prices", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de ordenes de compra*******************************
 server.delete('/purchase_orders/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/purchase_orders/:id', function(req, res) {
@@ -390,7 +390,7 @@ server.all("/purchase_orders", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de ordenes de venta*******************************
 server.delete('/sell_orders/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/sell_orders/:id', function(req, res) {
@@ -410,7 +410,7 @@ server.all("/sell_orders", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de variantes por orden*******************************
 server.delete('/variant_orders/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/variant_orders/:id', function(req, res) {
@@ -430,7 +430,7 @@ server.all("/variant_orders", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de variantes por orden de venta*******************************
 server.delete('/variant_sell_orders/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/variant_sell_orders/:id', function(req, res) {
@@ -451,7 +451,7 @@ server.all("/variant_sell_orders", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de variantes por almacen*******************************
 server.delete('/variant_warehouses/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/variant_warehouses/:id', function(req, res) {
@@ -472,7 +472,7 @@ server.all("/variant_warehouses", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de variantes por divisor*******************************
 server.delete('/variant_divisions/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/variant_divisions/:id', function(req, res) {
@@ -494,7 +494,7 @@ server.all("/variant_divisions", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de transfer_variants*******************************
 server.delete('/transfer_variants/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: apiForwardingUrl});
 });
 server.put('/transfer_variants/:id', function(req, res) {
@@ -516,7 +516,7 @@ server.all("/transfer_variants", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de transferss*******************************
 server.delete('/transfers/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: transfer_variants});
 });
 server.put('/transfers/:id', function(req, res) {
@@ -538,7 +538,7 @@ server.all("/transfers", function(req, res) {
 //*****************Esto es para obtener la informacion de la tabla de rules*******************************
 server.delete('/rules/:id', function(req, res) {
     var id= req.params.id;
-    
+
     apiProxy.web(req, res, {target: transfer_variants});
 });
 server.put('/rules/:id', function(req, res) {

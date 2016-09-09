@@ -45,7 +45,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   })
 .filter('unique', function() {
    return function(collection, keyname) {
-      var output = [], 
+      var output = [],
           keys = [];
 
       angular.forEach(collection, function(item) {
@@ -59,8 +59,8 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
    };
 })
 .controller('CtrlFacturacion',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen","modalService",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen,modalService) {
-  
-  //aqui en la facturacion ponemos primero la parte de las divisas 
+
+  //aqui en la facturacion ponemos primero la parte de las divisas
   var urlCurrency="/currencies";
     $scope.initFirst=function()
     {
@@ -86,7 +86,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         $scope.initFirst();
         $location.path('/app-vistaFacturacion');
       });
-      
+
     }
     $scope.removeDivisa=function(id){
       var modalOptions = {
@@ -106,7 +106,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
           $location.path('/app-vistaFacturacion');
         });
      }
-    
+
     $scope.editDivisa=function()
     {
       var data = {
@@ -121,7 +121,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
     }
   //aqui se termina la parte de las divisas
 
-  //aqui en la facturacion ponemos primero la parte de los impuestos 
+  //aqui en la facturacion ponemos primero la parte de los impuestos
   var urlTaxes="/taxes";
     $scope.initFirstT=function()
     {
@@ -147,9 +147,9 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         $scope.initFirstT();
         $location.path('/app-vistaFacturacion');
       });
-      
+
     }
-    
+
     $scope.removeTax=function(id){
       var modalOptions = {
           closeButtonText: 'Cancelar',
@@ -208,7 +208,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
         $location.path('/app-vistaFacturacion');
       });
     }
-    
+
     $scope.removePrecio=function(id){
       var modalOptions = {
           closeButtonText: 'Cancelar',
@@ -277,7 +277,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','firebase','
   {
     apiService.getData(urlCriterios).then(function(response){
       $scope.criterios=response.data;
-    });    
+    });
   };
 
 $scope.archivarCrit=function(idC){
@@ -296,7 +296,7 @@ $scope.archivarCrit=function(idC){
           $location.path('/app-vistaFacturacion');
         });
      }
-  
+
 
   }])
 .controller('CtrlPrestamos',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen","$http",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen,$http) {
@@ -327,7 +327,7 @@ $scope.archivarCrit=function(idC){
     $scope.variants.splice(itemIndex, 1);
   }
 
-  
+
 
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
@@ -355,7 +355,7 @@ $scope.archivarCrit=function(idC){
           var ft = searchText.toLowerCase();
           apiService.getData(urlPrestamo).then(function(largeLoad) {
             /*angular.forEach(largeLoad.data,function(val,key){
-              val.supplier="";  
+              val.supplier="";
             });*/
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
@@ -408,7 +408,7 @@ $scope.archivarCrit=function(idC){
       apiService.getSingleData(urlLocations,value.origin.warehouse.location_id).then(function(response){
         value.origin.warehouse.location_name=response.data.name;
       });
-      
+
     });
     //console.log($scope.locations);
   });
@@ -433,7 +433,7 @@ $scope.archivarCrit=function(idC){
 
             $scope.opciones_origen.push(datToPush);
             //console.log($scope.opciones_origen);
-          });  
+          });
         }
       });
     });
@@ -454,7 +454,7 @@ $scope.archivarCrit=function(idC){
 
             $scope.opciones_destino.push(datToPushD);
             console.log($scope.opciones_origen);
-          });  
+          });
         }
       });
     });
@@ -520,7 +520,7 @@ $scope.archivarCrit=function(idC){
     {
       alert("No se puede Repetir variantes");
       $scope.SubmitOnce=false;
-      return false; 
+      return false;
     }
     else
     {
@@ -543,12 +543,12 @@ $scope.archivarCrit=function(idC){
                 amount:valor.amount,
               };
               apiService.postData(urlTransfersVar,dataTr);
-              
+
             });
             $location.path("/app-vistaPrestamos");
           });
-          
-        
+
+
       });
     }
 
@@ -556,7 +556,7 @@ $scope.archivarCrit=function(idC){
 
 function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -576,11 +576,11 @@ function getRecent(prod)
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -602,7 +602,7 @@ function getRecent(prod)
         }
         return id;
       }
-        
+
     }
 }])
 .controller('CtrlLoansInd',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
@@ -613,7 +613,7 @@ function getRecent(prod)
   var urlWarehouses="/warehouses";
   var urlVariantDivisor="/variant_divisions";
   var urlVariantWarehouse="/variant_warehouses";
-  
+
 
   apiService.getSingleData(urlTransfers,$routeParams.id).then(function(response){
     $scope.LoanInd=response.data;
@@ -638,18 +638,18 @@ function getRecent(prod)
       status:"Prestado"
     }
     apiService.putData(urlTransfers,$routeParams.id,dataUPD).then(function(resp){
-      $location.path('/app-vistaPrestamos');  
+      $location.path('/app-vistaPrestamos');
     });
-    
+
   }
   $scope.changeStatusDevuelto=function(){
     var dataUPD={
       status:"Devuelto"
     }
     apiService.putData(urlTransfers,$routeParams.id,dataUPD).then(function(resp){
-      $location.path('/app-vistaPrestamos');  
+      $location.path('/app-vistaPrestamos');
     });
-  } 
+  }
 }])
 .controller('CtrlTransfInd',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlLocations="/locations";
@@ -659,7 +659,7 @@ function getRecent(prod)
   var urlWarehouses="/warehouses";
   var urlVariantDivisor="/variant_divisions";
   var urlVariantWarehouse="/variant_warehouses";
-  
+
 
   apiService.getSingleData(urlTransfers,$routeParams.id).then(function(response){
     $scope.TransInd=response.data;
@@ -699,7 +699,7 @@ function getRecent(prod)
       //buscamos origen  modificamos los totales, tanto de almacenes y de divisor
       //****************   ORIGEN ****************************************++
       angular.forEach($scope.divisor.variant_divisions,function(valDiv,keyDiv){
-        
+
         angular.forEach($scope.TransInd.transfer_variants,function(valTra,keyTra){
           if(valDiv.divider.id==$scope.TransInd.origin_id)
           {
@@ -711,11 +711,11 @@ function getRecent(prod)
               console.log("si realizo la actualizcion del registro del div X var origen")
               console.log(valDiv.id);
               apiService.putData(urlVariantDivisor,valDiv.id,datDiv_Var);
-            }  
+            }
           }
         });
-       
-        
+
+
       });
 
       //************************   FIN     ******************************
@@ -732,7 +732,7 @@ function getRecent(prod)
               apiService.putData(urlVariantWarehouse,valWar.id,datWar_Var);
             }
           });
-          
+
         });
 
       });
@@ -748,11 +748,11 @@ function getRecent(prod)
               };
               apiService.putData(urlVariantWarehouse,valWarRes.id,datWar_Var);
             }
-          
+
           });
-          
+
         });
-        
+
 
       });
         /* *************** Lo que se hizo aqui fue para el destino sumar el valor pero del divisor , ya sirve el almacen*/
@@ -761,7 +761,7 @@ function getRecent(prod)
         //****************   Destino ****************************************++
 
           angular.forEach($scope.diviOrigen.variant_divisions,function(valDivO,keyDiv){
-            
+
             angular.forEach($scope.TransInd.transfer_variants,function(valTra,keyTra){
               //console.log(valDivO.divider.id);
               //console.log($scope.TransInd.destination_id);
@@ -774,13 +774,13 @@ function getRecent(prod)
                   };
                   //console.log("si realizo la actualizcion del registro del div X var destino")
                   //console.log(valDivO.id);
-                  apiService.putData(urlVariantDivisor,valDivO.id,datDiv_Var_des);  
-                } 
+                  apiService.putData(urlVariantDivisor,valDivO.id,datDiv_Var_des);
+                }
               }
-              
+
             });
-           
-            
+
+
           });
           $location.path('/app-vistaTransferencias');
       });
@@ -818,7 +818,7 @@ function getRecent(prod)
     $scope.variants.splice(itemIndex, 1);
   }
 
- 
+
 
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
@@ -846,7 +846,7 @@ function getRecent(prod)
           var ft = searchText.toLowerCase();
           apiService.getData(urlTransfers).then(function(largeLoad) {
             /*angular.forEach(largeLoad.data,function(val,key){
-              val.supplier="";  
+              val.supplier="";
             });*/
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
@@ -926,7 +926,7 @@ function getRecent(prod)
 
             $scope.opciones_origen.push(datToPush);
             //console.log($scope.opciones_origen);
-          });  
+          });
         }
       });
     });
@@ -947,7 +947,7 @@ function getRecent(prod)
 
             $scope.opciones_destino.push(datToPushD);
             console.log($scope.opciones_origen);
-          });  
+          });
         }
       });
     });
@@ -1015,7 +1015,7 @@ function getRecent(prod)
             banderaExiste=false;
           }
         });
-        
+
       });
       return banderaExiste;
     });
@@ -1086,13 +1086,13 @@ function getRecent(prod)
     {
       alert("No se puede Repetir variantes");
       $scope.SubmitOnce=false;
-      return false; 
+      return false;
     }
     else if(banderadesTS===true)
     {
       alert("No se selecciono destino");
       $scope.SubmitOnce=false;
-      return false; 
+      return false;
     }
     else
     {
@@ -1117,7 +1117,7 @@ function getRecent(prod)
               amount:valor.amount,
             };
             apiService.postData(urlTransfersVar,dataTr);
-            
+
           });
         })
         $location.path('/app-vistaTransferencias');
@@ -1127,7 +1127,7 @@ function getRecent(prod)
   };
 function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -1147,11 +1147,11 @@ function getRecent(prod)
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -1173,7 +1173,7 @@ function getRecent(prod)
         }
         return id;
       }
-        
+
     }
 }])
 
@@ -1198,14 +1198,14 @@ function getRecent(prod)
         .catch(function(resp) {
           // handle error response
           $scope.ErrorLog=false;
-          
+
         });
     };
     var isLog=SimLog.getData();
     if(isLog)
       $location.path('/app-vistaProductos');
     $scope.createLog=function(){
-      
+
       if($scope.us=='Admin'&&$scope.pass=='admin')
       {
         SimLog.sendData("Logged");
@@ -1224,7 +1224,7 @@ function getRecent(prod)
     //console.log('asdkjasdlk')
     SimLog.sendData("");
 
-   
+
     $theme.set('fullscreen', true);
 
     $scope.$on('$destroy', function() {
@@ -1241,7 +1241,7 @@ function getRecent(prod)
 
   function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -1261,11 +1261,11 @@ function getRecent(prod)
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -1287,7 +1287,7 @@ function getRecent(prod)
         }
         return id;
       }
-        
+
     }
   $scope.nuevaLoc=function()
   {
@@ -1304,7 +1304,7 @@ function getRecent(prod)
       $location.path('/');
 
     });
-    
+
     //$route.reload();
   };
 
@@ -1322,7 +1322,7 @@ function getRecent(prod)
   $scope.almacenN={};
   function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -1342,11 +1342,11 @@ function getRecent(prod)
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -1368,7 +1368,7 @@ function getRecent(prod)
         }
         return id;
       }
-        
+
     }
   $scope.nuevoAlmacen=function(){
     var data={
@@ -1394,8 +1394,8 @@ function getRecent(prod)
   var urldivisor="/dividers";
   var idAlmacen=dataShareAlmacen.getData();
   $scope.divisorN={};
-  
- 
+
+
   apiService.getSingleData(urlWarehouses,idAlmacen).then(function(response){
     $scope.almacenOr=response.data;
   });
@@ -1405,11 +1405,11 @@ function getRecent(prod)
         warehouse_id:idAlmacen
       };
     apiService.postData(urldivisor,data).then(function(response){
-      
+
       $location.path('/app-vistaAlmacen/'+idAlmacen);
 
     });
-  };  
+  };
 }])
 .controller('CtrlAlmacen',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareLocacion",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareLocacion) {
   var urlLocation="/locations";
@@ -1534,7 +1534,7 @@ function getRecent(prod)
   var idAlmacen=dataShareAlmacen.getData();
 
   var isLog=SimLog.getData();
-  
+
     $location.path('/');
 
   $scope.numOrden;
@@ -1545,7 +1545,7 @@ function getRecent(prod)
   $scope.statusOrden=false;
 
   apiService.getSingleData(urlWarehouses,idAlmacen).then(function(response){
-   $scope.almacenOrigen=response.data;  
+   $scope.almacenOrigen=response.data;
   });
   $scope.buscarOrden=function(){
 
@@ -1567,7 +1567,7 @@ function getRecent(prod)
           $scope.Orden=false;
         }
       });
-      
+
     });
   }
 
@@ -1578,7 +1578,7 @@ function getRecent(prod)
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
 
- 
+
 
   var id_Prod=dataShareAlmacen.getData();
   $scope.varProdAlmacen=new Array();
@@ -1586,7 +1586,7 @@ function getRecent(prod)
     $scope.prod=response.data;
   });
 
-  
+
   $scope.infoVariante=function(idVar){
     dataShareVariante.sendData(idVar);
     $location.path('/app-vistaVarDivisorAl/'+$routeParams.id);
@@ -1611,34 +1611,34 @@ function getRecent(prod)
         angular.forEach(value2.variant_warehouses, function(value3, key2) {
           if(value3.warehouse_id==$routeParams.id)
           {
-            $scope.varProdAlmacen[key].stock=value3.stock;        
+            $scope.varProdAlmacen[key].stock=value3.stock;
           }
         });
         angular.forEach(value2.sell_orders, function(value4, key4) {
-          //console.log(value4);  
+          //console.log(value4);
           if(value4.status=='Solicitado')
           {
             angular.forEach(value2.variant_sell_orders, function(value5, key5) {
-            
+
               if(value5.sell_order_id==value4.id)
               {
-                //console.log("Entro");  
-                //console.log(value5.amount);  
+                //console.log("Entro");
+                //console.log(value5.amount);
                 cantidadApartada=cantidadApartada+parseInt(value5.amount);
-                //console.log(cantidadApartada);  
+                //console.log(cantidadApartada);
               }
-            }); 
+            });
           }
         });
         //console.log(value2);
-      
+
       //$scope.Productos=response.data;
       //console.log($scope.variantesFormC);
       $scope.varProdAlmacen[key].Ndis=cantidadApartada;
     });
       //console.log($scope.varProdAlmacen);
   });
-  
+
 }])
 .controller('CtrlVarDivisorAl',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVariante","$modal","dataShareTransDivxDiv","dataShareAlmacen",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVariante,$modal,dataShareTransDivxDiv,dataShareAlmacen) {
 
@@ -1649,15 +1649,15 @@ function getRecent(prod)
 
   apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response){
     $scope.almacenOrigen=response.data;
-    
+
   });
 
   var id_Variante=dataShareVariante.getData();
 
   //codigo para el modal****************************************
-  
+
   $scope.open = function(size,DivID) {
-    
+
     dataShareTransDivxDiv.sendData(DivID);
     var modalInstance = $modal.open({
       templateUrl: 'myModalContent.html',
@@ -1721,7 +1721,7 @@ function getRecent(prod)
                   totaldivExiste=value.total;
                   data={total:parseInt(totaldivExiste)+parseInt(cantidad)}
                 }
-                  
+
               });
               //origen y asi para eliminar la cantidad de stock
               angular.forEach(response.data,function(valueOr,indexOr){
@@ -1732,10 +1732,10 @@ function getRecent(prod)
                 apiService.putData(urlVariantDivisor,idVarDivOrigen,data2);
               });
 
-              //aqui quito del almacen 
-              
+              //aqui quito del almacen
+
               apiService.getSingleData(urlVariantDivisor,idVarDivOrigen).then(function(responseOrDiv){
-                
+
                 angular.forEach(responseOrDiv.data.variant.variant_warehouses,function(val,ind){
                   if((val.warehouse_id==$routeParams.id)&&(id_Variante==val.variant_id))
                   {
@@ -1749,7 +1749,7 @@ function getRecent(prod)
               //***********************************************************************************
               if(idVarDiv!=0)
               {
-                apiService.putData(urlVariantDivisor,idVarDiv,data);  
+                apiService.putData(urlVariantDivisor,idVarDiv,data);
               }
               else
               {
@@ -1759,7 +1759,7 @@ function getRecent(prod)
                   pri:1,
                   total:cantidad
                 };
-                
+
                 //console.log(newData);
                 apiService.getSingleData(urldivisor,divId).then(function(DivisorInf){
                   var idWareDes=DivisorInf.data.warehouse.id;
@@ -1772,14 +1772,14 @@ function getRecent(prod)
                   apiService.postData(urlVarianteAlmacen,newDataWare);
                   apiService.postData(urlVariantDivisor,newData);
                 })
-                
+
               }
-              
+
             });
             //quitar del origen la cantidad
-              $modalInstance.close();                            
+              $modalInstance.close();
           }
-          
+
         };
 
         $scope.cancel = function() {
@@ -1816,7 +1816,7 @@ function getRecent(prod)
     });
   });
 
-    
+
       var json = JSON.stringify( $scope.divEnVar);
 
       $scope.divEnVar=JSON.parse(json);
@@ -1824,11 +1824,11 @@ function getRecent(prod)
     $scope.regresarVarProd=function(){
     dataShareAlmacen.sendData($scope.variante.product.id);
     $location.path("/app-vistaVarProdAl/"+$routeParams.id);
-   };  
+   };
       //********************************************************************
 
       //*******************************************************************************
-      //console.log($scope.divEnVar);  
+      //console.log($scope.divEnVar);
 }])
 .controller('CtrlOrdenesCInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","dataShareReady","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,dataShareReady,modalService){
    var urlLocation="/locations";
@@ -1841,8 +1841,8 @@ function getRecent(prod)
 
   var urlOrdenesC="/purchase_orders";
   var urlVariantOC="/variant_orders";
- 
-  
+
+
   var urlLocation="/locations";
 
   var urlVariantDivisor="/variant_divisions";
@@ -1878,7 +1878,7 @@ function getRecent(prod)
         var idvarianteDivisor=0;
         var idDivisorGeneral=0;
         apiService.getSingleData(urlWarehouses,value3.warehouse.id).then(function(response2){
-          
+
             angular.forEach(response2.data.variant_warehouses,function(value4,key){
               //console.log("Almacen");
               //console.log(value4);
@@ -1888,9 +1888,9 @@ function getRecent(prod)
                 idvarianteAlmacen=value4.id;
                 console.log(idvarianteAlmacen);
               }
-            });  
+            });
             angular.forEach(response2.data.dividers,function(value5,key){
-              
+
               if(value5.name=='General')
               {
                 //console.log("divisores entro");
@@ -1901,7 +1901,7 @@ function getRecent(prod)
                     {
                       idvarianteDivisor=value6.id;
                     }
-                });  
+                });
               }
             });
             if(idvarianteDivisor!=0)
@@ -1912,9 +1912,9 @@ function getRecent(prod)
                 var data={
                   total:parseInt(cantidadVieja)+parseInt(value3.amount)
                   };
-                  apiService.putData(urlVarianteDivisor,idvarianteDivisor,data);  
+                  apiService.putData(urlVarianteDivisor,idvarianteDivisor,data);
               });
-              
+
             }
             else
             {
@@ -1938,9 +1938,9 @@ function getRecent(prod)
                   stock:parseInt(cantidadVieja)+parseInt(value3.amount),
                   status:"D"
                   };
-                  apiService.putData(urlVarianteAlmacen,idvarianteAlmacen,data);  
+                  apiService.putData(urlVarianteAlmacen,idvarianteAlmacen,data);
               });
-              
+
             }
             else
             {
@@ -1952,17 +1952,17 @@ function getRecent(prod)
               };
               //console.log(newData);
               apiService.postData(urlVarianteAlmacen,newData);
-            }  
+            }
         });
-        
+
       });
     dataShareReady.sendData($scope.ordenCompra.number);
     $location.path('/app-vistaOrdenesCompra');
     }
 
-    
+
   };
-  
+
   $scope.subTotalInd=0;
    var ID_divisor;
    var ID_almacen;
@@ -1990,7 +1990,7 @@ function getRecent(prod)
 
     });
   });
-  
+
 
 }])
 .controller('CtrlOrdenesVentaInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout){
@@ -2003,7 +2003,7 @@ function getRecent(prod)
   var urlVariantDivisor="/variant_divisions";
   var urlVarianteAlmacen="/variant_warehouses";
 
-  
+
   $scope.changeStatus=function(){
     var dataUPD={
       status:"Entregado"
@@ -2021,8 +2021,8 @@ function getRecent(prod)
             };
             apiService.putData(urlVariantDivisor,value3.id,data);
           }
-        
-        }); 
+
+        });
         angular.forEach(value2.variant_warehouses,function(value4,key4){
           if((value.variant.id==value4.variant_id)&&(value.divider.warehouse_id==value4.warehouse_id))
           {
@@ -2031,7 +2031,7 @@ function getRecent(prod)
             };
             apiService.putData(urlVarianteAlmacen,value4.id,data2);
           }
-        });        
+        });
       });
     });
     //Aqui tengo que pasar por cada variante y quitarla del divisor
@@ -2048,7 +2048,7 @@ function getRecent(prod)
   $scope.subTotalInd=0;
    var ID_divisor;
    var ID_almacen;
-   
+
   apiService.getSingleData(urlOrdenesV,$routeParams.id).then(function(response) {
     //console.log(response.data);
     $scope.ordenVenta=response.data;
@@ -2074,15 +2074,15 @@ function getRecent(prod)
     });
     //console.log($scope.ordenVenta);
   });
-  
+
 
 }])
 
 .controller('CtrlOrdenesVenta',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","$http",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,$http){
-  var urlOrdenesV="/sell_orders";  
+  var urlOrdenesV="/sell_orders";
   $scope.isDisabled = false;
 
- 
+
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
       filterText: '',
@@ -2109,7 +2109,7 @@ function getRecent(prod)
           var ft = searchText.toLowerCase();
           apiService.getData(urlOrdenesV).then(function(largeLoad) {
             /*angular.forEach(largeLoad.data,function(val,key){
-              val.supplier="";  
+              val.supplier="";
             });*/
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
@@ -2162,7 +2162,7 @@ function getRecent(prod)
   });
   function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -2182,11 +2182,11 @@ function getRecent(prod)
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -2208,7 +2208,7 @@ function getRecent(prod)
         }
         return id;
       }
-        
+
     }
   $scope.redNOrdenV=function()
   {
@@ -2217,7 +2217,7 @@ function getRecent(prod)
       status:"Borrador",
       amount:0
     };
-    
+
 
     apiService.postData(urlOrdenesV,data).then(function(response){
       apiService.getData(urlOrdenesV).then(function(response) {
@@ -2229,22 +2229,22 @@ function getRecent(prod)
         };
           //dataShareCompra.sendData(idRec);
           apiService.putData(urlOrdenesV,idRec,dataUpd);
-      });  
+      });
     });
 
-    
+
     $timeout(function(){
-      
+
 
       $location.path('/app-nuevaOrdenV');
-    }, 7000); 
-    
+    }, 7000);
+
 
   };
 }])
 .controller('CtrlOrdenesVNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,modalService){
-  var urlSuppliers="/suppliers"; 
-  var urlLocation="/locations";  
+  var urlSuppliers="/suppliers";
+  var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urldivisor="/dividers";
   var urlProducts="/products";
@@ -2255,7 +2255,7 @@ function getRecent(prod)
 
   var urlVariantOV="/variant_sell_orders";
 
- 
+
 
 
   $scope.isDisabled = false;
@@ -2263,9 +2263,9 @@ function getRecent(prod)
   //console.log(idOrdenBorrador);
   $scope.variants=[];
   apiService.getSingleData(urlOrdenesV,idOrdenVentaBorrador).then(function(response) {
-      
+
       $scope.infoOrden=response.data;
-      
+
     });
 
   apiService.getData(urlLocation).then(function(response) {
@@ -2301,9 +2301,9 @@ function getRecent(prod)
   //funcion para hacer update de la informacion en base al proveedor
   $scope.updateInfo=function()
   {
-    
+
     apiService.getSingleData(urlSuppliers,$scope.ordenSupplierId).then(function(response) {
-      
+
       //$scope.unit=response.data.currency.unit;
       //$scope.currency=response.data.currency.name;
       if($scope.warehouses)
@@ -2318,7 +2318,7 @@ function getRecent(prod)
             "ordenWarehId":"",
             "products":response.data.products
           }
-        ];  
+        ];
       }
       else
       {
@@ -2334,7 +2334,7 @@ function getRecent(prod)
           }
         ];
       }
-      
+
       $scope.products=response.data.products;
       //console.log($scope.variants);
       });
@@ -2354,8 +2354,8 @@ function getRecent(prod)
             $scope.variantesEnDIv.push(value2);
           }
         });
-        
-      }); 
+
+      });
      $scope.variants[indexV]['variantes']=$scope.variantesEnDIv;
       //console.log($scope.variants[indexV]);
     });
@@ -2374,26 +2374,26 @@ function getRecent(prod)
           angular.forEach($scope.variants, function(value2, key) {
             if(value.variant.id==value2['orderVariant_id'])
             {
-              value2['costo']=value.cost; 
+              value2['costo']=value.cost;
             }
-             
-          }); 
-        }); 
+
+          });
+        });
       });
     }
   };
   $scope.getTax=function(indexV,varID){
-    
+
     apiService.getSingleData(urlVariants,varID).then(function(response) {
        $scope.variants[indexV]['precios']=response.data.variant_prices;
-      
+
       angular.forEach(response.data.variant_divisions, function(value2, key) {
         if(value2.divider.id==$scope.ordenDivisorId)
         {
           $scope.variants[indexV]['cantidadDisp']=value2.total;
         }
-           
-      }); 
+
+      });
      $scope.variants[indexV]['tax']=(response.data.tax.percentage)/100;
     });
   };
@@ -2404,7 +2404,7 @@ function getRecent(prod)
       //console.log(value);
         if(value.price.id==priceID)
            $scope.variants[indexV]['costo']=value.cost;
-      }); 
+      });
   };
 
   $scope.getSubtotal=function(){
@@ -2415,7 +2415,7 @@ function getRecent(prod)
     }
     return subTotal;
   };
-  
+
   $scope.getImpuestos=function(){
     var Impuesto = 0;
     for(var i = 0; i < $scope.variants.length; i++){
@@ -2424,7 +2424,7 @@ function getRecent(prod)
     }
     return Impuesto;
   };
-  
+
   $scope.getTotal=function()
   {
     var total = 0;
@@ -2479,17 +2479,17 @@ function getRecent(prod)
                 "products":$scope.productosDivisor
               }
             ];
-            $scope.productosDivisor=arraySinDuplicados;  
-          
+            $scope.productosDivisor=arraySinDuplicados;
+
         });
       });
-   
-      
+
+
   }
 
   //aAqui se obtine la info de los clientes
   $scope.updateInfoCliente=function(){
-    
+
     apiService.getSingleData(urlClientes,$scope.ordenClientId).then(function(response) {
      $scope.directionsCli=response.data.send_orders;
     });
@@ -2528,7 +2528,7 @@ function getRecent(prod)
       angular.forEach(variantes, function(value, key) {
         //console.log("valor de la orden de venta")
         //console.log(idOrdenVentaBorrador);
-        
+
         var data={
 
           sell_order_id:idOrdenVentaBorrador,
@@ -2539,10 +2539,10 @@ function getRecent(prod)
         };
         //console.log(data);
           apiService.postData(urlVariantOV,data);
-      }); 
+      });
       $location.path('/app-vistaOrdenesVenta');
     });
-    
+
   }
   $scope.submitOrdenBorrador=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
@@ -2574,8 +2574,8 @@ function getRecent(prod)
       //console.log(dataUpd);
       apiService.putData(urlOrdenesV,idOrdenVentaBorrador,dataUpd);
       angular.forEach(variantes, function(value, key) {
-        
-        
+
+
         var data={
 
           sell_order_id:idOrdenVentaBorrador,
@@ -2585,10 +2585,10 @@ function getRecent(prod)
           divider_id:$scope.ordenDivisorId
         };
           apiService.postData(urlVariantOV,data);
-      }); 
+      });
       $location.path('/app-vistaOrdenesVenta');
     });
-    
+
   }
   /* ***************************** */
   $scope.today = function() {
@@ -2632,10 +2632,10 @@ function getRecent(prod)
   };
 }])
 .controller('CtrlOrdenesA',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout){
-  var urlOrdenesA="/adjustment_orders";  
+  var urlOrdenesA="/adjustment_orders";
   $scope.isDisabled = false;
 
-  
+
   apiService.getData(urlOrdenesA).then(function(response) {
     //console.log(response.data);
     $scope.ordenesA=response.data;
@@ -2666,7 +2666,7 @@ function getRecent(prod)
           var ft = searchText.toLowerCase();
           apiService.getData(urlOrdenesA).then(function(largeLoad) {
             /*angular.forEach(largeLoad.data,function(val,key){
-              val.supplier="";  
+              val.supplier="";
             });*/
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
@@ -2716,7 +2716,7 @@ function getRecent(prod)
   /* ****************************************************************************************************/
   function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -2736,11 +2736,11 @@ function getRecent(prod)
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -2762,7 +2762,7 @@ function getRecent(prod)
         }
         return id;
       }
-        
+
     }
   $scope.redNOrdenA=function()
   {
@@ -2770,7 +2770,7 @@ function getRecent(prod)
     var data = {
       status:"Pendiente",
     };
-    
+
     apiService.postData(urlOrdenesA,data).then(function(response){
       idRec=getRecent(response.data);
       console.log(idRec);
@@ -2781,23 +2781,23 @@ function getRecent(prod)
         //dataShareCompra.sendData(idRec);
         apiService.putData(urlOrdenesA,idRec,dataUpd);
       $location.path('/app-nuevaOrdenAjuste');
-    }); 
+    });
 
   }
 }])
 .controller('CtrlOrdenesANueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra){
 
-  var urlSuppliers="/suppliers"; 
-  var urlLocation="/locations";  
+  var urlSuppliers="/suppliers";
+  var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
   var urlVariants="/variants";
   var urlOrdenesC="/purchase_orders";
   var urlOrdenesA="/adjustment_orders";
-  var urlVariantO="/variant_orders";  
-  var urlVariantOA="/variant_adjustments"; 
+  var urlVariantO="/variant_orders";
+  var urlVariantOA="/variant_adjustments";
   var urlVarianteDivisor="/variant_divisions";
-  var urlVarianteAlmacen="/variant_warehouses"; 
+  var urlVarianteAlmacen="/variant_warehouses";
 
 
 
@@ -2806,15 +2806,15 @@ function getRecent(prod)
   //console.log(idOrdenBorrador);
  $scope.variants=[];
  apiService.getSingleData(urlOrdenesA,idOrdenBorrador).then(function(response) {
-      
+
       $scope.infoOrden=response.data;
-      
+
     });
   apiService.getData(urlOrdenesC).then(function(response) {
     $scope.ordenesC=response.data;
   });
 apiService.getData(urlLocation).then(function(response) {
-    
+
   $scope.locations=response.data;
   });
 
@@ -2828,10 +2828,10 @@ $scope.$on('$locationChangeStart', function( event ) {
   //funcion para hacer update de la informacion en base a la orden de compra
   $scope.updateInfo=function()
   {
-    
+
     apiService.getSingleData(urlOrdenesC,$scope.ordenCId).then(function(response) {
-      
-      
+
+
       if(response.data.status!="En Almacen")
       {
         $scope.noDisp=true;
@@ -2867,7 +2867,7 @@ $scope.$on('$locationChangeStart', function( event ) {
           })
         });
       }
-      
+
       //console.log($scope.variants);
     });
   };
@@ -2876,7 +2876,7 @@ $scope.$on('$locationChangeStart', function( event ) {
   $scope.submitOrden=function()
   {
     $scope.isDisabled = true;
-    
+
     var dataUpd={
       purchase_order_id:$scope.OrdenCompleta.id,
       date:$scope.dt,
@@ -2902,7 +2902,7 @@ $scope.$on('$locationChangeStart', function( event ) {
       apiService.putData(urlVarianteDivisor,value.idVarXdiv,dataDiv);
 
       apiService.putData(urlVarianteAlmacen,value.idVarXwar,dataAlm);
-    }); 
+    });
     $location.path('/app-vistaOrdenesAjuste');
   }
     /* ***************************** */
@@ -2947,7 +2947,7 @@ $scope.$on('$locationChangeStart', function( event ) {
   };
 }])
 .controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http","dataShareReady","modalService2",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http,dataShareReady,modalService2){
-  var urlOrdenesC="/purchase_orders";  
+  var urlOrdenesC="/purchase_orders";
   $scope.isDisabled = false;
   if(dataShareReady.getData())
   {
@@ -3054,7 +3054,7 @@ $scope.$on('$locationChangeStart', function( event ) {
       filterOptions: $scope.filterOptions
     };
   /* ****************************************************************************************************/
- 
+
 
   apiService.getData(urlOrdenesC).then(function(response) {
     //console.log(response.data);
@@ -3062,7 +3062,7 @@ $scope.$on('$locationChangeStart', function( event ) {
   });
   function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -3082,11 +3082,11 @@ $scope.$on('$locationChangeStart', function( event ) {
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -3108,7 +3108,7 @@ $scope.$on('$locationChangeStart', function( event ) {
         }
         return id;
       }
-        
+
     }
   $scope.redNOrdenC=function()
   {
@@ -3117,7 +3117,7 @@ $scope.$on('$locationChangeStart', function( event ) {
       status:"Borrador",
       amount:0
     };
-    
+
     apiService.postData(urlOrdenesC,data).then(function(response){
       idRec=getRecent(response.data);
       //console.log(idRec);
@@ -3128,13 +3128,13 @@ $scope.$on('$locationChangeStart', function( event ) {
         //dataShareCompra.sendData(idRec);
         apiService.putData(urlOrdenesC,idRec,dataUpd);
       $location.path('/app-nuevaOrdenC');
-    }); 
+    });
 
   }
 }])
 .controller('CtrlOrdenesCArchivo',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http","dataShareReady","modalService2",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http,dataShareReady,modalService2){
-  var urlOrdenesC="/purchase_orders";  
-  
+  var urlOrdenesC="/purchase_orders";
+
   /*  Prueba de data tables con las ordenes de compra************************************************** */
   $scope.filterOptions = {
       filterText: '',
@@ -3211,18 +3211,18 @@ $scope.$on('$locationChangeStart', function( event ) {
       pagingOptions: $scope.pagingOptions,
       filterOptions: $scope.filterOptions
     };
-  /* ****************************************************************************************************/ 
+  /* ****************************************************************************************************/
 }])
 
 .controller('CtrlOrdenesCNueva',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,modalService){
 
-  var urlSuppliers="/suppliers"; 
-  var urlLocation="/locations";  
+  var urlSuppliers="/suppliers";
+  var urlLocation="/locations";
   var urlWarehouses="/warehouses";
   var urlProducts="/products";
   var urlVariants="/variants";
   var urlOrdenesC="/purchase_orders";
-  var urlVariantO="/variant_orders";  
+  var urlVariantO="/variant_orders";
 $scope.Math = window.Math;
 
 
@@ -3231,15 +3231,15 @@ $scope.Math = window.Math;
   //console.log(idOrdenBorrador);
  $scope.variants=[];
  apiService.getSingleData(urlOrdenesC,idOrdenBorrador).then(function(response) {
-      
+
       $scope.infoOrden=response.data;
-      
+
     });
   apiService.getData(urlSuppliers).then(function(response) {
     $scope.suppliers=response.data;
   });
 apiService.getData(urlLocation).then(function(response) {
-    
+
   $scope.locations=response.data;
   });
 
@@ -3266,9 +3266,9 @@ apiService.getData(urlLocation).then(function(response) {
   //funcion para hacer update de la informacion en base al proveedor
   $scope.updateInfo=function()
   {
-    
+
     apiService.getSingleData(urlSuppliers,$scope.ordenSupplierId).then(function(response) {
-      
+
       //$scope.unit=response.data.currency.unit;
       //$scope.currency=response.data.currency.name;
       if($scope.warehouses)
@@ -3283,7 +3283,7 @@ apiService.getData(urlLocation).then(function(response) {
             "products":response.data.products,
             "warehouses":$scope.warehouses
           }
-        ];  
+        ];
       }
       else
       {
@@ -3298,7 +3298,7 @@ apiService.getData(urlLocation).then(function(response) {
           }
         ];
       }
-      
+
       $scope.products=response.data.products;
       //console.log($scope.variants);
       });
@@ -3313,14 +3313,14 @@ apiService.getData(urlLocation).then(function(response) {
     });
     //
   };
-  
+
   $scope.getTax=function(indexV,varID){
-    
+
     apiService.getSingleData(urlVariants,varID).then(function(response) {
       angular.forEach(response.data.variant_prices, function(value, key) {
         if(value.price.name=='Compra')
            $scope.variants[indexV]['costo']=value.cost;
-      }); 
+      });
      $scope.variants[indexV]['tax']=(response.data.tax.percentage)/100;
     });
   };
@@ -3341,7 +3341,7 @@ apiService.getData(urlLocation).then(function(response) {
     }
     return Impuesto;
   };
-  
+
   $scope.getTotal=function()
   {
     var total = 0;
@@ -3363,9 +3363,9 @@ apiService.getData(urlLocation).then(function(response) {
       $scope.warehouses=response.data.warehouses;
       if($scope.variants)
       {
-        $scope.variants['warehouses']=response.data.warehouses;  
+        $scope.variants['warehouses']=response.data.warehouses;
       }
-      
+
       });
   }
   /* ***************Aqui se hace el submit *****************/
@@ -3400,7 +3400,7 @@ apiService.getData(urlLocation).then(function(response) {
       apiService.putData(urlOrdenesC,idOrdenBorrador,dataUpd);
       angular.forEach(variantes, function(value, key) {
         //console.log(value);
-        
+
         var data={
 
           purchase_order_id:idOrdenBorrador,
@@ -3410,11 +3410,11 @@ apiService.getData(urlLocation).then(function(response) {
           warehouse_id:value.ordenWarehId
         };
           apiService.postData(urlVariantO,data);
-      }); 
+      });
       $location.path('/app-vistaOrdenesCompra');
     });
 
-    
+
   }
   $scope.submitOrdenBorrador=function(variantes,date,ordenSupplierId,notas,facturacion)
   {
@@ -3454,10 +3454,10 @@ apiService.getData(urlLocation).then(function(response) {
           warehouse_id:value.ordenWarehId
         };
           apiService.postData(urlVariantO,data);
-      }); 
+      });
       $location.path('/app-vistaOrdenesCompra');
     });
-    
+
   }
   /* ***************************** */
   $scope.today = function() {
@@ -3502,7 +3502,7 @@ apiService.getData(urlLocation).then(function(response) {
 }])
 
 .controller('EditCtrl',['SimLog','apiService',"$scope","$location","$routeParams","modalService",function (SimLog,apiService,$scope, $location, $routeParams,modalService) {
- 
+
     var urlBrands="/brands"
     $scope.initFirst=function()
     {
@@ -3546,15 +3546,15 @@ apiService.getData(urlLocation).then(function(response) {
       };
 
       modalService.showModal({}, modalOptions).then(function (result) {
-          
+
               var updData={status:'A'};
               apiService.putDataPrices(urlBrands,id,updData);
               $scope.initFirst();
               $location.path('/app-vistaMarcas');
-          
+
       });
-      
-      
+
+
     }
     $scope.editTest=function(marcaUProxy)
     {
@@ -3568,7 +3568,7 @@ apiService.getData(urlLocation).then(function(response) {
       //$scope.proxp=response;
       $scope.initFirst();
       $location.path('/app-vistaMarcas');
-      
+
     }
   }])
 .controller('CtrlClientesDirEnv',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
@@ -3613,15 +3613,15 @@ apiService.getData(urlLocation).then(function(response) {
 .controller('CtrlEditarDirEnvio',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
 var urlClientes="/clients";
     var  urlDirEnvios="/send_orders";
-     
+
 
     ID_sendCli=dataShareClientes.getData();
       apiService.getSingleData(urlDirEnvios,ID_sendCli).then(function(response) {
       //console.log(response.data);
       $scope.sendOrd=response.data;
       });
-      
-    
+
+
 
     $scope.editEnv=function(){
       var data={
@@ -3672,7 +3672,7 @@ var urlClientes="/clients";
           var ft = searchText.toLowerCase();
           apiService.getData(urlClientes).then(function(largeLoad) {
             /*angular.forEach(largeLoad.data,function(val,key){
-              val.supplier="";  
+              val.supplier="";
             });*/
             data = largeLoad.data.filter(function(item) {
               //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
@@ -3732,12 +3732,12 @@ var urlClientes="/clients";
 var IDsendCliente="";
     $scope.editarEnvioCli=function(ID_sendCli){
 
-      
+
       dataShareClientes.sendData(ID_sendCli);
-      
+
       $location.path('/app-editarClienteEnvio/'+$routeParams.id);
-      
-      
+
+
     }
 
     $scope.editEnv=function(){
@@ -3781,7 +3781,7 @@ var IDsendCliente="";
 
     function getRecent(prod)
     {
-      
+
       var tmp;
       var tmp1;
       //console.log(prod.length);
@@ -3801,11 +3801,11 @@ var IDsendCliente="";
         }
         else
         {
-          
+
           for (var i=prod.length-1; i>=0; i--) {
-            
+
             tmp = new Date(prod[i].updated_at).getTime();
-            
+
             if( tmp > mayor)
             {
               //console.log("tmp>mayor");
@@ -3827,7 +3827,7 @@ var IDsendCliente="";
         }
         return id;
       }
-        
+
     }
     if($routeParams.id)
     {
@@ -3836,14 +3836,14 @@ var IDsendCliente="";
       $scope.clientes=response.data;
       });
     }
-    
+
     $scope.nuevo=function(clienteN)
     {
       var idcliente=0;
       clienteN.price_id=parseInt(clienteN.price_id);
       console.log(clienteN);
       apiService.postData(urlClientes,clienteN).then(function(response) {
-        idcliente=getRecent(response.data); 
+        idcliente=getRecent(response.data);
         if($scope.clienteN.envio)
         {
           clienteN.client_id=idcliente;
@@ -3862,8 +3862,8 @@ var IDsendCliente="";
             number:$scope.clienteN.numeroEnvio
           };
           apiService.postData(urlDirEnvios,data);
-        }        
-      });        
+        }
+      });
       $location.path('/app-vistaClientes');
     };
   }])
@@ -3872,7 +3872,7 @@ var IDsendCliente="";
 .controller('EditCtrlDivisas',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
     var urlCurrency="/currencies";
 
-    
+
 
     $scope.initFirst=function()
     {
@@ -3924,16 +3924,16 @@ var IDsendCliente="";
       //$scope.proxp=response;
       $scope.initFirst();
       $location.path('/app-vistaDivisa');
-      
+
     }
   }])
 
 .controller('EditCtrlProveedor',['SimLog',"apiService","$scope","$location","$routeParams","modalService",function (SimLog,apiService,$scope, $location, $routeParams,modalService) {
     var urlSuppliers="/suppliers"
     var urlCurrency="/currencies"
-   
 
-   
+
+
 
     $scope.initFirst=function()
     {
@@ -3950,7 +3950,7 @@ var IDsendCliente="";
       $scope.suppUProxy=response.data;
       });
     }
-     
+
 
     /* **********************Manejar info desde Heroku y el proxy ********************************* */
     apiService.getData(urlSuppliers).then(function(response) {
@@ -3984,12 +3984,12 @@ var IDsendCliente="";
                 currency_id: suppUProxy.currency_id
             };
             //console.log(data);
-      
+
       apiService.putData(urlSuppliers,suppUProxy.id,data);
       //$scope.proxp=response;
       $scope.initFirst();
       $location.path('/app-vistaProveedor');
-      
+
     }
     $scope.removeTest=function(id)
     {
@@ -4004,96 +4004,9 @@ var IDsendCliente="";
       modalService.showModal({}, modalOptions).then(function (result) {
               var updData={status:'A'};
               apiService.putDataPrices(urlSuppliers,$routeParams.id,updData);
-              $location.path('/app-vistaProveedor');          
-      });
-      
-      
-    }
-
-
-  }])
-  .controller('CtrlProductos',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
-    var urlProductsRes="/product/resume"
-    
-    apiService.getData(urlProductsRes).then(function(resp){
-      console.log(resp.data);
-      $scope.productResume=resp.data;
-    });
-  }])
-  .controller('CtrlProductoNuevo',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
-    var urlSuppliers="/suppliers";
-    var urlBrands="/brands";
-    var urlProducts="/products";
-    apiService.getData(urlSuppliers).then(function(response) {
-      //console.log(response);
-      $scope.suppliers=response.data;
-    });
-    apiService.getData(urlBrands).then(function(response) {
-      //console.log(response);
-      $scope.brands=response.data;
-    });
-    function getRecent(prod)
-    {
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-          
-          for (var i=prod.length-1; i>=0; i--) {
-            
-            tmp = new Date(prod[i].updated_at).getTime();
-            
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-        
-    }
-    $scope.sub = function(formData) {
-      //console.log(formData);
-      $scope.prodname=formData.name;
-      formData.status='D';
-      apiService.postProdData(urlProducts,formData).then(function(response) {
-        //console.log(response.data);
-        //$scope.productos=response.data;
-        idRec=getRecent(response.data);
-        dataShare.sendData(idRec);
-        $location.path('/app-defVariantes');
+              $location.path('/app-vistaProveedor');
       });
     }
-    
   }])
   .controller('CtrlProductosDefVariantes',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
     var urlCriterios="/rules";
@@ -4102,7 +4015,7 @@ var IDsendCliente="";
     apiService.getData(urlCriterios).then(function(response3){
       $scope.rules=response3.data;
     });
-    
+
     apiService.getSingleData(urlProducts,idRec).then(function(response) {
       //console.log(response.data);
       $scope.prodIndv=response.data;
@@ -4134,13 +4047,13 @@ var IDsendCliente="";
 
       angular.forEach(formData, function(value, key) {
         variantesForm.push(value.Text);
-      });      
+      });
 
       $scope.variantesAsi=variantesForm;
-      
+
       var json = JSON.stringify( variantesForm);
       var newStr = json.substring(1, json.length-1);
-      
+
       $scope.variantesAsi=newStr;
       eval("$scope.variantesAsi=cartesian("+newStr+")");
       idRec=dataShare.getData();
@@ -4166,20 +4079,20 @@ var IDsendCliente="";
                 };
                 apiService.postDataPrices(urlVariantPrices,data);
                 //console.log("se guarda el dato");
-              });  
+              });
               //apiService.push(urlVariant,);
-            });    
+            });
             dataShare.sendData(idRec);
             $location.path('/app-subVariantes');
           });
-        }); 
+        });
     }
   }])
 .controller('EditCtrlProductoInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
   var urlProducts="/products";
   var urlSuppliers="/suppliers";
   var urlBrands="/brands";
-  
+
 
   apiService.getData(urlSuppliers).then(function(response) {
           //console.log(response);
@@ -4198,7 +4111,7 @@ var IDsendCliente="";
     };
   apiService.getSingleData(urlProducts,$routeParams.id).then(function(response){
     $scope.producto=response.data;
-    
+
   });
   }])
 .controller('EditCtrlVariantes',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
@@ -4210,10 +4123,10 @@ var IDsendCliente="";
   var urlVariant="/variants";
   var urlTaxes= "/taxes";
 
- var idP =  dataShare.getData();  
+ var idP =  dataShare.getData();
 
   $scope.$on('data_shared',function(){
-        var idP =  dataShare.getData();          
+        var idP =  dataShare.getData();
   });
 
   apiService.getSingleData(urlProducts,idP).then(function(response){
@@ -4224,7 +4137,7 @@ var IDsendCliente="";
     /*apiService.getData(urlPrices).then(function(response){
       $scope.pricesProxy=response.data;
     });*/
-    
+
   });
   apiService.getData(urlCurrency).then(function(response) {
     //console.log(response);
@@ -4241,7 +4154,7 @@ $scope.makeid=function()
     var number=Math.floor(100000 + Math.random() * 900000);
     for( var i=0; i < 3; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
-    
+
     return text+number;
 }
 //console.log($scope.makeid());
@@ -4251,7 +4164,7 @@ $scope.makeid=function()
         //console.log("aqui se imprime cada valor de cada data que se envia"+key);
         //console.log(value.status);
         var skuGen=$scope.makeid();
-        
+
         if(value.status==true||value.status=='U')
           value.status="U";
         else if((value.code==''||value.weight==''||value.description==''||value.status==''||value.currency_id==''||value.tax_id=='')&&value.status!=true)
@@ -4286,7 +4199,7 @@ $scope.makeid=function()
   var urlProducts="/products";
   var urlSuppliers="/suppliers";
   var urlBrands="/brands";
-  var urlCurrency="/currencies";  
+  var urlCurrency="/currencies";
   var urlVariantPrices="/variant_prices";
   var urlVariant="/variants";
   var urlTaxes= "/taxes";
@@ -4326,7 +4239,7 @@ $scope.makeid=function()
     //console.log(response);
     $scope.currProxy=response.data;
     });
-      
+
 }])
 
 .controller('CtrlVariantInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
@@ -4352,7 +4265,7 @@ $scope.makeid=function()
         apiService.putData(urlVariant,$routeParams.id,data).then(function(response){
           if(response.status==200)
           {
-            $location.path('/app-vistaProductoInd/'+$scope.variante.product.id);  
+            $location.path('/app-vistaProductoInd/'+$scope.variante.product.id);
           }
         });
       }
@@ -4369,9 +4282,9 @@ $scope.makeid=function()
 
   var total=0;
   var disp=0;
-  
+
   $scope.elimProd=function(){
-      
+
   var modalOptions = {
       closeButtonText: 'Cancelar',
       actionButtonText: 'Archivar',
@@ -4388,7 +4301,7 @@ $scope.makeid=function()
       var data={status:"A"};
       angular.forEach($scope.prod.variants,function(value,key){
         if(value.status='C')
-          apiService.putDataPrices(urlVariant,value.id,data);  
+          apiService.putDataPrices(urlVariant,value.id,data);
       });
       $location.path("/app-vistaProductos");
     });
@@ -4424,7 +4337,7 @@ $scope.makeid=function()
           {
             value.disponible=disp;
           }
-          
+
         });
         //console.log($scope.variantesFormC);
       });
@@ -4438,7 +4351,7 @@ $scope.makeid=function()
   var contador=0;
   $scope.productosInLoc=[];
 
-  
+
 
   $scope.productosInLoc1=new Array();
   $scope.productosInLoc2=new Array();
@@ -4446,7 +4359,7 @@ $scope.makeid=function()
   dataShareLocacion.sendData($routeParams.id);
   $scope.nuevoAlmacen=function(){
     dataShareLocacion.sendData($routeParams.id);
-    
+
     $location.path('/app-nuevoAlmacen');
   };
   $scope.AddProduct=function(){
@@ -4572,7 +4485,7 @@ $scope.makeid=function()
   /* ****************************************************************************************************/
    apiService.getData(urlWarehouses).then(function(response){
     angular.forEach(response.data, function(value, key) {
-      
+
       if (value.location.id==$routeParams.id) {
         //console.log(value);
         contador++;
@@ -4590,15 +4503,15 @@ $scope.makeid=function()
       newStr=newStr.replace("[","");
       newStr=newStr.replace("]","");
     for (var i = contador; i >= 0; i--) {
-      
+
       newStr=newStr.replace("],[],[",",");
       newStr=newStr.replace("],[",",");
     };
-      
+
       newStr = newStr.substring(1, newStr.length);
       newStr=newStr.replace(",]","]");
       //console.log(newStr);
-      
+
       $scope.productosInLoc=JSON.parse(newStr);
       angular.forEach($scope.productosInLoc, function(value, key) {
           apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
@@ -4671,10 +4584,10 @@ $scope.makeid=function()
         $location.path('/app-vistaLocacion/'+locacionId);
       }
 
-      }); 
+      });
 
-      
-    });    
+
+    });
     //console.log(formData);
   }
 }])
@@ -4866,5 +4779,3 @@ $scope.makeid=function()
       // wijetsService.make();
     });
   }])
-
-  

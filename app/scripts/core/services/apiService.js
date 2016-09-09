@@ -17,14 +17,14 @@ angular.module('theme.core.services')
 		return this.$http.post(url,data).then(function(response)
 			{
 				return $http.get(url);
-			});		
+			});
 	}
     ApiService.prototype.postProdData= function(url,data)
 	{
 		return this.$http.post(url,data).then(function(response)
 			{
 				return $http.get("/product/resume");
-			});		
+			});
 	}
 	ApiService.prototype.postDataPrices= function(url,data)
 	{
@@ -35,14 +35,14 @@ angular.module('theme.core.services')
 		return this.$http.delete(url+"/"+id).then(function(response)
 		{
 			return $http.get(url);
-		});		
+		});
 	}
 	ApiService.prototype.putData=function(url,id,data)
 	{
 		return this.$http.put(url+"/"+id,data).then(function(response)
 		{
 			return $http.get(url);
-		});	
+		});
 	}
 	ApiService.prototype.putDataPrices=function(url,id,data)
 	{
