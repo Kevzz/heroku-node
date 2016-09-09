@@ -530,7 +530,7 @@ $scope.archivarCrit=function(idC){
         loan:true
       };
       apiService.postData(urlTransfers,data).then(function(response){
-        reciente=getRecent(response.data);
+        reciente=recentService.getRecent(response.data);
           //console.log(reciente);
           var newData={
             number:"OP_"+reciente
@@ -551,59 +551,7 @@ $scope.archivarCrit=function(idC){
 
       });
     }
-
   };
-
-function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
 }])
 .controller('CtrlLoansInd',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
  var urlLocations="/locations";
@@ -790,7 +738,7 @@ function getRecent(prod)
 }
 
 }])
-.controller('CtrlTransferencias',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
+.controller('CtrlTransferencias',['SimLog','apiService',"recentService","$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,recentService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
   var urlLocations="/locations";
   var urlTransfers="/transfers";
   var urlTransferences="/transferences";
@@ -1104,7 +1052,7 @@ function getRecent(prod)
       };
       apiService.postData(urlTransfers,data).then(function(response){
         apiService.getData(urlTransfers).then(function(responseNew){
-          reciente=getRecent(responseNew.data);
+          reciente=recentService.getRecent(responseNew.data);
           console.log(reciente);
           var newData={
             number:"OT"+reciente
@@ -1123,61 +1071,10 @@ function getRecent(prod)
         $location.path('/app-vistaTransferencias');
       });
     }
-
   };
-function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
 }])
 
-.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth','$rootScope',"apiService", function($location,SimLog,$scope, $theme,$auth,$rootScope,apiService) {
+.controller('CtrlSigUp', ['$location','SimLog','$scope', '$theme','$auth','$rootScope',"apiService","recentService", function($location,SimLog,$scope, $theme,$auth,$rootScope,apiService,recentService) {
     'use strict';
     //console.log('asdkjasdlk');
     var urlUsers="/users"
@@ -1231,605 +1128,6 @@ function getRecent(prod)
       $theme.set('fullscreen', false);
     });
   }])
-
-.controller('CtrlLocacionNueva',['SimLog','apiService',"$scope","$route","$location","$routeParams","dataShareAlmacen",function (SimLog,apiService,$scope, $route,$location, $routeParams,dataShareAlmacen) {
-  var urlLocation="/locations";
-  var urlWarehouses="/warehouses";
-  $scope.locacion={};
-  var reciente=0;
-
-
-  function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
-  $scope.nuevaLoc=function()
-  {
-    reciente=0;
-    apiService.postData(urlLocation,$scope.locacion).then(function(response){
-      reciente=getRecent(response.data);
-      console.log(reciente);
-      var data={
-        name:'Global',
-        location_id:reciente
-        };
-      apiService.postData(urlWarehouses,data);
-
-      $location.path('/');
-
-    });
-
-    //$route.reload();
-  };
-
-  }])
-
-
-.controller('CtrlAlmacenNuevo',['SimLog','apiService',"$scope","$location","$routeParams","dataShareLocacion","dataShareAlmacen",function (SimLog,apiService,$scope, $location, $routeParams,dataShareLocacion,dataShareAlmacen) {
-  var urlLocation="/locations";
-  var urlWarehouses="/warehouses";
-  var urldivisor="/dividers";
-
-
-  var idLocacion=dataShareLocacion.getData();
-  //var idAlmacen=dataShareAlmacen.getData();
-  $scope.almacenN={};
-  function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
-  $scope.nuevoAlmacen=function(){
-    var data={
-      name:$scope.almacenN.name,
-      location_id:idLocacion
-    }
-    apiService.postData(urlWarehouses,data).then(function(response){
-      reciente=getRecent(response.data);
-      var data2={
-        name:'General',
-        warehouse_id:reciente
-        };
-      apiService.postData(urldivisor,data2);
-      $location.path('/app-vistaLocacion/'+idLocacion);
-    });
-  };
-
-  }])
-.controller('CtrlDivisorNuevo',['SimLog','apiService',"$scope","$location","$routeParams","dataShareLocacion","dataShareAlmacen",function (SimLog,apiService,$scope, $location, $routeParams,dataShareLocacion,dataShareAlmacen) {
-
-  var urlLocation="/locations";
-  var urlWarehouses="/warehouses";
-  var urldivisor="/dividers";
-  var idAlmacen=dataShareAlmacen.getData();
-  $scope.divisorN={};
-
-
-  apiService.getSingleData(urlWarehouses,idAlmacen).then(function(response){
-    $scope.almacenOr=response.data;
-  });
-  $scope.nuevoDivisor=function(){
-    var data={
-        name:$scope.divisorN.name,
-        warehouse_id:idAlmacen
-      };
-    apiService.postData(urldivisor,data).then(function(response){
-
-      $location.path('/app-vistaAlmacen/'+idAlmacen);
-
-    });
-  };
-}])
-.controller('CtrlAlmacen',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareLocacion",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareLocacion) {
-  var urlLocation="/locations";
-  var urlWarehouses="/warehouses";
-  var idLocacion=0;
-  var urlProducts="/products";
-
-
-  $scope.cargarOrden=function(){
-    dataShareAlmacen.sendData($routeParams.id);
-    $location.path('/app-vistaCargarOrden/');
-  };
-  $scope.nuevoDivisor=function(){
-    dataShareAlmacen.sendData($routeParams.id);
-    $location.path('/app-nuevoDivisor/');
-  };
-  $scope.varProdAl=function(id){
-    dataShareAlmacen.sendData(id);
-    $location.path('/app-vistaVarProdAl/'+$routeParams.id);
-  };
-  apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response) {
-
-    $scope.almacenes=response.data;
-    idLocacion=$scope.almacenes.location.id;
-    angular.forEach($scope.almacenes.variant_warehouses, function(value, key) {
-        apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
-        value.variant.prodName=response.data.name;
-        value.variant.brand=response.data.brand.name;
-        });
-      });
-    });
-  /*  Prueba de data tables con las ordenes de compra************************************************** */
-  $scope.filterOptions = {
-      filterText: '',
-      useExternalFilter: true
-    };
-    $scope.totalServerItems = 0;
-    $scope.pagingOptions = {
-      pageSizes: [25, 50, 100],
-      pageSize: 25,
-      currentPage: 1
-    };
-    $scope.setPagingData = function(data, page, pageSize) {
-      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-      $scope.myData = pagedData;
-      $scope.totalServerItems = data.length;
-      if (!$scope.$$phase) {
-        $scope.$apply();
-      }
-    };
-    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
-      setTimeout(function() {
-        var data;
-        if (searchText) {
-          var ft = searchText.toLowerCase();
-          apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(largeLoad) {
-            angular.forEach(largeLoad.data.variant_warehouses, function(value, key) {
-              apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
-              value.variant.prodName=response.data.name;
-              value.variant.brand=response.data.brand.name;
-              });
-            });
-            data = largeLoad.data.variant_warehouses.filter(function(item) {
-              //console.log(JSON.stringify(item).toLowerCase().indexOf(ft));
-              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
-            });
-
-            $scope.setPagingData(data, page, pageSize);
-          });
-        } else {
-          apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(largeLoad) {
-            angular.forEach(largeLoad.data.variant_warehouses, function(value, key) {
-              apiService.getSingleData(urlProducts,value.variant.product_id).then(function(response) {
-              value.variant.prodName=response.data.name;
-              console.log(value.variant.prodName);
-              value.variant.brand=response.data.brand.name;
-              });
-            });
-            $scope.setPagingData(largeLoad.data.variant_warehouses, page, pageSize);
-          });
-        }
-      }, 100);
-    };
-
-    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-
-    $scope.$watch('pagingOptions', function(newVal, oldVal) {
-      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-      }
-    }, true);
-    $scope.$watch('filterOptions', function(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-      }
-    }, true);
-    $scope.gridOptions = {
-      data: 'myData',
-      columnDefs: [
-            { field: "variant.prodName", displayName:"Producto",cellTemplate:'<div class="ngCellText ng-scope">'+'<a ng-click="varProdAl(row.entity.variant.product_id)">{{row.entity.variant.prodName}}</a>'+'</div>' },
-            { field: "variant.name", displayName:"Variante" },
-            { field: "variant.brand",displayName:"Marca" },
-            { field: "stock",displayName:"Disponible" }
-        ],
-      enablePaging: true,
-      showFooter: true,
-      totalServerItems: 'totalServerItems',
-      pagingOptions: $scope.pagingOptions,
-      filterOptions: $scope.filterOptions
-    };
-  /* ****************************************************************************************************/
-}])/*
-.controller('CtrlCargarOrden',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareVariante",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareVariante) {
-
-  var urlLocation="/locations";
-  var urlWarehouses="/warehouses";
-  var urlProducts="/products";
-  var urlVariantOrders="/variant_orders"
-  var urlPurchaseOrders="/purchase_orders"
-  var urlVarianteDivisor="/variant_divisions";
-  var urlVarianteAlmacen="/variant_warehouses";
-  var idAlmacen=dataShareAlmacen.getData();
-
-  var isLog=SimLog.getData();
-
-    $location.path('/');
-
-  $scope.numOrden;
-  var idnumOrden;
-  var indexOfNumeroOrden;
-  $scope.totalOrden=0;
-  $scope.Orden;
-  $scope.statusOrden=false;
-
-  apiService.getSingleData(urlWarehouses,idAlmacen).then(function(response){
-   $scope.almacenOrigen=response.data;
-  });
-  $scope.buscarOrden=function(){
-
-    apiService.getData(urlPurchaseOrders).then(function(response){
-      angular.forEach(response.data,function(value,key){
-        if(value.number==$scope.numOrden)
-        {
-          idnumOrden=value.id;
-          indexOfNumeroOrden=key;
-          $scope.Orden=value;
-          $scope.statusOrden=value.status;
-          angular.forEach($scope.Orden.variant_orders,function(value2,key){
-            //console.log($scope.totalOrden);
-            $scope.totalOrden+=(parseInt(value2.amount)*parseInt(value2.cost_per_unit));
-          });
-        }
-        else
-        {
-          $scope.Orden=false;
-        }
-      });
-
-    });
-  }
-
-
-  }])*/
-.controller('CtrlVarProdAl',['SimLog','apiService',"$scope","$location","$routeParams","dataShareAlmacen","dataShareVariante",function (SimLog,apiService,$scope, $location, $routeParams,dataShareAlmacen,dataShareVariante) {
-  var urlLocation="/locations";
-  var urlWarehouses="/warehouses";
-  var urlProducts="/products";
-
-
-
-  var id_Prod=dataShareAlmacen.getData();
-  $scope.varProdAlmacen=new Array();
-  apiService.getSingleData(urlProducts,id_Prod).then(function(response){
-    $scope.prod=response.data;
-  });
-
-
-  $scope.infoVariante=function(idVar){
-    dataShareVariante.sendData(idVar);
-    $location.path('/app-vistaVarDivisorAl/'+$routeParams.id);
-  };
-  apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response){
-    $scope.wareOr=response.data;
-    angular.forEach(response.data.variants, function(value, key) {
-
-      if (value.product.id==id_Prod)
-      {
-        //console.log(value);
-        $scope.varProdAlmacen.push(value);
-      };
-      //$scope.Productos=response.data;
-      //console.log($scope.variantesFormC);
-    });
-      var json = JSON.stringify( $scope.varProdAlmacen);
-      $scope.varProdAlmacen=JSON.parse(json);
-      var cantidadApartada=0;
-      angular.forEach($scope.varProdAlmacen, function(value2, key) {
-        cantidadApartada=0;
-        angular.forEach(value2.variant_warehouses, function(value3, key2) {
-          if(value3.warehouse_id==$routeParams.id)
-          {
-            $scope.varProdAlmacen[key].stock=value3.stock;
-          }
-        });
-        angular.forEach(value2.sell_orders, function(value4, key4) {
-          //console.log(value4);
-          if(value4.status=='Solicitado')
-          {
-            angular.forEach(value2.variant_sell_orders, function(value5, key5) {
-
-              if(value5.sell_order_id==value4.id)
-              {
-                //console.log("Entro");
-                //console.log(value5.amount);
-                cantidadApartada=cantidadApartada+parseInt(value5.amount);
-                //console.log(cantidadApartada);
-              }
-            });
-          }
-        });
-        //console.log(value2);
-
-      //$scope.Productos=response.data;
-      //console.log($scope.variantesFormC);
-      $scope.varProdAlmacen[key].Ndis=cantidadApartada;
-    });
-      //console.log($scope.varProdAlmacen);
-  });
-
-}])
-.controller('CtrlVarDivisorAl',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVariante","$modal","dataShareTransDivxDiv","dataShareAlmacen",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVariante,$modal,dataShareTransDivxDiv,dataShareAlmacen) {
-
-  var urlLocation="/locations";
-  var urlWarehouses="/warehouses";
-  var urlProducts="/products";
-  var urlVariants="/variants";
-
-  apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response){
-    $scope.almacenOrigen=response.data;
-
-  });
-
-  var id_Variante=dataShareVariante.getData();
-
-  //codigo para el modal****************************************
-
-  $scope.open = function(size,DivID) {
-
-    dataShareTransDivxDiv.sendData(DivID);
-    var modalInstance = $modal.open({
-      templateUrl: 'myModalContent.html',
-      controller: function($scope, $modalInstance,dataShareTransDivxDiv,dataShareVariante,apiService) {
-        var id_divisor=dataShareTransDivxDiv.getData();
-        var id_Variante=dataShareVariante.getData();
-        var urldivisor="/dividers";
-        var urlVarianteAlmacen="/variant_warehouses";
-        var urlVariantDivisor="/variant_divisions";
-
-        $scope.maxTransferencia=0;
-        $scope.priVar=0;
-        //console.log($routeParams.id);
-        $scope.divisoresExtras=$scope.dividersD;
-        apiService.getSingleData(urlWarehouses,$routeParams.id).then(function(response){
-          $scope.dividersD=response.data.dividers;
-          $scope.divisoresExtras=$scope.dividersD;
-          });
-
-        apiService.getSingleData(urldivisor,id_divisor).then(function(response){
-          angular.forEach(response.data.variant_divisions,function(value,index){
-            if(value.variant.id==id_Variante)
-            {
-              $scope.maxTransferencia=value.total;
-              $scope.priVar=value.pri;
-            }
-          });
-          $scope.dividersD=response.data.dividers;
-
-          });
-
-        $scope.ok = function(divId,cantidad) {
-          if(!cantidad)
-            return false;
-
-          if(($scope.maxTransferencia-cantidad)<$scope.priVar)
-          {
-            alert("Se alcanso el PRI");
-            return false;
-          }
-          else if(($scope.maxTransferencia-cantidad)<0)
-          {
-            alert("No hay suficientes");
-            return false;
-          }
-          else
-          {
-            var data={
-              total:cantidad
-            };
-            var data2={
-              total:parseInt($scope.maxTransferencia)-parseInt(cantidad)
-            }
-            var idVarDiv=0;
-            var idVarDivOrigen=0;
-            apiService.getData(urlVariantDivisor).then(function(response){
-              angular.forEach(response.data,function(value,index){
-                if((divId==value.divider.id)&&(id_Variante==value.variant.id))
-                {
-                  idVarDiv=value.id;
-                  totaldivExiste=value.total;
-                  data={total:parseInt(totaldivExiste)+parseInt(cantidad)}
-                }
-
-              });
-              //origen y asi para eliminar la cantidad de stock
-              angular.forEach(response.data,function(valueOr,indexOr){
-                if((id_divisor==valueOr.divider.id)&&(id_Variante==valueOr.variant.id))
-                {
-                 idVarDivOrigen=valueOr.id;
-                }
-                apiService.putData(urlVariantDivisor,idVarDivOrigen,data2);
-              });
-
-              //aqui quito del almacen
-
-              apiService.getSingleData(urlVariantDivisor,idVarDivOrigen).then(function(responseOrDiv){
-
-                angular.forEach(responseOrDiv.data.variant.variant_warehouses,function(val,ind){
-                  if((val.warehouse_id==$routeParams.id)&&(id_Variante==val.variant_id))
-                  {
-                    idAlmOrigen=val.id;
-                    stockOrAl=val.stock;
-                  }
-                });
-                var dataOrAl={stock:parseInt(stockOrAl)-parseInt(cantidad)};
-                apiService.putData(urlVarianteAlmacen,idAlmOrigen,dataOrAl);
-              })
-              //***********************************************************************************
-              if(idVarDiv!=0)
-              {
-                apiService.putData(urlVariantDivisor,idVarDiv,data);
-              }
-              else
-              {
-                var newData={
-                  divider_id:divId,
-                  variant_id:id_Variante,
-                  pri:1,
-                  total:cantidad
-                };
-
-                //console.log(newData);
-                apiService.getSingleData(urldivisor,divId).then(function(DivisorInf){
-                  var idWareDes=DivisorInf.data.warehouse.id;
-                  var newDataWare={
-                    warehouse_id:idWareDes,
-                    variant_id:id_Variante,
-                    stock:cantidad,
-                    status:"D"
-                  };
-                  apiService.postData(urlVarianteAlmacen,newDataWare);
-                  apiService.postData(urlVariantDivisor,newData);
-                })
-
-              }
-
-            });
-            //quitar del origen la cantidad
-              $modalInstance.close();
-          }
-
-        };
-
-        $scope.cancel = function() {
-          $modalInstance.dismiss('cancel');
-        };
-      },
-      size: size
-    });
-
-  };
-  //***********************************************************
-  $scope.divEnVar=new Array();
-
-  var tempCantidad=0;
-  apiService.getSingleData(urlVariants,id_Variante).then(function(response){
-    $scope.variante=response.data;
-    tempCantidad=0;
-    angular.forEach($scope.variante.variant_divisions, function(value, key) {
-      angular.forEach($scope.variante.variant_sell_orders, function(value2, key2) {
-        if((value.divider.id==value2.divider.id)&&value2.sell_order.status=='Solicitado')
-        {
-          tempCantidad=tempCantidad+value2.amount;
-        }
-      });
-      if (value.divider.warehouse_id==$routeParams.id)
-      {
-        //console.log(value);
-        value.ApartadoNot=tempCantidad;
-
-        $scope.divEnVar.push(value);
-      };
-      //$scope.Productos=response.data;
-      //console.log($scope.variantesFormC);
-    });
-  });
-
-
-      var json = JSON.stringify( $scope.divEnVar);
-
-      $scope.divEnVar=JSON.parse(json);
-
-    $scope.regresarVarProd=function(){
-    dataShareAlmacen.sendData($scope.variante.product.id);
-    $location.path("/app-vistaVarProdAl/"+$routeParams.id);
-   };
-      //********************************************************************
-
-      //*******************************************************************************
-      //console.log($scope.divEnVar);
-}])
 .controller('CtrlOrdenesCInd',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","dataShareReady","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,dataShareReady,modalService){
    var urlLocation="/locations";
   var urlWarehouses="/warehouses";
@@ -2078,7 +1376,7 @@ function getRecent(prod)
 
 }])
 
-.controller('CtrlOrdenesVenta',['SimLog','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","$http",function (SimLog,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,$http){
+.controller('CtrlOrdenesVenta',['recentService','apiService',"$scope","$location","$routeParams","dataShareVenta","$timeout","$http",function (recentService,apiService,$scope, $location, $routeParams,dataShareVenta,$timeout,$http){
   var urlOrdenesV="/sell_orders";
   $scope.isDisabled = false;
 
@@ -2160,56 +1458,6 @@ function getRecent(prod)
     //console.log(response.data);
     $scope.ordenesVenta=response.data;
   });
-  function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
   $scope.redNOrdenV=function()
   {
     $scope.isDisabled = false;
@@ -2221,7 +1469,7 @@ function getRecent(prod)
 
     apiService.postData(urlOrdenesV,data).then(function(response){
       apiService.getData(urlOrdenesV).then(function(response) {
-        idRec=getRecent(response.data);
+        idRec=recentService.getRecent(response.data);
         //console.log(idRec);
         dataShareVenta.sendData(idRec);
         var dataUpd = {
@@ -2631,7 +1879,7 @@ function getRecent(prod)
     $location.path('/app-nuevaOrdenC');
   };
 }])
-.controller('CtrlOrdenesA',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout){
+.controller('CtrlOrdenesA',['recentService','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout",function (recentService,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout){
   var urlOrdenesA="/adjustment_orders";
   $scope.isDisabled = false;
 
@@ -2714,56 +1962,6 @@ function getRecent(prod)
       filterOptions: $scope.filterOptions
     };
   /* ****************************************************************************************************/
-  function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
   $scope.redNOrdenA=function()
   {
     $scope.isDisabled = false;
@@ -2772,7 +1970,7 @@ function getRecent(prod)
     };
 
     apiService.postData(urlOrdenesA,data).then(function(response){
-      idRec=getRecent(response.data);
+      idRec=recentService.getRecent(response.data);
       console.log(idRec);
       dataShareCompra.sendData(idRec);
       var dataUpd = {
@@ -2946,7 +2144,7 @@ $scope.$on('$locationChangeStart', function( event ) {
     $location.path('/app-nuevaOrdenC');
   };
 }])
-.controller('CtrlOrdenesC',['SimLog','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http","dataShareReady","modalService2",function (SimLog,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http,dataShareReady,modalService2){
+.controller('CtrlOrdenesC',['recentService','apiService',"$scope","$location","$routeParams","dataShareCompra","$timeout","$http","dataShareReady","modalService2",function (recentService,apiService,$scope, $location, $routeParams,dataShareCompra,$timeout,$http,dataShareReady,modalService2){
   var urlOrdenesC="/purchase_orders";
   $scope.isDisabled = false;
   if(dataShareReady.getData())
@@ -3060,56 +2258,6 @@ $scope.$on('$locationChangeStart', function( event ) {
     //console.log(response.data);
     $scope.ordenesC=response.data;
   });
-  function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
   $scope.redNOrdenC=function()
   {
     $scope.isDisabled = false;
@@ -3119,7 +2267,7 @@ $scope.$on('$locationChangeStart', function( event ) {
     };
 
     apiService.postData(urlOrdenesC,data).then(function(response){
-      idRec=getRecent(response.data);
+      idRec=recentService.getRecent(response.data);
       //console.log(idRec);
       dataShareCompra.sendData(idRec);
       var dataUpd = {
@@ -3637,7 +2785,7 @@ var urlClientes="/clients";
     }
   }])
 
-.controller('CtrlClientes',['SimLog',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (SimLog,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
+.controller('CtrlClientes',['recentService',"$scope","$location","$routeParams","apiService","$timeout","dataShareClientes",function (recentService,$scope, $location, $routeParams,apiService,$timeout,dataShareClientes) {
     var urlClientes="/clients";
     var  urlDirEnvios="/send_orders";
     var urlPrices="/prices";
@@ -3647,7 +2795,7 @@ var urlClientes="/clients";
       $scope.clientesTods=response.data;
     });
     /*  Prueba de data tables con las ordenes de compra************************************************** */
-  $scope.filterOptions = {
+    $scope.filterOptions = {
       filterText: '',
       useExternalFilter: true
     };
@@ -3732,11 +2880,9 @@ var urlClientes="/clients";
 var IDsendCliente="";
     $scope.editarEnvioCli=function(ID_sendCli){
 
-
       dataShareClientes.sendData(ID_sendCli);
 
       $location.path('/app-editarClienteEnvio/'+$routeParams.id);
-
 
     }
 
@@ -3779,56 +2925,6 @@ var IDsendCliente="";
       };
     }
 
-    function getRecent(prod)
-    {
-
-      var tmp;
-      var tmp1;
-      //console.log(prod.length);
-      if(prod.length==1)
-      {
-        console.log(prod[0].id);
-        return prod[0].id;
-      }
-      else
-      {
-        var id=prod[prod.length-1].id;
-        var mayor=new Date(prod[prod.length-1].updated_at).getTime();
-        //console.log(mayor);
-        if(prod.length==1)
-        {
-          id=prod.id;
-        }
-        else
-        {
-
-          for (var i=prod.length-1; i>=0; i--) {
-
-            tmp = new Date(prod[i].updated_at).getTime();
-
-            if( tmp > mayor)
-            {
-              //console.log("tmp>mayor");
-              mayor=tmp;
-              //console.log(mayor);
-              id=prod[i].id;
-            }
-            else if(tmp<mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-            else if(tmp=mayor)
-            {
-              //id=prod[i].id;
-              continue;
-            }
-          }
-        }
-        return id;
-      }
-
-    }
     if($routeParams.id)
     {
       apiService.getSingleData(urlClientes,$routeParams.id).then(function(response) {
@@ -3843,7 +2939,7 @@ var IDsendCliente="";
       clienteN.price_id=parseInt(clienteN.price_id);
       console.log(clienteN);
       apiService.postData(urlClientes,clienteN).then(function(response) {
-        idcliente=getRecent(response.data);
+        idcliente=recentService.getRecent(response.data);
         if($scope.clienteN.envio)
         {
           clienteN.client_id=idcliente;
@@ -3868,72 +2964,9 @@ var IDsendCliente="";
     };
   }])
 
-
-.controller('EditCtrlDivisas',['SimLog',"apiService","$scope","$location","$routeParams",function (SimLog,apiService,$scope, $location, $routeParams) {
-    var urlCurrency="/currencies";
-
-
-
-    $scope.initFirst=function()
-    {
-       apiService.getData(urlCurrency).then(function(response) {
-          //console.log(response);
-        $scope.currenciesProxy=response.data;
-        });
-     };
-
-    if($routeParams.id)
-    {
-      apiService.getSingleData(urlCurrency,$routeParams.id).then(function(response) {
-      //console.log(response.data);
-      $scope.currenciesProxy=response.data;
-      });
-    }
-    /* **********************Manejar info desde Heroku y el proxy ********************************* */
-    apiService.getData(urlCurrency).then(function(response) {
-    //console.log(response.data);
-    $scope.currenciesProxy=response.data;
-    });
-    $scope.sub = function(formData) {
-      //console.log(formData);
-      apiService.postData(urlCurrency,formData).then(function(response) {
-      //console.log(response);
-      $scope.currenciesProxy=response.data;
-
-      });
-      $scope.initFirst();
-      $location.path('/app-vistaDivisa');
-    }
-
-    $scope.removeTest=function(id)
-    {
-      //console.log(id);
-      apiService.deleteData(urlCurrency,id);
-      $scope.initFirst();
-      $location.path('/app-vistaDivisa');
-    }
-    $scope.editTest=function(divisa)
-    {
-      //console.log(marcaUProxy.id);
-      var data = {
-                name: divisa.name,
-                shortcut: divisa.shortcut
-            };
-            //console.log(data);
-      apiService.putData(urlCurrency,divisa.id,data);
-      //$scope.proxp=response;
-      $scope.initFirst();
-      $location.path('/app-vistaDivisa');
-
-    }
-  }])
-
 .controller('EditCtrlProveedor',['SimLog',"apiService","$scope","$location","$routeParams","modalService",function (SimLog,apiService,$scope, $location, $routeParams,modalService) {
     var urlSuppliers="/suppliers"
     var urlCurrency="/currencies"
-
-
-
 
     $scope.initFirst=function()
     {
@@ -4008,341 +3041,6 @@ var IDsendCliente="";
       });
     }
   }])
-  .controller('CtrlProductosDefVariantes',["SimLog","apiService","$scope","$location","$routeParams","dataShare","$timeout","$http","modalService",function (SimLog,apiService,$scope, $location, $routeParams,dataShare,$timeout,$http,modalService) {
-    var urlCriterios="/rules";
-    var urlProducts="/products";
-    idRec=dataShare.getData();
-    apiService.getData(urlCriterios).then(function(response3){
-      $scope.rules=response3.data;
-    });
-
-    apiService.getSingleData(urlProducts,idRec).then(function(response) {
-      //console.log(response.data);
-      $scope.prodIndv=response.data;
-    });
-
-    $scope.variants = [
-      {
-        "Selection": "",
-        "Text": ""
-      }
-    ];
-
-    $scope.cloneItem = function () {
-      var itemToClone = { "Selection": "", "Text": "" };
-      $scope.variants.push(itemToClone);
-    }
-
-    $scope.removeItem = function (itemIndex) {
-      $scope.variants.splice(itemIndex, 1);
-    }
-    $scope.formVariantes= [];
-    $scope.genVar=false;
-    $scope.subVariant = function(formData) {
-      $scope.genVar=true;
-      urlVariant="/variants";
-      urlPrices="/prices";
-      urlVariantPrices="/variant_prices";
-      var variantesForm =[];
-
-      angular.forEach(formData, function(value, key) {
-        variantesForm.push(value.Text);
-      });
-
-      $scope.variantesAsi=variantesForm;
-
-      var json = JSON.stringify( variantesForm);
-      var newStr = json.substring(1, json.length-1);
-
-      $scope.variantesAsi=newStr;
-      eval("$scope.variantesAsi=cartesian("+newStr+")");
-      idRec=dataShare.getData();
-      angular.forEach($scope.variantesAsi, function(value, key) {
-        valor=value.join(', ');
-        var data = {
-                name: valor,
-                status: "I",
-                product_id: idRec//aqui me traigo el id de ultimo agregado
-            };
-        apiService.postDataPrices(urlVariant,data);
-      });
-      apiService.getData(urlPrices).then(function(response){
-          $scope.pricesProxy=response.data;
-          apiService.getSingleData(urlProducts,idRec).then(function(response){
-            angular.forEach(response.data.variants, function(value1, key) {
-              angular.forEach($scope.pricesProxy, function(value2, key) {
-                var data ={
-                  variant_id: value1.id,
-                  price_id: value2.id,
-                  cost:0,
-                  label:value2.name
-                };
-                apiService.postDataPrices(urlVariantPrices,data);
-                //console.log("se guarda el dato");
-              });
-              //apiService.push(urlVariant,);
-            });
-            dataShare.sendData(idRec);
-            $location.path('/app-subVariantes');
-          });
-        });
-    }
-  }])
-.controller('EditCtrlProductoInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
-  var urlProducts="/products";
-  var urlSuppliers="/suppliers";
-  var urlBrands="/brands";
-
-
-  apiService.getData(urlSuppliers).then(function(response) {
-          //console.log(response);
-        $scope.suppliers=response.data;
-        });
-    apiService.getData(urlBrands).then(function(response) {
-          //console.log(response);
-        $scope.brands=response.data;
-        });
-    $scope.guardarCambios=function(data)
-    {
-      //console.log(data);
-
-      apiService.putData(urlProducts,$routeParams.id,data);
-      $location.path('/app-vistaProductoInd/'+$routeParams.id);
-    };
-  apiService.getSingleData(urlProducts,$routeParams.id).then(function(response){
-    $scope.producto=response.data;
-
-  });
-  }])
-.controller('EditCtrlVariantes',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
-  var urlProducts="/products";
-  var urlSuppliers="/suppliers";
-  var urlBrands="/brands";
-  var urlCurrency="/currencies";
-  var urlVariantPrices="/variant_prices";
-  var urlVariant="/variants";
-  var urlTaxes= "/taxes";
-
- var idP =  dataShare.getData();
-
-  $scope.$on('data_shared',function(){
-        var idP =  dataShare.getData();
-  });
-
-  apiService.getSingleData(urlProducts,idP).then(function(response){
-    $scope.variantesFormC=response.data.variants.sort(function(a, b) {
-        return a.id - b.id;
-    });
-    console.log($scope.variantesFormC);
-    /*apiService.getData(urlPrices).then(function(response){
-      $scope.pricesProxy=response.data;
-    });*/
-
-  });
-  apiService.getData(urlCurrency).then(function(response) {
-    //console.log(response);
-    $scope.currProxy=response.data;
-    });
-  apiService.getData(urlTaxes).then(function(response) {
-    //console.log(response);
-    $scope.taxProxy=response.data;
-    });
-$scope.makeid=function()
-{
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var number=Math.floor(100000 + Math.random() * 900000);
-    for( var i=0; i < 3; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text+number;
-}
-//console.log($scope.makeid());
-  $scope.subVariantC=function(data)
-  {
-    angular.forEach(data, function(value, key) {
-        //console.log("aqui se imprime cada valor de cada data que se envia"+key);
-        //console.log(value.status);
-        var skuGen=$scope.makeid();
-
-        if(value.status==true||value.status=='U')
-          value.status="U";
-        else if((value.code==''||value.weight==''||value.description==''||value.status==''||value.currency_id==''||value.tax_id=='')&&value.status!=true)
-          value.status="I";
-        else
-          value.status="C";
-
-        var data={
-          sku:skuGen,
-          code:value.code,
-          weight:value.weight,
-          description:value.description,
-          status:value.status,
-          currency_id:value.currency_id,
-          tax_id:value.tax_id
-        };
-        apiService.putDataPrices(urlVariant,value.id,data);
-
-        angular.forEach(value.variant_prices, function(value1, key) {
-          var dataP={
-            cost:parseFloat(value1.cost)
-          };
-          apiService.putDataPrices(urlVariantPrices,value1.id,dataP);
-        });
-      });
-    $location.path('/app-vistaProductoInd/'+dataShare.getData());
-  };
-
-
-}])
-.controller('EditCtrlVariantesInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
-  var urlProducts="/products";
-  var urlSuppliers="/suppliers";
-  var urlBrands="/brands";
-  var urlCurrency="/currencies";
-  var urlVariantPrices="/variant_prices";
-  var urlVariant="/variants";
-  var urlTaxes= "/taxes";
-
-
-
-  $scope.guardarCambiosV=function(data){
-    //console.log(data.status);
-    if(data.status==false)
-      data.status="C";
-    if(data.status==true)
-      data.status="U";
-
-    apiService.putDataPrices(urlVariant,$routeParams.id,data);
-    //console.log(data);
-    angular.forEach(data.variant_prices, function(value1, key) {
-
-          var dataP={
-            cost:parseFloat(value1.cost)
-          };
-          console.log(dataP);
-          apiService.putDataPrices(urlVariantPrices,value1.id,dataP);
-        });
-    $location.path('/app-vistaVarianteInd/'+$routeParams.id);
-  };
-  apiService.getSingleData(urlVariant,$routeParams.id).then(function(response){
-    $scope.variant=response.data;
-    $scope.variant.variant_prices.sort(function(a, b) {
-    return a.id - b.id;
-});
-  });
-  apiService.getData(urlTaxes).then(function(response) {
-    //console.log(response);
-    $scope.taxProxy=response.data;
-    });
-  apiService.getData(urlCurrency).then(function(response) {
-    //console.log(response);
-    $scope.currProxy=response.data;
-    });
-
-}])
-
-.controller('CtrlVariantInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare",function(SimLog,apiService,$scope, $location, $routeParams,dataShare) {
-  var urlVariant="/variants";
-  var urlLocations="/locations";
-  var urlVariantPrices="/variant_prices";
-  apiService.getSingleData(urlVariant,$routeParams.id).then(function(response){
-        $scope.variante=response.data;
-        angular.forEach($scope.variante.variant_warehouses, function(value, key) {
-          apiService.getSingleData(urlLocations,value.warehouse.location_id).then(function(response) {
-            value.warehouse.location_name=response.data.name;
-          });
-        });
-        $scope.variante.variant_prices.sort(function(a, b) {
-            return a.id - b.id;
-        });
-        //console.log($scope.variantesFormC);
-      });
-  $scope.elimVar=function(){
-      var answer = confirm("Vas a archivar la variante ¿Estás seguro?")
-      if (answer) {
-        var data={status:"A"};
-        apiService.putData(urlVariant,$routeParams.id,data).then(function(response){
-          if(response.status==200)
-          {
-            $location.path('/app-vistaProductoInd/'+$scope.variante.product.id);
-          }
-        });
-      }
-  };
-}])
-.controller('EditCtrlProdInd',['SimLog',"apiService","$scope","$location","$routeParams","dataShare","modalService",function(SimLog,apiService,$scope, $location, $routeParams,dataShare,modalService) {
-
-  var urlProducts="/products";
-  var urlSuppliers="/suppliers";
-  var urlBrands="/brands";
-  var urlCurrency="/currencies";
-  var urlSellOrd="/sell_orders";
-  var urlVariant="/variants";
-
-  var total=0;
-  var disp=0;
-
-  $scope.elimProd=function(){
-
-  var modalOptions = {
-      closeButtonText: 'Cancelar',
-      actionButtonText: 'Archivar',
-      headerText: '¿Archivar Producto: ' + $scope.prod.name  + '?',
-      bodyText: '¿Está seguro de archivar este producto y todas sus variantes?'
-    };
-
-    modalService.showModal({}, modalOptions).then(function (result) {
-      var dataUPD={
-        status:"A"
-      };
-      apiService.putDataPrices(urlProducts,$routeParams.id,dataUPD);
-
-      var data={status:"A"};
-      angular.forEach($scope.prod.variants,function(value,key){
-        if(value.status='C')
-          apiService.putDataPrices(urlVariant,value.id,data);
-      });
-      $location.path("/app-vistaProductos");
-    });
-  };
-
-  apiService.getSingleData(urlProducts,$routeParams.id).then(function(response){
-        $scope.prod=response.data;
-
-        angular.forEach($scope.prod.variants,function(value,key){
-          total=0;
-
-          angular.forEach(value.variant_warehouses,function(value2,key){
-            total+=parseInt(value2.stock);
-            value.almac=total;
-          });
-          if(total==0)
-          {
-            value.almac=total;
-          }
-          angular.forEach(value.variant_sell_orders,function(value3,key){
-            disp=0;
-
-            apiService.getSingleData(urlSellOrd,value3.sell_order_id).then(function(response2){
-              if(response2.data.status!='Entregado')
-              {
-                disp-=parseInt(value3.amount);
-                value.disponible=disp;
-              }
-            });
-          });
-
-          if(disp==0)
-          {
-            value.disponible=disp;
-          }
-
-        });
-        //console.log($scope.variantesFormC);
-      });
-
-}])
 .controller('CtrlLocacion',['SimLog',"apiService","$scope","$location","$routeParams","dataShareLocacion",function(SimLog,apiService,$scope, $location, $routeParams,dataShareLocacion) {
 
   var urlLocations="/locations";

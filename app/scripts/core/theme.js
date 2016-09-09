@@ -16,6 +16,8 @@ angular.module('theme', [
     'theme.core.main_controller',
     'theme.core.navigation_controller',
     'theme.core.products_controller',
+    'theme.core.variants_controller',
+    'theme.core.localm_controller',
     'theme.core.messages_controller',
     'theme.core.notifications_controller'
   ])
