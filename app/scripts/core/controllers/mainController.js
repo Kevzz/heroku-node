@@ -3041,7 +3041,7 @@ var IDsendCliente="";
       });
     }
   }])
-.controller('CtrlLocacion',['SimLog',"apiService","$scope","$location","$routeParams","dataShareLocacion",function(SimLog,apiService,$scope, $location, $routeParams,dataShareLocacion) {
+.controller('CtrlLocacion',["apiService","$scope","$location","$routeParams","dataShareLocacion",function(apiService,$scope, $location, $routeParams,dataShareLocacion) {
 
   var urlLocations="/locations";
   var urlWarehouses="/warehouses";
